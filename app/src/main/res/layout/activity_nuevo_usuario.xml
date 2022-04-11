@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/color_de_fondo_principal"
+    android:orientation="vertical"
+    tools:context="com.pedroaguilar.andarivel.MainActivity">
+
+
+    <TextView
+        android:id="@+id/texoBienvenida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/crear_nuevo_usuario"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/tvNombreReal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/nombre"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+
+        />
+
+    <EditText
+        android:id="@+id/etNombreReal"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/nombre"
+        android:inputType="textAutoCorrect"
+        android:minHeight="48dp"
+        android:textSize="15dp"/>
+    <TextView
+        android:id="@+id/tvApellidos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/apellidos"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+
+        />
+
+    <EditText
+        android:id="@+id/etApellidos"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/introduce_tus_apellidos"
+        android:inputType="textAutoCorrect"
+        android:minHeight="48dp"
+        android:textSize="15dp" />
+    <TextView
+        android:id="@+id/tvDireccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/direcci_n"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/etDireccion"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/introduce_una_direcci_n"
+        android:inputType="textAutoCorrect"
+        android:minHeight="48dp"
+        android:textSize="15dp" />
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/email"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+
+        />
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:autofillHints=""
+        android:hint="@string/introduce_tu_email"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:textSize="15dp" />
+    <TextView
+        android:id="@+id/tvNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/tvNombre"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/etNombre"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/introduce_tu_nombre"
+        android:inputType="textAutoCorrect"
+        android:minHeight="48dp"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/tvPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/tvPass"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/etPass"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ems="10"
+        android:hint="@string/introduce_tu_pass"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:textSize="15dp" />
+
+    <Spinner
+        android:id="@+id/spRol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:minHeight="48dp"
+        android:entries="@array/roles"
+        android:textAlignment="center"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btAtras"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#000000"
+            android:padding="18dp"
+            android:text="@string/atras" />
+        <Button
+            android:id="@+id/btRegistrarse"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#000000"
+            android:padding="18dp"
+            android:text="@string/entrar" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
