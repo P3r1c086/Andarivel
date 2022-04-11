@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">Andarivel</string>
+    <string name="bienvenida">Bienvenido a Andarivel</string>
+    <string name="tvNombre">Nombre de Usuario</string>
+    <string name="tvPass">Contraseña</string>
+    <string name="foto_de_usuario">Foto de usuario</string>
+    <string name="introduce_tu_nombre">Nombre de Usuario</string>
+    <string name="introduce_tu_pass">Contraseña</string>
+    <string name="entrar">Entrar</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="crear_nuevo_usuario">Crear Nuevo Usuario</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="introduce_tus_apellidos">Apellidos</string>
+    <string name="introduce_una_direcci_n">Dirección</string>
+    <string name="email">Email</string>
+    <string name="introduce_tu_email">Email</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="atras">Atras</string>
+    <string name="olvid_contrase_a">¿Olvidó contraseña?</string>
+    <string name="entrar_en_app">Entrar en app</string>
+    <string name="direcci_n">Dirección</string>
+    <string-array name="roles">
+        <item>Selecciona</item>
+        <item>Administrador</item>
+        <item>Empleado</item>
+    </string-array>
 </resources>
