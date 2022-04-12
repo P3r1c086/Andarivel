@@ -4,7 +4,7 @@
     <string name="tvNombre">Nombre de Usuario</string>
     <string name="tvPass">Contraseña</string>
     <string name="foto_de_usuario">Foto de usuario</string>
-    <string name="introduce_tu_nombre">Nombre de Usuario</string>
+    <string name="introduce_tu_nombre">Introduce tu email</string>
     <string name="introduce_tu_pass">Contraseña</string>
     <string name="entrar">Entrar</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
