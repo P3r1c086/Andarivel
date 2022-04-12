@@ -15,12 +15,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.pedroaguilar.andarivel.R;
 
 import java.util.regex.Pattern;
 
 
 public class NuevoUsuarioFragment extends Fragment {
+
+    private final FirebaseAuth mAuth =  FirebaseAuth.getInstance();
 
     private EditText nombre;
     private EditText apellidos;
@@ -54,6 +61,8 @@ public class NuevoUsuarioFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {//En este método se crea la lógica. Se inicializa una vez generada la vista con el onCreateView()
         super.onViewCreated(view, savedInstanceState);
 
+        email =  view.findViewById(R.id.etEmail);
+        password = view.findViewById(R.id.etPass);
 
 
         Button aceptar = view.findViewById(R.id.btAceptar);
@@ -62,10 +71,23 @@ public class NuevoUsuarioFragment extends Fragment {
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if(validateEmail(v) == true && validatePassword(v) == true){
-                    Navigation.findNavController(v).navigate(R.id.loginFragment);
-               // }
+                if (getActivity() != null) {
+                    if (validateEmail() && validatePassword()) {
+                        mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            Navigation.findNavController(v).navigate(R.id.loginFragment);
+                                        } else {
+                                            Toast.makeText(getContext(), "Authentication failed.",
+                                                    Toast.LENGTH_SHORT).show();
 
+                                        }
+                                    }
+                                });
+                    }
+                }
             }
         });
         atras.setOnClickListener(new View.OnClickListener() {
@@ -75,50 +97,45 @@ public class NuevoUsuarioFragment extends Fragment {
             }
         });
     }
-    private Boolean validateEmail(@NonNull View view)  {
-        Boolean resultado = false;
-        email = view.findViewById(R.id.etEmail);
+    private boolean validateEmail()  {
+        boolean resultado = true;
         //Recuperamos el contenido del textInputLayout
-        String correo = null;
-        correo = email.getText().toString();
+        String correo = email.getText().toString();
         if(correo.isEmpty()){
-            //Toast.makeText(this,"Debes introducir un email", Toast.LENGTH_LONG).show();
+            email.setError("Debes introducir un email");
             resultado = false;
         }else if(!PatternsCompat.EMAIL_ADDRESS.matcher(correo).matches()){
-            //Toast.makeText(this,"Debes introducir un email válido", Toast.LENGTH_LONG).show();
+            showError("Debes introducir un email válido");
             resultado = false;
-        }else{
-            resultado = true;
         }
         return resultado;
     }
-    private Boolean validatePassword(@NonNull View view) {
-        Boolean resultado = false;
-        password = view.findViewById(R.id.etPass);
-        //Recuperamos el contenido del textInputLayout
-        String contrasena = null;
-        contrasena = password.getText().toString();
 
+    private void showError(String message){
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    private boolean validatePassword() {
+        boolean resultado = true;
+        //Recuperamos el contenido del textInputLayout
+        String contrasena = password.getText().toString();
         // Patrón con expresiones regulares
         Pattern passwordRegex = Pattern.compile(
                 "^" +
                         "(?=.*[0-9])" +         //al menos un dígito
                         "(?=.*[a-z])" +        //al menos 1 letra minúscula
                         "(?=.*[A-Z])" +        //al menos 1 letra mayúscula
-                        //"(?=.*[@#$%^&+=])" +    //al menos 1 carácter especial
                         "(?=\\S+$)" +           //sin espacios en blanco
                         ".{6,}" +               //al menos 6 caracteres
                         "$"
         );
 
         if (contrasena.isEmpty()){
-            //Toast.makeText(this,"Debes introducir una contraseña", Toast.LENGTH_LONG).show();
+            showError("Debes introducir una contraseña");
             resultado = false;
         }else if (!passwordRegex.matcher(contrasena).matches()){
-            //Toast.makeText(this,"La contraseña es demasiado débil", Toast.LENGTH_LONG).show();
+            showError("La contraseña es demasiado débil");
             resultado = false;
-        }else{
-            resultado = true;
         }
         return resultado;
     }
