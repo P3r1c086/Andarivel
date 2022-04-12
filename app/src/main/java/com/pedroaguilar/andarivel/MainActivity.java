@@ -27,12 +27,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        lanzarLoginActivity();
+        //lanzarLoginActivity();
         //bd.escribirEnBd();
         //leerBd();
 
     }
-    private void lanzarLoginActivity(){
+   /* private void lanzarLoginActivity(){
         entrarApp = (Button) findViewById(R.id.btEntrarApp);
         Intent i = new Intent(this,Login.class);
         entrarApp.setOnClickListener(new View.OnClickListener() {
@@ -62,5 +62,5 @@ public class MainActivity extends AppCompatActivity {
                 info.setText("Error al conectar");
             }
         });
-    }
+    }*/
 }
