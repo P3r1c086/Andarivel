@@ -10,6 +10,10 @@
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/activity_nuevo_usuario.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/activity_panel_administrador.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_inicio.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_login.xml" value="0.35260416666666666" />
+        <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_nuevo_usuario.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_panel_administrador.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
