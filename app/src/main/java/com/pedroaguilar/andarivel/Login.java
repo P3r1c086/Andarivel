@@ -18,19 +18,15 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        registrar();
+       // registrar();
 
     }
 
-    private void clickBotonEntrar(){
+   /* private void clickBotonEntrar(){
         etNombre = findViewById(R.id.etNombre);
         etPassword = findViewById(R.id.etPass);
         nombre = etNombre.getText().toString();
         pass = etPassword.getText().toString();
-
-
-
-
 
         
     }
@@ -44,5 +40,5 @@ public class Login extends AppCompatActivity {
                 startActivity(i);
             }
         });
-    }
+    }*/
 }
