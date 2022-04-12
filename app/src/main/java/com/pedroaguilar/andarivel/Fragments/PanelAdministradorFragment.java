@@ -49,6 +49,7 @@ public class PanelAdministradorFragment extends Fragment {
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Todo REALIZAR EL LOGOUT CON EL OBJETO DE FIREBASEAUTH.GETINSTANCE
                 Navigation.findNavController(v).navigate(R.id.loginFragment);
             }
         });
