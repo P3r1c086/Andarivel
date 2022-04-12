@@ -7,18 +7,28 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.pedroaguilar.andarivel.R;
 
 public class LoginFragment extends Fragment {
 
+    private final FirebaseAuth mAuth =  FirebaseAuth.getInstance();
 
     public LoginFragment() {
         // Required empty public constructor
+
     }
 
 
@@ -45,6 +55,9 @@ public class LoginFragment extends Fragment {
         Button registrar = view.findViewById(R.id.btIrRegistro);
         Button entrar = view.findViewById(R.id.btEntrar);
 
+        EditText nombreUsuario = view.findViewById(R.id.etNombre);
+        EditText password = view.findViewById(R.id.etPass);
+
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +67,19 @@ public class LoginFragment extends Fragment {
         entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.panelAdministradorFragment);
+                if (getActivity()!= null) {
+                    mAuth.signInWithEmailAndPassword(nombreUsuario.getText().toString(), password.getText().toString())
+                            .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Navigation.findNavController(v).navigate(R.id.panelAdministradorFragment);
+                                    } else {
+                                        Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                }
             }
         });
 
