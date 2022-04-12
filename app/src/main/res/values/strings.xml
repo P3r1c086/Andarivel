@@ -20,6 +20,8 @@
     <string name="olvid_contrase_a">¿Olvidó contraseña?</string>
     <string name="entrar_en_app">Entrar en app</string>
     <string name="direcci_n">Dirección</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="salir">Salir</string>
     <string-array name="roles">
         <item>Selecciona</item>
         <item>Administrador</item>
