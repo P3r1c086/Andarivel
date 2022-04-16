@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Andarivel</string>
     <string name="bienvenida">Bienvenido a Andarivel</string>
-    <string name="tvNombre">Nombre de Usuario</string>
+    <string name="etNombre">Nombre de Usuario</string>
     <string name="tvPass">Contraseña</string>
     <string name="foto_de_usuario">Foto de usuario</string>
     <string name="introduce_tu_nombre">Introduce tu nick</string>
