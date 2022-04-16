@@ -2,6 +2,7 @@ package com.pedroaguilar.andarivel;
 
 import android.app.Activity;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BaseDatosFirebase extends Activity{
-    DatabaseReference myRef;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
 
     public void escribirEnBd(){
         // Escribir un mensaje en la base de datos
@@ -59,9 +62,9 @@ public class BaseDatosFirebase extends Activity{
 
     }
     public void leerEnBd(){
-        myRef = FirebaseDatabase.getInstance().getReference().child("empleados");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("empleados");
         // Leer de la base de datos
-        myRef.addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String datos = null;
