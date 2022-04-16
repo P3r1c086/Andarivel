@@ -17,11 +17,18 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.pedroaguilar.andarivel.BaseDatosFirebase;
 import com.pedroaguilar.andarivel.R;
+import com.pedroaguilar.andarivel.Usuario;
 
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 
@@ -36,7 +43,10 @@ public class NuevoUsuarioFragment extends Fragment {
     private EditText nombreUsuario;
     private EditText password;
     private Button registrar;
-    private Button atras;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    BaseDatosFirebase bd = new BaseDatosFirebase();
     public NuevoUsuarioFragment() {
         // Required empty public constructor
     }
@@ -60,13 +70,15 @@ public class NuevoUsuarioFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {//En este método se crea la lógica. Se inicializa una vez generada la vista con el onCreateView()
         super.onViewCreated(view, savedInstanceState);
-
+        BaseDatosFirebase bd = new BaseDatosFirebase();
         email =  view.findViewById(R.id.etEmail);
         password = view.findViewById(R.id.etPass);
-
-
+        nombre = view.findViewById(R.id.etNombreReal);
+        apellidos = view.findViewById(R.id.etApellidos);
+        direccion = view.findViewById(R.id.etDireccion);
+        nombreUsuario = view.findViewById(R.id.etNombre);
         Button aceptar = view.findViewById(R.id.btAceptar);
-        Button atras = view.findViewById(R.id.btAtras);
+
 
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +90,8 @@ public class NuevoUsuarioFragment extends Fragment {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
-                                            Navigation.findNavController(v).navigate(R.id.loginFragment);
+                                            introducirDatos();
+                                            Navigation.findNavController(v).navigate(R.id.panelAdministrador);
                                         } else {
                                             Toast.makeText(getContext(), "Authentication failed.",
                                                     Toast.LENGTH_SHORT).show();
@@ -88,12 +101,6 @@ public class NuevoUsuarioFragment extends Fragment {
                                 });
                     }
                 }
-            }
-        });
-        atras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.loginFragment);
             }
         });
     }
@@ -126,7 +133,7 @@ public class NuevoUsuarioFragment extends Fragment {
                         "(?=.*[a-z])" +        //al menos 1 letra minúscula
                         "(?=.*[A-Z])" +        //al menos 1 letra mayúscula
                         "(?=\\S+$)" +           //sin espacios en blanco
-                        ".{6,}" +               //al menos 6 caracteres
+                        ".{4,}" +               //al menos 4 caracteres
                         "$"
         );
 
@@ -138,5 +145,45 @@ public class NuevoUsuarioFragment extends Fragment {
             resultado = false;
         }
         return resultado;
+    }
+    private boolean validarCampos(){
+        boolean resultado = true;
+        String nombreReal = nombre.getText().toString();
+        String apellido = apellidos.getText().toString();
+        String direcion = direccion.getText().toString();
+        String nombreUser = nombreUsuario.getText().toString();
+        if(nombreReal.isEmpty()){
+            nombre.setError("Requerido");
+            resultado = false;
+        }else if(apellido.isEmpty()){
+            apellidos.setError("Requerido");
+            resultado = false;
+        }else if(direcion.isEmpty()){
+            direccion.setError("Requerido");
+            resultado = false;
+        }else if(nombreUser.isEmpty()){
+            nombreUsuario.setError("Requerido");
+            resultado = false;
+        }
+        return resultado;
+    }
+
+    public void inicializarFirebase(){
+        //Todo: Cambiar inzializacion a Application
+        FirebaseApp.initializeApp(getContext());
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+    }
+    public void introducirDatos(){
+        inicializarFirebase();
+        Usuario user = new Usuario();
+        user.setID(UUID.randomUUID().toString());
+        user.setNombre(nombre.getText().toString());
+        user.setApellidos(apellidos.getText().toString());
+        user.setDireccion(direccion.getText().toString());
+        user.setEmail(email.getText().toString());
+        user.setNombreUsuario(nombreUsuario.getText().toString());
+        user.setPassword(password.getText().toString());
+        databaseReference.child("Usuarios").child(user.getID()).setValue(user);
     }
 }
