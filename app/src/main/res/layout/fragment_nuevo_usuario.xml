@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/color_de_fondo_principal"
-    tools:context=".Fragments.NuevoUsuarioFragment">
+    tools:context=".menulateral.login.NuevoUsuarioFragment">
 
     <TextView
         android:id="@+id/texoBienvenida"

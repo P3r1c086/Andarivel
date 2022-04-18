@@ -1,13 +1,7 @@
-package com.pedroaguilar.andarivel.Fragments;
+package com.pedroaguilar.andarivel.menulateral.login;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.util.PatternsCompat;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +9,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.util.PatternsCompat;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.BaseDatosFirebase;
+import com.pedroaguilar.andarivel.PanelAdministradorActivity;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.Usuario;
 
-import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -91,7 +89,9 @@ public class NuevoUsuarioFragment extends Fragment {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
                                             introducirDatos();
-                                            Navigation.findNavController(v).navigate(R.id.panelAdministrador);
+                                            startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
+                                            getActivity().finish();
+                                            //Navigation.findNavController(v).navigate(R.id.action_nuevoUsuario_to_panel);
                                         } else {
                                             Toast.makeText(getContext(), "Authentication failed.",
                                                     Toast.LENGTH_SHORT).show();

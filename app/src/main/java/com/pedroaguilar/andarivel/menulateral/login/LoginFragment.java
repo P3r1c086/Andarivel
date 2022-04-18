@@ -1,26 +1,32 @@
-package com.pedroaguilar.andarivel.Fragments;
+package com.pedroaguilar.andarivel.menulateral.login;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.pedroaguilar.andarivel.PanelAdministradorActivity;
 import com.pedroaguilar.andarivel.R;
+import com.pedroaguilar.andarivel.databinding.FragmentLoginBinding;
 
 public class LoginFragment extends Fragment {
 
     private final FirebaseAuth mAuth =  FirebaseAuth.getInstance();
+    private FragmentLoginBinding binding;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -32,7 +38,8 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        binding = FragmentLoginBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
     /**
      * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
@@ -51,25 +58,27 @@ public class LoginFragment extends Fragment {
         Button registrar = view.findViewById(R.id.btIrRegistro);
         Button entrar = view.findViewById(R.id.btEntrar);
 
-        EditText email = view.findViewById(R.id.etEmail);
+        TextInputLayout email = view.findViewById(R.id.etEmail);
         EditText password = view.findViewById(R.id.etPass);
 
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.nuevoUsuarioFragment);
+                Navigation.findNavController(v).navigate(R.id.action_login_to_register);
             }
         });
         entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getActivity()!= null) {
-                    mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                    mAuth.signInWithEmailAndPassword(email.getEditText().getText().toString(), password.getText().toString())
                             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        Navigation.findNavController(v).navigate(R.id.fragmentContainerView3);
+                                        startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
+                                        getActivity().finish();
+                                        //Navigation.findNavController(v).navigate(R.id.action_login_to_panel);
 
                                     } else {
                                         Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();

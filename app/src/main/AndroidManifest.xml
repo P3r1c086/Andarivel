@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pedroaguilar.andarivel">
 
-    <!--- android:screenOrientation -> portrait (en todas las activities); para forzar modo vertical siempre -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,9 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Andarivel">
         <activity
-            android:name=".SplashActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:name=".LoginActivity"
+            android:exported="true"
+            android:screenOrientation="fullSensor"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,20 +21,11 @@
             </intent-filter>
         </activity>
 
-        <!---launchMode -> SingleTask: indica que la activity va a tener una unica instancia -->
-        <activity
-            android:name=".LoginActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"
-            android:exported="true">
-        </activity>
         <activity
             android:name=".PanelAdministradorActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:launchMode="singleTask"
-            android:exported="true"
-            android:theme="@style/Theme.MenuLateral.NoActionBar">
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
