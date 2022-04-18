@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,11 +55,11 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {//En este método se crea la lógica. Se inicializa una vez generada la vista con el onCreateView()
         super.onViewCreated(view, savedInstanceState);
 
-        Button registrar = view.findViewById(R.id.btIrRegistro);
+        TextView registrar = view.findViewById(R.id.tvIrRegistro);
         Button entrar = view.findViewById(R.id.btEntrar);
 
         TextInputLayout email = view.findViewById(R.id.etEmail);
-        EditText password = view.findViewById(R.id.etPass);
+        TextInputLayout password = view.findViewById(R.id.etPass);
 
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +71,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (getActivity()!= null) {
-                    mAuth.signInWithEmailAndPassword(email.getEditText().getText().toString(), password.getText().toString())
+                    mAuth.signInWithEmailAndPassword(email.getEditText().getText().toString(), password.getEditText().getText().toString())
                             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
