@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -78,12 +79,14 @@ public class NuevoUsuarioFragment extends Fragment {
         Button aceptar = view.findViewById(R.id.btAceptar);
 
 
+        TextInputLayout email = view.findViewById(R.id.etEmail);
+        TextInputLayout password = view.findViewById(R.id.etPass);
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null) {
                     if (validateEmail() && validatePassword()) {
-                        mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                        mAuth.createUserWithEmailAndPassword(email.getEditText().getText().toString(), password.getEditText().getText().toString())
                                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -169,8 +172,6 @@ public class NuevoUsuarioFragment extends Fragment {
     }
 
     public void inicializarFirebase(){
-        //Todo: Cambiar inzializacion a Application
-        FirebaseApp.initializeApp(getContext());
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
     }
