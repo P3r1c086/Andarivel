@@ -35,13 +35,13 @@
         app:layout_constraintHeight_percent="0.15"
         android:contentDescription="@string/foto_de_usuario"
         android:src="@drawable/andarivel_logo"
-        app:layout_constraintBottom_toTopOf="@+id/tvNombre"
+        app:layout_constraintBottom_toTopOf="@+id/tiEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/texoBienvenida" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etEmail"
+        android:id="@+id/tiEmail"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textAlignment="center"
@@ -61,6 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imgLogin">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"/>
@@ -68,7 +69,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etPass"
+        android:id="@+id/tiPass"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:hint="@string/introduce_tu_pass"
@@ -85,9 +86,10 @@
         app:layout_constraintBottom_toTopOf="@+id/btEntrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail">
+        app:layout_constraintTop_toBottomOf="@+id/tiEmail">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>
@@ -110,7 +112,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tvIrRegistro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPass" />
+        app:layout_constraintTop_toBottomOf="@+id/tiPass" />
 
     <TextView
         android:id="@+id/tvIrRegistro"
