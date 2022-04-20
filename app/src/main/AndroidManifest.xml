@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Andarivel">
         <activity
-            android:name=".menulateral.ui.login.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="true"
             android:screenOrientation="fullSensor"
             android:launchMode="singleTask">
@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name=".menulateral.ui.panelAdministrador.PanelAdministradorActivity"
+            android:name=".ui.panelAdministrador.PanelAdministradorActivity"
             android:screenOrientation="fullSensor"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize" />

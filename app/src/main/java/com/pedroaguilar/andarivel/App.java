@@ -6,6 +6,10 @@ import android.os.Build;
 
 import com.google.firebase.FirebaseApp;
 
+/**
+ * Clase que extiende del contexto padre de la aplicacion, se usa normalmente para
+ * inicializar servicios que requieren de un contexto global de la app.
+ */
 public class App extends Application {
     /**
      * Called when the application is starting, before any activity, service,

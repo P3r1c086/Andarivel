@@ -16,13 +16,18 @@ import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentLoginBinding;
 import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity;
 
+/**
+ * Fragmento segundo que contiene campos para que rellene el usuario y realice la autenticacion con
+ * Firebase. Si es correcta iniciara la actividad de PanelAdiminstrador.
+ * Contiene tambien boton para navegar al fragmento de crear nuevo usuario.
+ */
 public class LoginFragment extends Fragment {
 
     private final FirebaseAuth mAuth =  FirebaseAuth.getInstance();
@@ -58,8 +63,8 @@ public class LoginFragment extends Fragment {
         TextView registrar = view.findViewById(R.id.tvIrRegistro);
         Button entrar = view.findViewById(R.id.btEntrar);
 
-        TextInputLayout email = view.findViewById(R.id.etEmail);
-        TextInputLayout password = view.findViewById(R.id.etPass);
+        TextInputEditText email = view.findViewById(R.id.etEmail);
+        TextInputEditText password = view.findViewById(R.id.etPass);
 
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,15 +76,14 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (getActivity()!= null) {
-                    mAuth.signInWithEmailAndPassword(email.getEditText().getText().toString(), password.getEditText().getText().toString())
+                    mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+                                        //Navegamos a la nueva actividad y matamos esta para que no exista navegacion a ella de nuevo
                                         startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
                                         getActivity().finish();
-                                        //Navigation.findNavController(v).navigate(R.id.action_login_to_panel);
-
                                     } else {
                                         Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
                                     }

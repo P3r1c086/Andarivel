@@ -18,7 +18,11 @@ import com.pedroaguilar.andarivel.databinding.ActivityPanelAdministradorBinding;
 
 import java.util.Objects;
 
-
+/**
+ * Acitividad principal de la aplicacion que contiene un nuevo grafo de navegacion que ademas
+ * se integra con el drawerLayout y con la toolbar integrada en su xml. Con lo que conseguimos que
+ * el icono del menu y el titulo que se muestra en la toolbar cambien conforme cambia la navegacion.
+ */
 public class PanelAdministradorActivity extends AppCompatActivity {
 
     private ActivityPanelAdministradorBinding binding;

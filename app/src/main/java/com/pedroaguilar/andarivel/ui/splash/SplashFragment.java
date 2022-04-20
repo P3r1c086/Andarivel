@@ -13,6 +13,10 @@ import androidx.navigation.Navigation;
 
 import com.pedroaguilar.andarivel.R;
 
+/**
+ * Fragmento inicial que muestra el logo de la app y tras 3 segundos realiza la accion de navegacion
+ * (action_splash_to_login), para inflar el siguiente fragmento (LoginFragment)
+ */
 public class SplashFragment extends Fragment {
 
     @Override

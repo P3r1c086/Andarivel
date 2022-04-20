@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splash_dest"
-        android:name="com.pedroaguilar.andarivel.menulateral.ui.splash.SplashFragment"
+        android:name="com.pedroaguilar.andarivel.ui.splash.SplashFragment"
         android:label="SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
@@ -20,13 +20,13 @@
     </fragment>
     <fragment
         android:id="@+id/nuevoUsuario_dest"
-        android:name="com.pedroaguilar.andarivel.menulateral.ui.login.NuevoUsuarioFragment"
+        android:name="com.pedroaguilar.andarivel.ui.login.NuevoUsuarioFragment"
         android:label="fragment_nuevo_usuario"
         tools:layout="@layout/fragment_nuevo_usuario" >
     </fragment>
     <fragment
         android:id="@+id/login_dest"
-        android:name="com.pedroaguilar.andarivel.menulateral.ui.login.LoginFragment"
+        android:name="com.pedroaguilar.andarivel.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action

@@ -28,7 +28,10 @@ import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivi
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-
+/**
+ * Fragmento para que el usuario intrduzca la informacion de crear un nuevo usuario.
+ * Al crear nuevo usuario, si toddo bien, navegara a la actividad de PanelAdiminstrador
+ */
 public class NuevoUsuarioFragment extends Fragment {
 
     private final FirebaseAuth mAuth =  FirebaseAuth.getInstance();
@@ -87,9 +90,9 @@ public class NuevoUsuarioFragment extends Fragment {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
                                             introducirDatos();
+                                            //Navegamos a la nueva actividad y matamos esta para que no exista navegacion a ella de nuevo
                                             startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
                                             getActivity().finish();
-                                            //Navigation.findNavController(v).navigate(R.id.action_nuevoUsuario_to_panel);
                                         } else {
                                             Toast.makeText(getContext(), "Authentication failed.",
                                                     Toast.LENGTH_SHORT).show();
