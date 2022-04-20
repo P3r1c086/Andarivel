@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel;
+package com.pedroaguilar.andarivel.menulateral.ui.panelAdministrador;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.ActivityPanelAdministradorBinding;
 
 import java.util.Objects;

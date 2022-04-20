@@ -1,6 +1,4 @@
-package com.pedroaguilar.andarivel;
-
-import java.util.ArrayList;
+package com.pedroaguilar.andarivel.menulateral.modelo;
 
 public class Usuario {
     private Double horasDescanso;

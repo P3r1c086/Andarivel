@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.menulateral.ui.gallery;
+package com.pedroaguilar.andarivel.menulateral.ui.panelAdministrador.gallery;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

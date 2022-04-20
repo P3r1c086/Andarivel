@@ -1,8 +1,7 @@
-package com.pedroaguilar.andarivel.menulateral.login;
+package com.pedroaguilar.andarivel.menulateral.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +16,14 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.BaseDatosFirebase;
-import com.pedroaguilar.andarivel.PanelAdministradorActivity;
 import com.pedroaguilar.andarivel.R;
-import com.pedroaguilar.andarivel.Usuario;
+import com.pedroaguilar.andarivel.menulateral.modelo.Usuario;
+import com.pedroaguilar.andarivel.menulateral.ui.panelAdministrador.PanelAdministradorActivity;
 
 import java.util.UUID;
 import java.util.regex.Pattern;

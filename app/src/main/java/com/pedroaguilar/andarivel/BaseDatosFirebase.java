@@ -2,16 +2,12 @@ package com.pedroaguilar.andarivel;
 
 import android.app.Activity;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
+import com.pedroaguilar.andarivel.menulateral.modelo.Usuario;
 
 public class BaseDatosFirebase extends Activity{
     FirebaseDatabase firebaseDatabase;

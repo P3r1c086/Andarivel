@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.menulateral.ui.gallery;
+package com.pedroaguilar.andarivel.menulateral.ui.panelAdministrador.gallery;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.menulateral.login;
+package com.pedroaguilar.andarivel.menulateral.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,9 +19,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.pedroaguilar.andarivel.PanelAdministradorActivity;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentLoginBinding;
+import com.pedroaguilar.andarivel.menulateral.ui.panelAdministrador.PanelAdministradorActivity;
 
 public class LoginFragment extends Fragment {
 
