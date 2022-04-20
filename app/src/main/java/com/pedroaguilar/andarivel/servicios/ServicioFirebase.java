@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.menulateral.servicios;
+package com.pedroaguilar.andarivel.servicios;
 
 import android.util.Log;
 

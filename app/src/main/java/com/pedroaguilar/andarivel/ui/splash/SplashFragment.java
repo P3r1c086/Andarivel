@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.menulateral.ui.splash;
+package com.pedroaguilar.andarivel.ui.splash;
 
 import android.os.Bundle;
 import android.os.Handler;

@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.menulateral.modelo;
+package com.pedroaguilar.andarivel.modelo;
 
 public class Usuario {
     private Double horasDescanso;

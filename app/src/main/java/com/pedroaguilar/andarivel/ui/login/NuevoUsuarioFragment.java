@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.menulateral.ui.login;
+package com.pedroaguilar.andarivel.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,8 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.BaseDatosFirebase;
 import com.pedroaguilar.andarivel.R;
-import com.pedroaguilar.andarivel.menulateral.modelo.Usuario;
-import com.pedroaguilar.andarivel.menulateral.ui.panelAdministrador.PanelAdministradorActivity;
+import com.pedroaguilar.andarivel.modelo.Usuario;
+import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity;
 
 import java.util.UUID;
 import java.util.regex.Pattern;

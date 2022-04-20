@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.menulateral.ui.panelAdministrador;
+package com.pedroaguilar.andarivel.ui.panelAdministrador;
 
 import android.os.Bundle;
 import android.view.MenuItem;

@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.menulateral.ui.panelAdministrador.slideshow;
+package com.pedroaguilar.andarivel.ui.panelAdministrador.slideshow;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

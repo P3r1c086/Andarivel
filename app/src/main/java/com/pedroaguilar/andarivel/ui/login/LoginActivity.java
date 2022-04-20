@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.menulateral.ui.login;
+package com.pedroaguilar.andarivel.ui.login;
 
 import android.os.Bundle;
 
