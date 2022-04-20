@@ -2,6 +2,7 @@ package com.pedroaguilar.andarivel.menulateral.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,15 +79,12 @@ public class NuevoUsuarioFragment extends Fragment {
         nombreUsuario = view.findViewById(R.id.etNombre);
         Button aceptar = view.findViewById(R.id.btAceptar);
 
-
-        TextInputLayout email = view.findViewById(R.id.etEmail);
-        TextInputLayout password = view.findViewById(R.id.etPass);
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null) {
                     if (validateEmail() && validatePassword()) {
-                        mAuth.createUserWithEmailAndPassword(email.getEditText().getText().toString(), password.getEditText().getText().toString())
+                        mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {

@@ -29,8 +29,8 @@ public class PanelAdministradorActivity extends AppCompatActivity {
         binding = ActivityPanelAdministradorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+       // Pasar cada ID de menú como un conjunto de Ids porque cada menú debe ser considerado como destinos de primer nivel.
+
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_content_nested);
         NavController navController = Objects.requireNonNull(navHostFragment).getNavController();
 
