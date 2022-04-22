@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.BaseDatosFirebase;
@@ -83,7 +84,8 @@ public class NuevoUsuarioFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null) {
-                   // if (validateEmail() && validatePassword()) {
+                    if (validateEmail() && validatePassword() && verificarEmailInFirebase(email.getText().toString())) {
+
                         mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                     @Override
@@ -101,7 +103,7 @@ public class NuevoUsuarioFragment extends Fragment {
                                     }
                                 });
                     }
-               // }
+                }
             }
         });
     }
@@ -116,6 +118,24 @@ public class NuevoUsuarioFragment extends Fragment {
             showError("Debes introducir un email válido");
             resultado = false;
         }
+        //TODO: comprobar que el email del usuario no se encuentra en la base de datos
+        return resultado;
+    }
+    public boolean verificarEmailInFirebase(String email){
+        boolean resultado = true;
+        FirebaseAuth.getInstance().fetchSignInMethodsForEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                        if (task.isSuccessful()){
+                            boolean check =!task.getResult().getSignInMethods().isEmpty();
+                            if (check){
+                                Toast.makeText(getContext(),"El email ya está registrado",Toast.LENGTH_LONG).show();
+                                boolean resultado = false;
+                            }
+                        }
+                    }
+                });
         return resultado;
     }
 
