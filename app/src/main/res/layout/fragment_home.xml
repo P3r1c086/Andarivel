@@ -34,6 +34,26 @@
             app:layout_constraintTop_toBottomOf="@id/imgHombreTrabajando">
 
         </Button>
+        <TextView
+            android:id="@+id/diaFichado"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/horaFichado"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgHombreTrabajando">
+
+        </TextView>
+        <TextView
+            android:id="@+id/horaFichado"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/btFichar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/diaFichado">
+
+        </TextView>
         <Button
             android:id="@+id/btFinalJornada"
             android:layout_width="match_parent"
