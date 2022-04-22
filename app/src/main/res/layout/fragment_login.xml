@@ -55,7 +55,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:startIconDrawable="@drawable/ic_email"
         app:layout_constraintHeight_percent="0.08"
-        app:layout_constraintBottom_toTopOf="@+id/etNombre"
+        app:layout_constraintBottom_toTopOf="@+id/tiPass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgLogin">

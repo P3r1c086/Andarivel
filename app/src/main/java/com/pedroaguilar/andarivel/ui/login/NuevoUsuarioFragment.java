@@ -72,7 +72,7 @@ public class NuevoUsuarioFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         BaseDatosFirebase bd = new BaseDatosFirebase();
         email =  view.findViewById(R.id.etEmail);
-        password = view.findViewById(R.id.etPassword);
+        password = view.findViewById(R.id.etPass);
         nombre = view.findViewById(R.id.etNombreReal);
         apellidos = view.findViewById(R.id.etApellidos);
         direccion = view.findViewById(R.id.etDireccion);

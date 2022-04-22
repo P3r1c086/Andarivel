@@ -64,7 +64,7 @@ public class LoginFragment extends Fragment {
         Button entrar = view.findViewById(R.id.btEntrar);
 
         TextInputEditText email = view.findViewById(R.id.etEmail);
-        TextInputEditText password = view.findViewById(R.id.etPass);
+        TextInputEditText password = view.findViewById(R.id.etPassword);
 
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
