@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/color_de_fondo_principal"
+    tools:context=".ui.login.NuevoUsuarioFragment"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="0dp"
+    android:fillViewport="true"><!-- IMPORTANTE -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:background="@drawable/color_de_fondo_principal"
     tools:context=".ui.login.NuevoUsuarioFragment">
+
 
     <TextView
         android:id="@+id/texoBienvenida"
@@ -220,3 +231,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
