@@ -72,7 +72,7 @@ public class NuevoUsuarioFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         BaseDatosFirebase bd = new BaseDatosFirebase();
         email =  view.findViewById(R.id.etEmail);
-        password = view.findViewById(R.id.etPass);
+        password = view.findViewById(R.id.etPassword);
         nombre = view.findViewById(R.id.etNombreReal);
         apellidos = view.findViewById(R.id.etApellidos);
         direccion = view.findViewById(R.id.etDireccion);
@@ -83,7 +83,7 @@ public class NuevoUsuarioFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null) {
-                    if (validateEmail() && validatePassword()) {
+                   // if (validateEmail() && validatePassword()) {
                         mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                     @Override
@@ -101,7 +101,7 @@ public class NuevoUsuarioFragment extends Fragment {
                                     }
                                 });
                     }
-                }
+               // }
             }
         });
     }
