@@ -37,7 +37,8 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_slideshow">Perfil</string>
     <string name="fichar">Fichar</string>
     <string name="salir_de_jornada">Salir de jornada</string>
+    <string name="perfil">Perfil</string>
 </resources>
