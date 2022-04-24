@@ -130,7 +130,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:startIconDrawable="@drawable/ic_email"
         app:layout_constraintHeight_percent="0.08"
-        app:layout_constraintBottom_toTopOf="@+id/tiNombre"
+        app:layout_constraintBottom_toTopOf="@+id/tiTelefono"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tiDireccion">
@@ -144,7 +144,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiNombre"
+        android:id="@+id/tiTelefono"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textAlignment="center"
@@ -153,9 +153,9 @@
         android:textStyle="bold"
         android:gravity="center"
         android:layout_marginHorizontal="50dp"
-        android:hint="@string/etNombre"
+        android:hint="@string/tel_fono"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:startIconDrawable="@drawable/ic_baseline_account_box_24"
+        app:startIconDrawable="@drawable/ic_baseline_phone_enabled_24"
         app:layout_constraintHeight_percent="0.08"
         app:layout_constraintBottom_toTopOf="@+id/tiPass"
         app:layout_constraintEnd_toEndOf="parent"
@@ -163,10 +163,10 @@
         app:layout_constraintTop_toBottomOf="@+id/tiEmail">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etNombre"
+            android:id="@+id/etTelefono"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            android:inputType="phone"/>
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -186,7 +186,7 @@
         app:layout_constraintBottom_toTopOf="@+id/spRol"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiNombre">
+        app:layout_constraintTop_toBottomOf="@+id/tiTelefono">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPass"
