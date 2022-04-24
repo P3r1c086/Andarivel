@@ -1,6 +1,7 @@
 package com.pedroaguilar.andarivel;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,7 +18,7 @@ public class BaseDatosFirebase extends Activity{
     public void escribirEnBd(){
         // Escribir un mensaje en la base de datos
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("empleados");
+        DatabaseReference myRef = database.getReference("Usuarios");
 
        /* Bundle extras = getIntent().getExtras();
         user.setHorasDescanso(250.5);
@@ -54,11 +55,11 @@ public class BaseDatosFirebase extends Activity{
         myRef.setValue(user.getPuesto());
         myRef.setValue(user.getRol());
         myRef.setValue(user.getTelefono());*/
-        //TODO: crear metodo para enviar fichero json a base de datos
+
 
     }
     public void leerEnBd(){
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("empleados");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Usuarios");
         // Leer de la base de datos
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -66,7 +67,7 @@ public class BaseDatosFirebase extends Activity{
                 String datos = null;
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                //String dato = dataSnapshot.child("1").getValue().toString();
+                String dato = dataSnapshot.child("3dc907c3-46ea-46b5-9fd9-b39784dd7255").getValue().toString();
                 //Log.d(TAG, "Value is: " + value);
                 Usuario user = dataSnapshot.getValue(Usuario.class);
                 datos = (user.getNombre());
@@ -76,6 +77,23 @@ public class BaseDatosFirebase extends Activity{
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
                 //Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+    }
+    public void leerbd(){
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d("///////////////////////////////////////////////////////", "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("///////////////////////////////////////////////////////", "Failed to read value.", error.toException());
             }
         });
     }
