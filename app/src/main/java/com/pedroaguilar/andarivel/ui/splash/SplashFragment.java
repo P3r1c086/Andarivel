@@ -30,7 +30,7 @@ public class SplashFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        long time = 3000L;
+        long time = 2000L;
         final Handler handler = new Handler();
         Runnable r = new Runnable() {
             public void run() {
