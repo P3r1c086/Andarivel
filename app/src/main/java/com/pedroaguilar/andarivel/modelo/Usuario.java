@@ -148,7 +148,7 @@ public class Usuario {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
+/*
     @Override
     public String toString() {
         return "Usuario{" +
@@ -169,8 +169,8 @@ public class Usuario {
                 ", rol='" + rol + '\'' +
                 ", telefono='" + telefono + '\'' +
                 '}';
-    }
-
+    }*/
+/*
     public void editarDatosPersonales(){
 
     }
@@ -189,5 +189,5 @@ public class Usuario {
     public Double consultarHorasTrabajadas(){
         return 0.0;
     }
-
+*/
 }
