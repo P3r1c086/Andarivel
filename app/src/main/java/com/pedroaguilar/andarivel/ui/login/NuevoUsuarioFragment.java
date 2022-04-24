@@ -19,14 +19,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pedroaguilar.andarivel.BaseDatosFirebase;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity;
 
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
@@ -35,19 +37,22 @@ import java.util.regex.Pattern;
  */
 public class NuevoUsuarioFragment extends Fragment {
 
-    private final FirebaseAuth mAuth =  FirebaseAuth.getInstance();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private EditText nombre;
     private EditText apellidos;
     private EditText direccion;
     private EditText email;
-    private EditText nombreUsuario;
+    private EditText telefono;
     private EditText password;
     private Button registrar;
+    int maxid = 0;
+
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     BaseDatosFirebase bd = new BaseDatosFirebase();
+
     public NuevoUsuarioFragment() {
         // Required empty public constructor
     }
@@ -58,6 +63,7 @@ public class NuevoUsuarioFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_nuevo_usuario, container, false);
     }
+
     /**
      * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
      * has returned, but before any saved state has been restored in to the view.
@@ -72,12 +78,12 @@ public class NuevoUsuarioFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {//En este método se crea la lógica. Se inicializa una vez generada la vista con el onCreateView()
         super.onViewCreated(view, savedInstanceState);
         BaseDatosFirebase bd = new BaseDatosFirebase();
-        email =  view.findViewById(R.id.etEmail);
+        email = view.findViewById(R.id.etEmail);
         password = view.findViewById(R.id.etPass);
         nombre = view.findViewById(R.id.etNombreReal);
         apellidos = view.findViewById(R.id.etApellidos);
         direccion = view.findViewById(R.id.etDireccion);
-        nombreUsuario = view.findViewById(R.id.etNombre);
+        telefono = view.findViewById(R.id.etTelefono);
         Button aceptar = view.findViewById(R.id.btAceptar);
 
         aceptar.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +98,7 @@ public class NuevoUsuarioFragment extends Fragment {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
                                             introducirDatos();
+
                                             //Navegamos a la nueva actividad y matamos esta para que no exista navegacion a ella de nuevo
                                             startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
                                             getActivity().finish();
@@ -107,30 +114,31 @@ public class NuevoUsuarioFragment extends Fragment {
             }
         });
     }
-    private boolean validateEmail()  {
+
+    private boolean validateEmail() {
         boolean resultado = true;
         //Recuperamos el contenido del textInputLayout
         String correo = email.getText().toString();
-        if(correo.isEmpty()){
+        if (correo.isEmpty()) {
             email.setError("Debes introducir un email");
             resultado = false;
-        }else if(!PatternsCompat.EMAIL_ADDRESS.matcher(correo).matches()){
+        } else if (!PatternsCompat.EMAIL_ADDRESS.matcher(correo).matches()) {
             showError("Debes introducir un email válido");
             resultado = false;
         }
-        //TODO: comprobar que el email del usuario no se encuentra en la base de datos
         return resultado;
     }
-    public boolean verificarEmailInFirebase(String email){
+
+    public boolean verificarEmailInFirebase(String email) {
         boolean resultado = true;
         FirebaseAuth.getInstance().fetchSignInMethodsForEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
                     @Override
                     public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                        if (task.isSuccessful()){
-                            boolean check =!task.getResult().getSignInMethods().isEmpty();
-                            if (check){
-                                Toast.makeText(getContext(),"El email ya está registrado",Toast.LENGTH_LONG).show();
+                        if (task.isSuccessful()) {
+                            boolean check = !task.getResult().getSignInMethods().isEmpty();
+                            if (check) {
+                                Toast.makeText(getContext(), "El email ya está registrado", Toast.LENGTH_LONG).show();
                                 boolean resultado = false;
                             }
                         }
@@ -139,7 +147,7 @@ public class NuevoUsuarioFragment extends Fragment {
         return resultado;
     }
 
-    private void showError(String message){
+    private void showError(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
@@ -158,51 +166,78 @@ public class NuevoUsuarioFragment extends Fragment {
                         "$"
         );
 
-        if (contrasena.isEmpty()){
+        if (contrasena.isEmpty()) {
             showError("Debes introducir una contraseña");
             resultado = false;
-        }else if (!passwordRegex.matcher(contrasena).matches()){
+        } else if (!passwordRegex.matcher(contrasena).matches()) {
             showError("La contraseña es demasiado débil");
             resultado = false;
         }
         return resultado;
     }
-    private boolean validarCampos(){
+
+    private boolean validarCampos() {
         boolean resultado = true;
         String nombreReal = nombre.getText().toString();
         String apellido = apellidos.getText().toString();
         String direcion = direccion.getText().toString();
-        String nombreUser = nombreUsuario.getText().toString();
-        if(nombreReal.isEmpty()){
+        String nombreUser = telefono.getText().toString();
+        if (nombreReal.isEmpty()) {
             nombre.setError("Requerido");
             resultado = false;
-        }else if(apellido.isEmpty()){
+        } else if (apellido.isEmpty()) {
             apellidos.setError("Requerido");
             resultado = false;
-        }else if(direcion.isEmpty()){
+        } else if (direcion.isEmpty()) {
             direccion.setError("Requerido");
             resultado = false;
-        }else if(nombreUser.isEmpty()){
-            nombreUsuario.setError("Requerido");
+        } else if (nombreUser.isEmpty()) {
+            telefono.setError("Requerido");
             resultado = false;
         }
         return resultado;
     }
 
-    public void inicializarFirebase(){
+    public void inicializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
     }
-    public void introducirDatos(){
+
+    public void introducirDatos() {
         inicializarFirebase();
         Usuario user = new Usuario();
-        user.setID(UUID.randomUUID().toString());
+        //TODO:el metodo contarUsuarios me devuelve siempre cero
+        //user.setID(UUID.randomUUID().toString());
+        user.setID(String.valueOf(contarUsuarios() + 1));
         user.setNombre(nombre.getText().toString());
         user.setApellidos(apellidos.getText().toString());
         user.setDireccion(direccion.getText().toString());
         user.setEmail(email.getText().toString());
-        user.setNombreUsuario(nombreUsuario.getText().toString());
+        user.setNombreUsuario(telefono.getText().toString());
         user.setPassword(password.getText().toString());
         databaseReference.child("Usuarios").child(user.getID()).setValue(user);
+    }
+
+    public int contarUsuarios() {
+
+        //databaseReference = firebaseDatabase.getInstance().getReference().child("Usuarios");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    maxid = (int) snapshot.getChildrenCount();
+                } else {
+                    ///
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return maxid;
     }
 }
