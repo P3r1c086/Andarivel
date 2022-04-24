@@ -15,9 +15,9 @@ public class ServicioFirebase {
 
     private final FirebaseDatabase firebaseDataBase =  FirebaseDatabase.getInstance();
 
-    private void incrementCounter() {
+    public void incrementCounter() {
         //Método para incrementar en 1 el id de la base de datos
-        firebaseDataBase.getReference("empleados").runTransaction(new Transaction.Handler() {
+        firebaseDataBase.getReference("Usuarios").runTransaction(new Transaction.Handler() {
             @NonNull
             @Override
             public Transaction.Result doTransaction(@NonNull final MutableData currentData) {
