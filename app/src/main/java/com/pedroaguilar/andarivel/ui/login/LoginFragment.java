@@ -30,7 +30,7 @@ import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivi
  */
 public class LoginFragment extends Fragment {
 
-    private final FirebaseAuth mAuth =  FirebaseAuth.getInstance();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FragmentLoginBinding binding;
 
     public LoginFragment() {
@@ -46,6 +46,7 @@ public class LoginFragment extends Fragment {
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
     /**
      * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
      * has returned, but before any saved state has been restored in to the view.
@@ -75,7 +76,8 @@ public class LoginFragment extends Fragment {
         entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getActivity()!= null) {
+                if (getActivity() != null) {
+
                     mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                 @Override
