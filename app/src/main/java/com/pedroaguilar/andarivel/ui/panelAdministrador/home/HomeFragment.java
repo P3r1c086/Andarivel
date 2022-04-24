@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.pedroaguilar.andarivel.BaseDatosFirebase;
 import com.pedroaguilar.andarivel.databinding.FragmentHomeBinding;
 
 import java.util.Calendar;
@@ -48,6 +49,8 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding.btFinalJornada.setEnabled(false);
 
+        //TODO: crear estados TRABAJANDO y DESCANSANDO
+        //TODO: crear metodo fichar y salirDeJornada
         binding.btFichar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,11 +79,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void obtenerDiaFichado(){
-
+        BaseDatosFirebase bd = new BaseDatosFirebase();
         binding.btFichar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             /*   Calendar calendario = Calendar.getInstance();
+               /* Calendar calendario = Calendar.getInstance();
                 int y = calendario.get(Calendar.YEAR);
                 int m = calendario.get(Calendar.MONTH);
                 int d = calendario.get(Calendar.DAY_OF_MONTH);
@@ -93,6 +96,7 @@ public class HomeFragment extends Fragment {
                 },y,m,d);
                 datePickerDialog.show();*/
                 binding.diaFichado.setText(new Date().toString());
+                //bd.leerEnBd();
             }
         });
     }
