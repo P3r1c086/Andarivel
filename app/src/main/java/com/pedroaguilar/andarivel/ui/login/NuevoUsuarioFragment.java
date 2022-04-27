@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -19,10 +20,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.pedroaguilar.andarivel.BaseDatosFirebase;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity;
@@ -36,6 +35,8 @@ import java.util.regex.Pattern;
 public class NuevoUsuarioFragment extends Fragment {
 
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = firebaseDatabase.getReference();
 
     private EditText nombre;
     private EditText apellidos;
@@ -43,14 +44,11 @@ public class NuevoUsuarioFragment extends Fragment {
     private EditText email;
     private EditText telefono;
     private EditText password;
-    private Spinner rol;
-    private Button registrar;
-    int maxid = 0;
+    private Spinner spinner;
+    private Button aceptar;
 
+    private Boolean esAdministrador = false;
 
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference databaseReference = firebaseDatabase.getReference();
-    BaseDatosFirebase bd = new BaseDatosFirebase();
 
     public NuevoUsuarioFragment() {
         // Required empty public constructor
@@ -76,16 +74,19 @@ public class NuevoUsuarioFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {//En este método se crea la lógica. Se inicializa una vez generada la vista con el onCreateView()
         super.onViewCreated(view, savedInstanceState);
-        BaseDatosFirebase bd = new BaseDatosFirebase();
         email = view.findViewById(R.id.etEmail);
         password = view.findViewById(R.id.etPass);
         nombre = view.findViewById(R.id.etNombreReal);
         apellidos = view.findViewById(R.id.etApellidos);
         direccion = view.findViewById(R.id.etDireccion);
         telefono = view.findViewById(R.id.etTelefono);
-        rol = view.findViewById(R.id.spRol);
-        Button aceptar = view.findViewById(R.id.btAceptar);
+        spinner = view.findViewById(R.id.spRol);
+        aceptar = view.findViewById(R.id.btAceptar);
 
+        setListeners();
+    }
+
+    private void setListeners(){
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +114,19 @@ public class NuevoUsuarioFragment extends Fragment {
                     }
                 }
             }
+        });
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String elementoSeleccionado = (String) parent.getItemAtPosition(position);
+                if (elementoSeleccionado.equals("Administrador")) {
+                    esAdministrador = true;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 
@@ -190,19 +204,7 @@ public class NuevoUsuarioFragment extends Fragment {
         user.setEmail(email.getText().toString());
         user.setNombreUsuario(telefono.getText().toString());
         user.setPassword(password.getText().toString());
+        user.setEsAdiminstrador(esAdministrador);
         databaseReference.child("Usuarios").child(user.getID()).setValue(user);
-    }
-
-    public void SolicitarCuentaUsuariosEIntroducirNuevoUsuario() {
-        databaseReference.child("Usuarios").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    //Log.e("firebase", "Error getting data", task.getException());
-                } else {
-                    //CrearUsuario((int) task.getResult().getChildrenCount());
-                }
-            }
-        });
     }
 }

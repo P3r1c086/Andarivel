@@ -50,7 +50,7 @@ public class SlideshowFragment extends Fragment {
         databaseReferenceUsuarios.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     //obtengo los datos de firebase
                     //String uid = "" + snapshot.child("id").getValue(); si quiero sacar el id
                     String nombre = "" + task.getResult().child("nombre").getValue();

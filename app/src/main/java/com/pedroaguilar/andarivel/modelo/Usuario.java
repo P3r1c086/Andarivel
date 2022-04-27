@@ -15,7 +15,7 @@ public class Usuario {
     private String nombreUsuario;
     private String password;
     private String puesto;
-    private String rol;
+    private Boolean esAdiminstrador;
     private String telefono;
 
     public Usuario() {
@@ -133,12 +133,12 @@ public class Usuario {
         this.puesto = puesto;
     }
 
-    public String getRol() {
-        return rol;
+    public Boolean getEsAdiminstrador() {
+        return esAdiminstrador;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setEsAdiminstrador(Boolean esAdiminstrador) {
+        this.esAdiminstrador = esAdiminstrador;
     }
 
     public String getTelefono() {
