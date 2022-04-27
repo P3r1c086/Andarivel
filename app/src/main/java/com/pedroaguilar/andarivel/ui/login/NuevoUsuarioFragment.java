@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,12 +19,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.pedroaguilar.andarivel.BaseDatosFirebase;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.modelo.Usuario;
@@ -45,12 +43,13 @@ public class NuevoUsuarioFragment extends Fragment {
     private EditText email;
     private EditText telefono;
     private EditText password;
+    private Spinner rol;
     private Button registrar;
     int maxid = 0;
 
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference = firebaseDatabase.getReference();
     BaseDatosFirebase bd = new BaseDatosFirebase();
 
     public NuevoUsuarioFragment() {
@@ -84,20 +83,22 @@ public class NuevoUsuarioFragment extends Fragment {
         apellidos = view.findViewById(R.id.etApellidos);
         direccion = view.findViewById(R.id.etDireccion);
         telefono = view.findViewById(R.id.etTelefono);
+        rol = view.findViewById(R.id.spRol);
         Button aceptar = view.findViewById(R.id.btAceptar);
 
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null) {
-                    if (validateEmail() && validatePassword() && verificarEmailInFirebase(email.getText().toString())) {
+
+                    if (validateEmail() && validatePassword()) {
 
                         mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            introducirDatos();
+                                        if (task.isSuccessful() && (task.getResult().getUser() != null)) {
+                                            crearUsuarioYEscribirEnBaseDeDatos(task.getResult().getUser().getUid());
 
                                             //Navegamos a la nueva actividad y matamos esta para que no exista navegacion a ella de nuevo
                                             startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
@@ -126,24 +127,6 @@ public class NuevoUsuarioFragment extends Fragment {
             showError("Debes introducir un email válido");
             resultado = false;
         }
-        return resultado;
-    }
-
-    public boolean verificarEmailInFirebase(String email) {
-        boolean resultado = true;
-        FirebaseAuth.getInstance().fetchSignInMethodsForEmail(email)
-                .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                        if (task.isSuccessful()) {
-                            boolean check = !task.getResult().getSignInMethods().isEmpty();
-                            if (check) {
-                                Toast.makeText(getContext(), "El email ya está registrado", Toast.LENGTH_LONG).show();
-                                boolean resultado = false;
-                            }
-                        }
-                    }
-                });
         return resultado;
     }
 
@@ -198,17 +181,9 @@ public class NuevoUsuarioFragment extends Fragment {
         return resultado;
     }
 
-    public void inicializarFirebase() {
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
-    }
-
-    public void introducirDatos() {
-        inicializarFirebase();
+    public void crearUsuarioYEscribirEnBaseDeDatos(String firebaseAuthUsuarioId) {
         Usuario user = new Usuario();
-        //TODO:el metodo contarUsuarios me devuelve siempre cero
-        //user.setID(UUID.randomUUID().toString());
-        user.setID(String.valueOf(contarUsuarios() + 1));
+        user.setID(firebaseAuthUsuarioId);
         user.setNombre(nombre.getText().toString());
         user.setApellidos(apellidos.getText().toString());
         user.setDireccion(direccion.getText().toString());
@@ -218,26 +193,16 @@ public class NuevoUsuarioFragment extends Fragment {
         databaseReference.child("Usuarios").child(user.getID()).setValue(user);
     }
 
-    public int contarUsuarios() {
-
-        //databaseReference = firebaseDatabase.getInstance().getReference().child("Usuarios");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
+    public void SolicitarCuentaUsuariosEIntroducirNuevoUsuario() {
+        databaseReference.child("Usuarios").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    maxid = (int) snapshot.getChildrenCount();
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    //Log.e("firebase", "Error getting data", task.getException());
                 } else {
-                    ///
+                    //CrearUsuario((int) task.getResult().getChildrenCount());
                 }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-        return maxid;
     }
 }
