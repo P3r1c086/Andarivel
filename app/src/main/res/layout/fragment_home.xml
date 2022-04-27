@@ -35,25 +35,18 @@
 
         </Button>
         <TextView
-            android:id="@+id/diaFichado"
+            android:id="@+id/fechaFichado"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/horaFichado"
+            tools:text="Calendario"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/btFichar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imgHombreTrabajando">
 
         </TextView>
-        <TextView
-            android:id="@+id/horaFichado"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/btFichar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/diaFichado">
 
-        </TextView>
         <Button
             android:id="@+id/btFinalJornada"
             android:layout_width="match_parent"
@@ -62,6 +55,8 @@
             android:padding="18dp"
             android:text="@string/salir_de_jornada"
             app:cornerRadius='30sp'
+            android:visibility="invisible"
+            tools:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="parent"

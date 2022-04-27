@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,8 +12,9 @@ import androidx.fragment.app.Fragment;
 import com.pedroaguilar.andarivel.BaseDatosFirebase;
 import com.pedroaguilar.andarivel.databinding.FragmentHomeBinding;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Locale;
 
 /**
  * Fragmento que contiene los botones de fichar y salir.
@@ -22,9 +22,7 @@ import java.util.Date;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private TextView diaFichado;
-    private TextView horaFichado;
-    private Calendar calendar = Calendar.getInstance();
+    private Calendar momentoPulsacion;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -47,27 +45,28 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.btFinalJornada.setEnabled(false);
-
         //TODO: crear estados TRABAJANDO y DESCANSANDO
-        //TODO: crear metodo fichar y salirDeJornada
         binding.btFichar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.btFichar.setEnabled(false);
-                binding.btFinalJornada.setEnabled(true);
-                obtenerDiaFichado();
-               // obtenerHoraFichado();
+                binding.btFichar.setVisibility(View.INVISIBLE);
+                binding.btFinalJornada.setVisibility(View.VISIBLE);
+                SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
+                binding.fechaFichado.setText("Momento inicial " + format.format(Calendar.getInstance().getTime()));
                 //TODO: enviar datos del usuario y la hora a la que se ha pulsado a la base de datos
             }
         });
         binding.btFinalJornada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.btFichar.setEnabled(true);
-                binding.btFinalJornada.setEnabled(false);
+                binding.btFichar.setVisibility(View.VISIBLE);
+                binding.btFinalJornada.setVisibility(View.INVISIBLE);
+                SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
+                binding.fechaFichado.setText(binding.fechaFichado.getText() +
+                        " Momento final " + format.format(Calendar.getInstance().getTime().getTime()));
+
                 //TODO: enviar datos del usuario y la hora a la que se ha pulsado a la base de datos
-                obtenerDiaFichado();
+
                // obtenerHoraFichado();
             }
         });
@@ -95,7 +94,7 @@ public class HomeFragment extends Fragment {
                     }
                 },y,m,d);
                 datePickerDialog.show();*/
-                binding.diaFichado.setText(new Date().toString());
+               // binding.diaFichado.setText(new Date().toString());
                 //bd.leerEnBd();
             }
         });
@@ -117,7 +116,7 @@ public class HomeFragment extends Fragment {
                     }
                 },calendario.get(Calendar.HOUR_OF_DAY),calendario.get(Calendar.MINUTE),false);
                 timePickerDialog.show();*/
-                binding.horaFichado.setText(new Date().toString());
+                //binding.horaFichado.setText(new Date().toString());
             }
         });
     }
