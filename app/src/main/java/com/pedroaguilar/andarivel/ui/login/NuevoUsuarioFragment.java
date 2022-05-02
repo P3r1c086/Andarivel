@@ -62,6 +62,8 @@ public class NuevoUsuarioFragment extends Fragment {
     }
 
     /**
+     * En este método se crea la lógica. Se inicializa una vez generada la vista con el onCreateView()
+     *
      * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
      * has returned, but before any saved state has been restored in to the view.
      * This gives subclasses a chance to initialize themselves once
@@ -72,7 +74,7 @@ public class NuevoUsuarioFragment extends Fragment {
      * @param savedInstanceState If non-null, this fragment is being re-constructed
      */
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {//En este método se crea la lógica. Se inicializa una vez generada la vista con el onCreateView()
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         email = view.findViewById(R.id.etEmail);
         password = view.findViewById(R.id.etPass);
