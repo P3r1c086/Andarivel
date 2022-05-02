@@ -57,14 +57,14 @@ public class SlideshowFragment extends Fragment {
                     String apellidos = "" + task.getResult().child("apellidos").getValue();
                     String direccion = "" + task.getResult().child("direccion").getValue();
                     String nombreUsuario = "" + task.getResult().child("nombreUsuario").getValue();
+                    String email = "" + task.getResult().child("email").getValue();
                     // String imagenPerfil = "" + snapshot.child("imagen").getValue();//en el caso de meter la imagen en la base de datos
 
                     //seteo los datos en los textView e imageView
-                    binding.tvNombrePerfil.setText(nombre);
-                    binding.tvApellidosPerfil.setText(apellidos);
+                    binding.tvNombreCompletoPerfil.setText(nombre.concat(" " + apellidos));
                     binding.tvDireccionPerfil.setText(direccion);
                     binding.tvTelefonoPerfil.setText(nombreUsuario);
-
+                    binding.tvEmailPerfil.setText(email);
                     //para obtener la imagen
               /*  try {
                     //si existe imagen
