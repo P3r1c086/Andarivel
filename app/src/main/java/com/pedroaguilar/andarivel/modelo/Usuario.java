@@ -17,6 +17,8 @@ public class Usuario {
     private String puesto;
     private Boolean esAdiminstrador;
     private String telefono;
+    private String horaFichado;
+    private String horaDesfichado;
 
     public Usuario() {
     }
@@ -148,7 +150,23 @@ public class Usuario {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-/*
+
+    public String getHoraFichado() {
+        return horaFichado;
+    }
+
+    public void setHoraFichado(String horaFichado) {
+        this.horaFichado = horaFichado;
+    }
+
+    public String getHoraDesfichado() {
+        return horaDesfichado;
+    }
+
+    public void setHoraDesfichado(String horaDesfichado) {
+        this.horaDesfichado = horaDesfichado;
+    }
+    /*
     @Override
     public String toString() {
         return "Usuario{" +
