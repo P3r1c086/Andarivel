@@ -9,7 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.databinding.FragmentHomeBinding;
+import com.pedroaguilar.andarivel.modelo.Usuario;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,6 +26,9 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private Calendar momentoPulsacion;
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = firebaseDatabase.getReference();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +60,8 @@ public class HomeFragment extends Fragment {
                 binding.btFinalJornada.setVisibility(View.VISIBLE);
                 SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
                 binding.fechaFichado.setText("Momento inicial " + format.format(Calendar.getInstance().getTime()));
+
+                almacenarFechaYhoraInicial();
                 //TODO: enviar datos del usuario y la hora a la que se ha pulsado a la base de datos
             }
         });
@@ -64,13 +73,26 @@ public class HomeFragment extends Fragment {
                 SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
                 binding.fechaFichado.setText(binding.fechaFichado.getText() +
                         " Momento final " + format.format(Calendar.getInstance().getTime().getTime()));
-
+                almacenarFechaYhoraFinal();
                 //TODO: enviar datos del usuario y la hora a la que se ha pulsado a la base de datos
 
             }
         });
     }
 
+
+    private void almacenarFechaYhoraInicial(){
+        Usuario user = new Usuario();
+        user.setID(mAuth.getCurrentUser().getUid());
+        user.setHoraFichado((String) binding.fechaFichado.getText());
+        databaseReference.child("HorarioFichaje").child(user.getID()).setValue(user);
+    }
+    private void almacenarFechaYhoraFinal(){
+        Usuario user = new Usuario();
+        user.setID(mAuth.getCurrentUser().getUid());
+        user.setHoraDesfichado((String) binding.fechaFichado.getText());
+        databaseReference.child("HorarioFichaje").child(user.getID()).setValue(user);
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
