@@ -17,8 +17,8 @@ public class Usuario {
     private String puesto;
     private Boolean esAdiminstrador;
     private String telefono;
-    private String horaFichado;
-    private String horaDesfichado;
+    private String horaEntrada;
+    private String horaSalida;
 
     public Usuario() {
     }
@@ -151,20 +151,20 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    public String getHoraFichado() {
-        return horaFichado;
+    public String getHoraEntrada() {
+        return horaEntrada;
     }
 
-    public void setHoraFichado(String horaFichado) {
-        this.horaFichado = horaFichado;
+    public void setHoraEntrada(String horaEntrada) {
+        this.horaEntrada = horaEntrada;
     }
 
-    public String getHoraDesfichado() {
-        return horaDesfichado;
+    public String getHoraSalida() {
+        return horaSalida;
     }
 
-    public void setHoraDesfichado(String horaDesfichado) {
-        this.horaDesfichado = horaDesfichado;
+    public void setHoraSalida(String horaSalida) {
+        this.horaSalida = horaSalida;
     }
     /*
     @Override

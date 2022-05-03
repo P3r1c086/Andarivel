@@ -17,7 +17,9 @@ import com.pedroaguilar.andarivel.modelo.Usuario;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Fragmento que contiene los botones de fichar y salir.
@@ -59,8 +61,8 @@ public class HomeFragment extends Fragment {
                 binding.btFichar.setVisibility(View.INVISIBLE);
                 binding.btFinalJornada.setVisibility(View.VISIBLE);
                 SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
-                binding.fechaFichado.setText("Momento inicial " + format.format(Calendar.getInstance().getTime()));
-
+                binding.fechaEntrada.setText("Momento inicial " + format.format(Calendar.getInstance().getTime()));
+                binding.fechaSalida.setText("");
                 almacenarFechaYhoraInicial();
                 //TODO: enviar datos del usuario y la hora a la que se ha pulsado a la base de datos
             }
@@ -71,8 +73,7 @@ public class HomeFragment extends Fragment {
                 binding.btFichar.setVisibility(View.VISIBLE);
                 binding.btFinalJornada.setVisibility(View.INVISIBLE);
                 SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
-                binding.fechaFichado.setText(binding.fechaFichado.getText() +
-                        " Momento final " + format.format(Calendar.getInstance().getTime().getTime()));
+                binding.fechaSalida.setText("Momento final " + format.format(Calendar.getInstance().getTime().getTime()));
                 almacenarFechaYhoraFinal();
                 //TODO: enviar datos del usuario y la hora a la que se ha pulsado a la base de datos
 
@@ -84,14 +85,14 @@ public class HomeFragment extends Fragment {
     private void almacenarFechaYhoraInicial(){
         Usuario user = new Usuario();
         user.setID(mAuth.getCurrentUser().getUid());
-        user.setHoraFichado((String) binding.fechaFichado.getText());
+        user.setHoraEntrada((String) binding.fechaEntrada.getText());
         databaseReference.child("HorarioFichaje").child(user.getID()).setValue(user);
     }
     private void almacenarFechaYhoraFinal(){
-        Usuario user = new Usuario();
-        user.setID(mAuth.getCurrentUser().getUid());
-        user.setHoraDesfichado((String) binding.fechaFichado.getText());
-        databaseReference.child("HorarioFichaje").child(user.getID()).setValue(user);
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/horaSalida/", (String) binding.fechaSalida.getText());
+
+        databaseReference.child("HorarioFichaje").child(mAuth.getCurrentUser().getUid()).updateChildren(childUpdates);
     }
     @Override
     public void onDestroyView() {
