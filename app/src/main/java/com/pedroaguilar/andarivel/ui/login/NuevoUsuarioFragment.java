@@ -180,7 +180,7 @@ public class NuevoUsuarioFragment extends Fragment {
         String nombreReal = nombre.getText().toString();
         String apellido = apellidos.getText().toString();
         String direcion = direccion.getText().toString();
-        String nombreUser = telefono.getText().toString();
+        String telefon = telefono.getText().toString();
         if (nombreReal.isEmpty()) {
             nombre.setError("Requerido");
             resultado = false;
@@ -190,7 +190,7 @@ public class NuevoUsuarioFragment extends Fragment {
         } else if (direcion.isEmpty()) {
             direccion.setError("Requerido");
             resultado = false;
-        } else if (nombreUser.isEmpty()) {
+        } else if (telefon.isEmpty()) {
             telefono.setError("Requerido");
             resultado = false;
         }
@@ -204,7 +204,7 @@ public class NuevoUsuarioFragment extends Fragment {
         user.setApellidos(apellidos.getText().toString());
         user.setDireccion(direccion.getText().toString());
         user.setEmail(email.getText().toString());
-        user.setNombreUsuario(telefono.getText().toString());
+        user.setTelefono(telefono.getText().toString());
         user.setPassword(password.getText().toString());
         user.setEsAdiminstrador(esAdministrador);
         databaseReference.child("Usuarios").child(user.getID()).setValue(user);

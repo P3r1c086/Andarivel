@@ -53,17 +53,17 @@ public class SlideshowFragment extends Fragment {
                 if (task.isSuccessful()) {
                     //obtengo los datos de firebase
                     //String uid = "" + snapshot.child("id").getValue(); si quiero sacar el id
-                    String nombre = "" + task.getResult().child("nombre").getValue();
+                    String nombre = "Nombre: " + task.getResult().child("nombre").getValue();
                     String apellidos = "" + task.getResult().child("apellidos").getValue();
-                    String direccion = "" + task.getResult().child("direccion").getValue();
-                    String nombreUsuario = "" + task.getResult().child("nombreUsuario").getValue();
-                    String email = "" + task.getResult().child("email").getValue();
+                    String direccion = "Dirección: " + task.getResult().child("direccion").getValue();
+                    String telefono = "Teléfono: " + task.getResult().child("telefono").getValue();
+                    String email = "Email: " + task.getResult().child("email").getValue();
                     // String imagenPerfil = "" + snapshot.child("imagen").getValue();//en el caso de meter la imagen en la base de datos
 
                     //seteo los datos en los textView e imageView
                     binding.tvNombreCompletoPerfil.setText(nombre.concat(" " + apellidos));
                     binding.tvDireccionPerfil.setText(direccion);
-                    binding.tvTelefonoPerfil.setText(nombreUsuario);
+                    binding.tvTelefonoPerfil.setText(telefono);
                     binding.tvEmailPerfil.setText(email);
                     //para obtener la imagen
               /*  try {
