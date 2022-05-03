@@ -6,32 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".ui.panelAdministrador.slideshow.SlideshowFragment">
 
+    <TextView
+        android:id="@+id/tvDatosUsuario"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="Datos Usuario"
+        app:layout_constraintHeight_percent="0.04"
+        app:layout_constraintBottom_toTopOf="@+id/imgPerfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <ImageView
         android:id="@+id/imgPerfil"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@mipmap/ic_launcher"
+        android:layout_marginBottom="50dp"
         android:layout_marginHorizontal="130dp"
         app:layout_constraintHeight_percent="0.15"
         app:layout_constraintBottom_toTopOf="@+id/tvNombreCompletoPerfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
-    <TextView
-        android:id="@+id/nombre"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textAlignment="center"
-        android:textColor="#5C5858"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="@string/nombre"
-        app:layout_constraintHeight_percent="0.04"
-        app:layout_constraintBottom_toTopOf="@+id/tvNombreCompletoPerfil"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgPerfil"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvDatosUsuario"
+        tools:ignore="ContentDescription"
+        app:layout_constraintVertical_chainStyle="packed"/>
 
     <TextView
         android:id="@+id/tvNombreCompletoPerfil"
@@ -39,29 +41,13 @@
         android:layout_height="0dp"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintHeight_percent="0.04"
         app:layout_constraintBottom_toTopOf="@+id/tvDireccionPerfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgPerfil" />
-    <TextView
-        android:id="@+id/direccion"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textAlignment="center"
-        android:textColor="#5C5858"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="@string/direcci_n"
-        app:layout_constraintHeight_percent="0.04"
-        app:layout_constraintBottom_toTopOf="@+id/tvDireccionPerfil"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNombreCompletoPerfil">
-
-    </TextView>
 
     <TextView
         android:id="@+id/tvDireccionPerfil"
@@ -69,82 +55,56 @@
         android:layout_height="0dp"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintHeight_percent="0.04"
         app:layout_constraintBottom_toTopOf="@+id/tvTelefonoPerfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNombreCompletoPerfil" />
-    <TextView
-        android:id="@+id/telefono"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textAlignment="center"
-        android:textColor="#5C5858"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="@string/tel_fono"
-        app:layout_constraintHeight_percent="0.04"
-        app:layout_constraintBottom_toTopOf="@+id/tvTelefonoPerfil"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDireccionPerfil" />
+
     <TextView
         android:id="@+id/tvTelefonoPerfil"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintHeight_percent="0.04"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDireccionPerfil" />
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textAlignment="center"
-        android:textColor="#5C5858"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="@string/email"
         app:layout_constraintHeight_percent="0.04"
         app:layout_constraintBottom_toTopOf="@+id/tvEmailPerfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTelefonoPerfil" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDireccionPerfil" />
+
     <TextView
         android:id="@+id/tvEmailPerfil"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintHeight_percent="0.04"
         app:layout_constraintBottom_toTopOf="@+id/botonEditarPerfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTelefonoPerfil" />
     <Button
         android:id="@+id/botonEditarPerfil"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/editar_perfil"
-        android:layout_marginHorizontal="130dp"
+        android:layout_marginHorizontal="100dp"
         android:backgroundTint="#000000"
         android:padding="15dp"
         app:cornerRadius='30sp'
-        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintHeight_percent="0.1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmailPerfil">
+        app:layout_constraintTop_toBottomOf="@+id/tvEmailPerfil"/>
 
-    </Button>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
