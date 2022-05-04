@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.R;
+import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity;
 
@@ -207,6 +208,6 @@ public class NuevoUsuarioFragment extends Fragment {
         user.setTelefono(telefono.getText().toString());
         user.setPassword(password.getText().toString());
         user.setEsAdiminstrador(esAdministrador);
-        databaseReference.child("Usuarios").child(user.getID()).setValue(user);
+        databaseReference.child(Constantes.TABLA_USUARIOS).child(user.getID()).setValue(user);
     }
 }

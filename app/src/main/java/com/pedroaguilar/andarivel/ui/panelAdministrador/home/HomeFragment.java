@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.databinding.FragmentHomeBinding;
+import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 
 import java.text.SimpleDateFormat;
@@ -86,13 +87,13 @@ public class HomeFragment extends Fragment {
         Usuario user = new Usuario();
         user.setID(mAuth.getCurrentUser().getUid());
         user.setHoraEntrada((String) binding.fechaEntrada.getText());
-        databaseReference.child("HorarioFichaje").child(user.getID()).setValue(user);
+        databaseReference.child(Constantes.TABLA_HORARIOS).child(user.getID()).setValue(user);
     }
     private void almacenarFechaYhoraFinal(){
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/horaSalida/", (String) binding.fechaSalida.getText());
 
-        databaseReference.child("HorarioFichaje").child(mAuth.getCurrentUser().getUid()).updateChildren(childUpdates);
+        databaseReference.child(Constantes.TABLA_HORARIOS).child(mAuth.getCurrentUser().getUid()).updateChildren(childUpdates);
     }
     @Override
     public void onDestroyView() {

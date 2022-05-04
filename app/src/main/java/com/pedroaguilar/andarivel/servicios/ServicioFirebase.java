@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.pedroaguilar.andarivel.modelo.Constantes;
 
 public class ServicioFirebase {
 
@@ -17,7 +18,7 @@ public class ServicioFirebase {
 
     public void incrementCounter() {
         //Método para incrementar en 1 el id de la base de datos
-        firebaseDataBase.getReference("Usuarios").runTransaction(new Transaction.Handler() {
+        firebaseDataBase.getReference(Constantes.TABLA_USUARIOS).runTransaction(new Transaction.Handler() {
             @NonNull
             @Override
             public Transaction.Result doTransaction(@NonNull final MutableData currentData) {

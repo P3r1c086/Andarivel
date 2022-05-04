@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.databinding.FragmentSlideshowBinding;
+import com.pedroaguilar.andarivel.modelo.Constantes;
 
 
 public class SlideshowFragment extends Fragment {
@@ -25,7 +26,7 @@ public class SlideshowFragment extends Fragment {
     private FragmentSlideshowBinding binding;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
-    DatabaseReference databaseReferenceUsuarios =  FirebaseDatabase.getInstance().getReference("Usuarios");;
+    DatabaseReference databaseReferenceUsuarios =  FirebaseDatabase.getInstance().getReference(Constantes.TABLA_USUARIOS);;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,

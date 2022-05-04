@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 
 public class BaseDatosFirebase extends Activity{
@@ -18,7 +19,7 @@ public class BaseDatosFirebase extends Activity{
     public void escribirEnBd(){
         // Escribir un mensaje en la base de datos
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Usuarios");
+        DatabaseReference myRef = database.getReference(Constantes.TABLA_USUARIOS);
 
        /* Bundle extras = getIntent().getExtras();
         user.setHorasDescanso(250.5);
@@ -59,7 +60,7 @@ public class BaseDatosFirebase extends Activity{
 
     }
     public void leerEnBd(){
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Usuarios");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(Constantes.TABLA_USUARIOS);
         // Leer de la base de datos
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
