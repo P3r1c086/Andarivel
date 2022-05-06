@@ -26,6 +26,7 @@ public class SlideshowFragment extends Fragment {
     private FragmentSlideshowBinding binding;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
+    //Con getInstance accedo a la base de datos y con getReference tabla usuarios accedo al hijo con ese nombre "Usuarios"
     DatabaseReference databaseReferenceUsuarios =  FirebaseDatabase.getInstance().getReference(Constantes.TABLA_USUARIOS);;
 
 
@@ -48,6 +49,8 @@ public class SlideshowFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //obtengo el hijo de usuarios con este id
+        //si quiero solo una foto o momento, es decir, que no me llegue tod el rato llamo a get()
         databaseReferenceUsuarios.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
