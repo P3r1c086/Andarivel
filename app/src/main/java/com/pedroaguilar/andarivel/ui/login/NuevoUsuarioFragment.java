@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.R;
@@ -94,27 +95,37 @@ public class NuevoUsuarioFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null) {
+                    if(validarCampos()){
+                        if (validateEmail() && validatePassword()) {
 
-                    if (validateEmail() && validatePassword()) {
+                            mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                                    .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful() && (task.getResult().getUser() != null)) {
 
-                        mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful() && (task.getResult().getUser() != null)) {
-                                            crearUsuarioYEscribirEnBaseDeDatos(task.getResult().getUser().getUid());
+                                                    crearUsuarioYEscribirEnBaseDeDatos(task.getResult().getUser().getUid());
 
-                                            //Navegamos a la nueva actividad y matamos esta para que no exista navegacion a ella de nuevo
-                                            startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
-                                            getActivity().finish();
-                                        } else {
-                                            Toast.makeText(getContext(), "Authentication failed.",
-                                                    Toast.LENGTH_SHORT).show();
+                                                    //Navegamos a la nueva actividad y matamos esta para que no exista navegacion a ella de nuevo
+                                                    startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
+                                                    getActivity().finish();
 
+
+                                            } else {
+                                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                                    Toast.makeText(getContext(), "Este email ya está registrado.", Toast.LENGTH_SHORT).show();
+                                                }else{
+                                                    Toast.makeText(getContext(), "Authentication failed.",
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+
+
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                        }
                     }
+
                 }
             }
         });
@@ -182,6 +193,9 @@ public class NuevoUsuarioFragment extends Fragment {
         String apellido = apellidos.getText().toString();
         String direcion = direccion.getText().toString();
         String telefon = telefono.getText().toString();
+        String correo = email.getText().toString();
+        String pass = password.getText().toString();
+
         if (nombreReal.isEmpty()) {
             nombre.setError("Requerido");
             resultado = false;
@@ -191,8 +205,14 @@ public class NuevoUsuarioFragment extends Fragment {
         } else if (direcion.isEmpty()) {
             direccion.setError("Requerido");
             resultado = false;
-        } else if (telefon.isEmpty()) {
+        } else if (correo.isEmpty()) {
+            email.setError("Requerido");
+            resultado = false;
+        }else if (telefon.isEmpty()) {
             telefono.setError("Requerido");
+            resultado = false;
+        }else if (pass.isEmpty()) {
+            password.setError("Requerido");
             resultado = false;
         }
         return resultado;
