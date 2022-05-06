@@ -16,5 +16,9 @@
             android:id="@+id/slideshow_dest"
             android:icon="@drawable/ic_baseline_account_box_24"
             android:title="@string/perfil" />
+        <item
+            android:id="@+id/ausencias_dest"
+            android:icon="@drawable/ic_baseline_account_box_24"
+            android:title="@string/ausencia" />
     </group>
 </menu>

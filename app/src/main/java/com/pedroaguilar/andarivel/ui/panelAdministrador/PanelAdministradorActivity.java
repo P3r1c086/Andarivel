@@ -39,14 +39,18 @@ public class PanelAdministradorActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_content_nested);
         NavController navController = Objects.requireNonNull(navHostFragment).getNavController();
 
+        //Cuando cambie la navegación, gracias al listener, esta parte salta.
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+                //Cuando navega siempre cierra el drawer
                 binding.drawerLayout.closeDrawers();
+                //se almacena el id de la ruta para actualizar el elemento del menu
                 int routeId = navController.getCurrentDestination().getId();
                 if (routeId == R.id.home_dest) binding.navView.getMenu().getItem(0).setChecked(true);
                 else if (routeId == R.id.gallery_dest) binding.navView.getMenu().getItem(1).setChecked(true);
                 else if (routeId == R.id.slideshow_dest) binding.navView.getMenu().getItem(2).setChecked(true);
+                else if (routeId == R.id.ausencias_dest) binding.navView.getMenu().getItem(3).setChecked(true);
             }
         });
 

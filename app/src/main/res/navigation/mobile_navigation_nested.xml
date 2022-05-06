@@ -37,4 +37,9 @@
         android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity"
         android:label="PanelAdministradorActivity"
         tools:layout="@layout/activity_panel_administrador"/>
+    <fragment
+        android:id="@+id/ausencias_dest"
+        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.ausencias.AusenciasFragment"
+        android:label="fragment_ausencias"
+        tools:layout="@layout/fragment_ausencias" />
 </navigation>
