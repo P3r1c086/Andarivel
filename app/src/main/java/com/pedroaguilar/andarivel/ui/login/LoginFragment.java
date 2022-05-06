@@ -48,6 +48,7 @@ public class LoginFragment extends Fragment {
     }
 
     /**
+     * En este método se crea la lógica. Se inicializa una vez generada la vista con el onCreateView()
      * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
      * has returned, but before any saved state has been restored in to the view.
      * This gives subclasses a chance to initialize themselves once
@@ -58,7 +59,7 @@ public class LoginFragment extends Fragment {
      * @param savedInstanceState If non-null, this fragment is being re-constructed
      */
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {//En este método se crea la lógica. Se inicializa una vez generada la vista con el onCreateView()
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         TextView registrar = view.findViewById(R.id.tvIrRegistro);
@@ -77,20 +78,24 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null) {
-
-                    mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                            .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        //Navegamos a la nueva actividad y matamos esta para que no exista navegacion a ella de nuevo
-                                        startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
-                                        getActivity().finish();
-                                    } else {
-                                        Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                    if(email.getText().toString().isEmpty() || password.getText().toString().isEmpty()){
+                        Toast.makeText(getContext(), "Debes completar los campos", Toast.LENGTH_SHORT).show();
+                    }else {
+                        mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                                    //Firebase te envia la respuseta en un objeto tipo Task
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            //Navegamos a la nueva actividad y matamos esta para que no exista navegacion a ella de nuevo. Aquí cambiamos de grafo de navegacion.
+                                            startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
+                                            getActivity().finish();
+                                        } else {
+                                            Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                    }
                 }
             }
         });
