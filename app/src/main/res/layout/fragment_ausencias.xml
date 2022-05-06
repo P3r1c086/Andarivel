@@ -16,7 +16,7 @@
         android:textSize="35sp"
         android:layout_marginTop="30dp"
         app:layout_constraintHeight_percent="0.08"
-        app:layout_constraintBottom_toTopOf="spMotivoAusencia"
+        app:layout_constraintBottom_toTopOf="@+id/spMotivoAusencia"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,40 +28,53 @@
         android:minHeight="30dp"
         android:textAlignment="center"
         app:layout_constraintHeight_percent="0.08"
-        app:layout_constraintBottom_toTopOf="tiDescripcion"
+        app:layout_constraintBottom_toTopOf="@+id/tiDescripcion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="tvTitulo"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvTitulo"/>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <!-- <com.google.android.material.textfield.TextInputLayout
+         android:id="@+id/tiDescripcion"
+         android:layout_width="0dp"
+         android:layout_height="0dp"
+         android:textAlignment="center"
+         android:textColorHint="#01579B"
+         android:textSize="20sp"
+         android:textStyle="bold"
+         android:gravity="center"
+         android:layout_marginTop="20dp"
+         android:layout_marginHorizontal="50dp"
+         android:hint="@string/descripci_n"
+         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+         app:startIconDrawable="@drawable/ic_email"
+         app:layout_constraintHeight_percent="0.2"
+         app:layout_constraintBottom_toTopOf="@+id/btSolicitar"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/tvTitulo">
+
+         <com.google.android.material.textfield.TextInputEditText
+             android:id="@+id/etDescripcion"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:inputType="textEmailAddress"
+             android:textColorHint="#757575" />
+
+     </com.google.android.material.textfield.TextInputLayout>-->
+    <EditText
         android:id="@+id/tiDescripcion"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textAlignment="center"
-        android:textColorHint="#01579B"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="50dp"
-        android:hint="@string/descripci_n"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:startIconDrawable="@drawable/ic_email"
-        app:layout_constraintHeight_percent="0.08"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintHeight_percent="0.3"
         app:layout_constraintBottom_toTopOf="@+id/btSolicitar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spMotivoAusencia">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etDescripcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:textColorHint="#757575" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
+        app:layout_constraintTop_toBottomOf="@+id/tvTitulo"/>
     <Button
         android:id="@+id/btSolicitar"
         android:layout_width="0dp"
@@ -77,5 +90,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tiDescripcion" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
