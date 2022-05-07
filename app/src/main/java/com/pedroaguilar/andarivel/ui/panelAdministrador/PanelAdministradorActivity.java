@@ -51,6 +51,7 @@ public class PanelAdministradorActivity extends AppCompatActivity {
                 else if (routeId == R.id.gallery_dest) binding.navView.getMenu().getItem(1).setChecked(true);
                 else if (routeId == R.id.slideshow_dest) binding.navView.getMenu().getItem(2).setChecked(true);
                 else if (routeId == R.id.ausencias_dest) binding.navView.getMenu().getItem(3).setChecked(true);
+                else if (routeId == R.id.informes_dest) binding.navView.getMenu().getItem(4).setChecked(true);
             }
         });
 
