@@ -31,7 +31,11 @@
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_slideshow" >
+        <action
+            android:id="@+id/action_slideshow_dest_to_editarPerfil_fragment"
+            app:destination="@id/editarPerfil_fragment" />
+    </fragment>
     <activity
         android:id="@+id/panelAdministradorActivity"
         android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity"
@@ -42,4 +46,18 @@
         android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.ausencias.AusenciasFragment"
         android:label="fragment_ausencias"
         tools:layout="@layout/fragment_ausencias" />
+    <fragment
+        android:id="@+id/informes_dest"
+        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.informes.InformesFragment"
+        android:label="fragment_informes"
+        tools:layout="@layout/fragment_informes" />
+    <fragment
+        android:id="@+id/editarPerfil_fragment"
+        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.slideshow.EditarPerfilFragment"
+        android:label="fragment_editar_perfil"
+        tools:layout="@layout/fragment_editar_perfil" >
+        <action
+            android:id="@+id/action_editarPerfil_fragment_to_slideshow_dest"
+            app:destination="@id/slideshow_dest" />
+    </fragment>
 </navigation>
