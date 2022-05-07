@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentSlideshowBinding;
 import com.pedroaguilar.andarivel.modelo.Constantes;
 
@@ -80,6 +82,12 @@ public class SlideshowFragment extends Fragment {
                 } else {
                     Toast.makeText(getContext(), "Error al obtener los datos del usuario", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        binding.botonEditarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_slideshow_dest_to_editarPerfil_fragment);
             }
         });
     }
