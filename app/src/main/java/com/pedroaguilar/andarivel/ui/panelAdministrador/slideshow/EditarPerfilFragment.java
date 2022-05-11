@@ -57,6 +57,8 @@ public class EditarPerfilFragment extends Fragment {
     }
 
     private void actualizarUsuario(){
+        //Todo: Meter comprobacion de campos no vacíos antes de guardar
+
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/nombre/", (String) binding.etNombreReal.getText().toString());
         childUpdates.put("/apellidos/", (String) binding.etApellidos.getText().toString());

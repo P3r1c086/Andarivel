@@ -51,13 +51,11 @@
         android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.informes.InformesFragment"
         android:label="fragment_informes"
         tools:layout="@layout/fragment_informes" />
+    <!-- al tener una navegación aparte no se si tengo que ponerle  "_dest" -->
     <fragment
         android:id="@+id/editarPerfil_fragment"
         android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.slideshow.EditarPerfilFragment"
         android:label="fragment_editar_perfil"
         tools:layout="@layout/fragment_editar_perfil" >
-        <action
-            android:id="@+id/action_editarPerfil_fragment_to_slideshow_dest"
-            app:destination="@id/slideshow_dest" />
     </fragment>
 </navigation>

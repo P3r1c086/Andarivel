@@ -9,8 +9,9 @@ import android.widget.DatePicker;
 
 import androidx.fragment.app.Fragment;
 
-import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentAusenciasBinding;
+
+import java.util.Calendar;
 
 public class AusenciasFragment extends Fragment {
     private FragmentAusenciasBinding binding;
@@ -38,22 +39,14 @@ public class AusenciasFragment extends Fragment {
         binding.etFechaInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (view.getId()){
-                    case R.id.etFechaInicio:
-                        showDatePickerDialog();
-                        break;
-                }
+                showFechaInicioDatePickerDialog();
             }
         });
         //Asociar un evento de clic al EditText
         binding.etFechaFin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (view.getId()){
-                    case R.id.etFechaFin:
-                        showDatePickerDialog();
-                        break;
-                }
+                showFechaFinDatePickerDialog();
             }
         });
     }
@@ -61,18 +54,30 @@ public class AusenciasFragment extends Fragment {
     /**
      * Mostrar el DatePicker en un dialog
      */
-    private void showDatePickerDialog() {
-        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+    private void showFechaInicioDatePickerDialog() {
+        final Calendar c = Calendar.getInstance();
+        new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 // +1 because January is zero
                 final String selectedDateInicio = day + " / " + (month+1) + " / " + year;
                 binding.etFechaInicio.setText(selectedDateInicio);
+            }
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH),  c.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    /**
+     * Mostrar el DatePicker en un dialog
+     */
+    private void showFechaFinDatePickerDialog() {
+        final Calendar c = Calendar.getInstance();
+        new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because January is zero
                 final String selectedDateFin = day + " / " + (month+1) + " / " + year;
                 binding.etFechaFin.setText(selectedDateFin);
             }
-        });
-
-        newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH),  c.get(Calendar.DAY_OF_MONTH)).show();
     }
 }
