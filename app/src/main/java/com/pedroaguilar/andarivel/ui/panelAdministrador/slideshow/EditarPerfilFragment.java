@@ -8,13 +8,23 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.pedroaguilar.andarivel.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.databinding.FragmentEditarPerfilBinding;
+import com.pedroaguilar.andarivel.modelo.Constantes;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EditarPerfilFragment extends Fragment {
 
     private FragmentEditarPerfilBinding binding;
-
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseUser user = auth.getCurrentUser();
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = firebaseDatabase.getReference();
     public EditarPerfilFragment() {
         // Required empty public constructor
     }
@@ -37,8 +47,22 @@ public class EditarPerfilFragment extends Fragment {
         binding.btAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_editarPerfil_fragment_to_slideshow_dest);
+                actualizarUsuario();
+                Navigation.findNavController(v).navigateUp();
             }
+
         });
+
+
+    }
+
+    private void actualizarUsuario(){
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/nombre/", (String) binding.etNombreReal.getText().toString());
+        childUpdates.put("/apellidos/", (String) binding.etApellidos.getText().toString());
+        childUpdates.put("/direccion/", (String) binding.etDireccion.getText().toString());
+        childUpdates.put("/telefono/", (String) binding.etTelefono.getText().toString());
+        databaseReference.child(Constantes.TABLA_USUARIOS).child(auth.getCurrentUser().getUid()).updateChildren(childUpdates);
+
     }
 }
