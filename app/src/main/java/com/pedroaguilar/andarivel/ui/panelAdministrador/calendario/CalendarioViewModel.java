@@ -1,14 +1,14 @@
-package com.pedroaguilar.andarivel.ui.panelAdministrador.gallery;
+package com.pedroaguilar.andarivel.ui.panelAdministrador.calendario;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+class CalendarioViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public CalendarioViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("Calendario de tareas");
     }

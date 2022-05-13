@@ -48,8 +48,8 @@ public class PanelAdministradorActivity extends AppCompatActivity {
                 //se almacena el id de la ruta para actualizar el elemento del menu
                 int routeId = navController.getCurrentDestination().getId();
                 if (routeId == R.id.home_dest) binding.navView.getMenu().getItem(0).setChecked(true);
-                else if (routeId == R.id.gallery_dest) binding.navView.getMenu().getItem(1).setChecked(true);
-                else if (routeId == R.id.slideshow_dest) binding.navView.getMenu().getItem(2).setChecked(true);
+                else if (routeId == R.id.calendario_dest) binding.navView.getMenu().getItem(1).setChecked(true);
+                else if (routeId == R.id.perfil_dest) binding.navView.getMenu().getItem(2).setChecked(true);
                 else if (routeId == R.id.ausencias_dest) binding.navView.getMenu().getItem(3).setChecked(true);
                 else if (routeId == R.id.informes_dest) binding.navView.getMenu().getItem(4).setChecked(true);
             }

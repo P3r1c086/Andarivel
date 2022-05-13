@@ -6,14 +6,14 @@
     android:id="@+id/mobile_navigation_nested"
     app:startDestination="@id/home_dest">
     <fragment
-        android:id="@+id/gallery_dest"
-        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:id="@+id/calendario_dest"
+        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.calendario.CalendarioFragment"
+        android:label="@string/menu_calendario"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_calendario" />
     <fragment
         android:id="@+id/home_dest"
         android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.home.HomeFragment"
@@ -24,17 +24,17 @@
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/slideshow_dest"
-        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.slideshow.SlideshowFragment"
+        android:id="@+id/perfil_dest"
+        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.perfil.PerfilFragment"
         android:label="@string/menu_slideshow"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        tools:layout="@layout/fragment_slideshow" >
+        tools:layout="@layout/fragment_perfil" >
         <action
-            android:id="@+id/action_slideshow_dest_to_editarPerfil_fragment"
-            app:destination="@id/editarPerfil_fragment" />
+            android:id="@+id/action_perfil_dest_to_editarPerfil_fragment"
+            app:destination="@id/editarPerfil_dest" />
     </fragment>
     <activity
         android:id="@+id/panelAdministradorActivity"
@@ -44,18 +44,30 @@
     <fragment
         android:id="@+id/ausencias_dest"
         android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.ausencias.AusenciasFragment"
-        android:label="fragment_ausencias"
+        android:label="Ausencias"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
         tools:layout="@layout/fragment_ausencias" />
     <fragment
         android:id="@+id/informes_dest"
         android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.informes.InformesFragment"
-        android:label="fragment_informes"
+        android:label="Informes"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
         tools:layout="@layout/fragment_informes" />
     <!-- al tener una navegación aparte no se si tengo que ponerle  "_dest" -->
     <fragment
-        android:id="@+id/editarPerfil_fragment"
-        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.slideshow.EditarPerfilFragment"
-        android:label="fragment_editar_perfil"
+        android:id="@+id/editarPerfil_dest"
+        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.perfil.EditarPerfilFragment"
+        android:label="Editar Perfil"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
         tools:layout="@layout/fragment_editar_perfil" >
     </fragment>
 </navigation>

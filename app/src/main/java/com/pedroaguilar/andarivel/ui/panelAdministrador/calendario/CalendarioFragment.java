@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.ui.panelAdministrador.gallery;
+package com.pedroaguilar.andarivel.ui.panelAdministrador.calendario;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,23 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.pedroaguilar.andarivel.databinding.FragmentGalleryBinding;
+import com.pedroaguilar.andarivel.databinding.FragmentCalendarioBinding;
 
 
-public class GalleryFragment extends Fragment {
+public class CalendarioFragment extends Fragment {
 
-    private FragmentGalleryBinding binding;
+    private FragmentCalendarioBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        GalleryViewModel galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
+        CalendarioViewModel calendarioViewModel =
+                new ViewModelProvider(this).get(CalendarioViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentCalendarioBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textCalendario;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        calendarioViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

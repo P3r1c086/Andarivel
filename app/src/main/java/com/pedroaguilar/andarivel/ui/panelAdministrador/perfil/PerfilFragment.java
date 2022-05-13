@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.ui.panelAdministrador.slideshow;
+package com.pedroaguilar.andarivel.ui.panelAdministrador.perfil;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -36,17 +36,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.R;
-import com.pedroaguilar.andarivel.databinding.FragmentSlideshowBinding;
+import com.pedroaguilar.andarivel.databinding.FragmentPerfilBinding;
 import com.pedroaguilar.andarivel.modelo.Constantes;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class SlideshowFragment extends Fragment {
+public class PerfilFragment extends Fragment {
 
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 10;
-    private FragmentSlideshowBinding binding;
+    private FragmentPerfilBinding binding;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     //Con getInstance accedo a la base de datos y con getReference tabla usuarios accedo al hijo con ese nombre "Usuarios"
@@ -59,7 +59,7 @@ public class SlideshowFragment extends Fragment {
        /* SlideshowViewModel slideshowViewModel =
                 new ViewModelProvider(this).get(SlideshowViewModel.class);*/
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentPerfilBinding.inflate(inflater, container, false);
         //final TextView textView = binding.textSlideshow;
         //slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return binding.getRoot();
@@ -110,7 +110,7 @@ public class SlideshowFragment extends Fragment {
         binding.botonEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_slideshow_dest_to_editarPerfil_fragment);
+                Navigation.findNavController(v).navigate(R.id.action_perfil_dest_to_editarPerfil_fragment);
             }
         });
         binding.imgPerfil.setOnClickListener(new View.OnClickListener() {
