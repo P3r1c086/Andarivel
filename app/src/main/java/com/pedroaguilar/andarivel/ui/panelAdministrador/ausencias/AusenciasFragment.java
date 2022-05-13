@@ -5,17 +5,26 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.databinding.FragmentAusenciasBinding;
+import com.pedroaguilar.andarivel.modelo.Constantes;
+import com.pedroaguilar.andarivel.modelo.Usuario;
 
 import java.util.Calendar;
 
 public class AusenciasFragment extends Fragment {
     private FragmentAusenciasBinding binding;
-
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = firebaseDatabase.getReference();
+    private Usuario usuario = new Usuario();
     public AusenciasFragment() {
         // Required empty public constructor
     }
@@ -49,6 +58,34 @@ public class AusenciasFragment extends Fragment {
                 showFechaFinDatePickerDialog();
             }
         });
+        setListeners();
+    }
+
+    private void setListeners(){
+        binding.spMotivoAusencia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String elementoSeleccionado = (String) parent.getItemAtPosition(position);
+                usuario.setMotivoAusencia(elementoSeleccionado);
+                //todo:falta pasarlo a la base de datos
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+        binding.btSolicitar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(binding.etDescripcion.getText().toString().isEmpty()){
+                    usuario.setDescripcionAusencia("No especificado");
+                }else {
+                    usuario.setDescripcionAusencia(binding.etDescripcion.getText().toString());
+                }
+                //todo:falta pasarlo a la base de datos
+                introducirDatosEnBd();
+            }
+        });
     }
 
     /**
@@ -62,6 +99,8 @@ public class AusenciasFragment extends Fragment {
                 // +1 because January is zero
                 final String selectedDateInicio = day + " / " + (month+1) + " / " + year;
                 binding.etFechaInicio.setText(selectedDateInicio);
+                usuario.setFechaInicioAusencia(selectedDateInicio);
+                //almacenarFechaInicio();
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH),  c.get(Calendar.DAY_OF_MONTH)).show();
     }
@@ -77,7 +116,31 @@ public class AusenciasFragment extends Fragment {
                 // +1 because January is zero
                 final String selectedDateFin = day + " / " + (month+1) + " / " + year;
                 binding.etFechaFin.setText(selectedDateFin);
+                usuario.setFechaFinAusencia(selectedDateFin);
+                //almacenarFechaFin();
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH),  c.get(Calendar.DAY_OF_MONTH)).show();
     }
+
+    private void introducirDatosEnBd(){
+        Usuario user = new Usuario();
+        user.setID(mAuth.getCurrentUser().getUid());
+        user.setMotivoAusencia(usuario.getMotivoAusencia());
+        user.setFechaInicioAusencia(usuario.getFechaInicioAusencia());
+        user.setFechaFinAusencia(usuario.getFechaFinAusencia());
+        user.setDescripcionAusencia(usuario.getDescripcionAusencia());
+        databaseReference.child(Constantes.TABLA_AUSENCIAS).child(user.getID()).setValue(user);
+    }
+ /*   private void almacenarFechaInicio(){
+        Usuario user = new Usuario();
+        user.setID(mAuth.getCurrentUser().getUid());
+        user.setFechaInicioAusencia(binding.etFechaInicio.getText().toString());
+        databaseReference.child(Constantes.TABLA_AUSENCIAS).child(user.getID()).setValue(user);
+    }
+    private void almacenarFechaFin(){
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/fechaFinAusencia/", binding.etFechaFin.getText().toString());
+
+        databaseReference.child(Constantes.TABLA_AUSENCIAS).child(mAuth.getCurrentUser().getUid()).updateChildren(childUpdates);
+    }*/
 }
