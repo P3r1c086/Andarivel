@@ -11,6 +11,9 @@ public class Usuario {
     private String foto;
     private Double horasTrabajadas;
     private String motivoAusencia;
+    private String descripcionAusencia;
+    private String fechaInicioAusencia;
+    private String fechaFinAusencia;
     private String nombre;
     private String nombreUsuario;
     private String password;
@@ -166,46 +169,28 @@ public class Usuario {
     public void setHoraSalida(String horaSalida) {
         this.horaSalida = horaSalida;
     }
-    /*
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "horasDescanso=" + horasDescanso +
-                ", ID=" + ID +
-                ", apellidos='" + apellidos + '\'' +
-                ", departamento='" + departamento + '\'' +
-                ", diasVacaciones=" + diasVacaciones +
-                ", direccion='" + direccion + '\'' +
-                ", email='" + email + '\'' +
-                ", foto='" + foto + '\'' +
-                ", horasTrabajadas=" + horasTrabajadas +
-                ", motivoAusencia='" + motivoAusencia + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", nombreUsuario='" + nombreUsuario + '\'' +
-                ", password='" + password + '\'' +
-                ", puesto='" + puesto + '\'' +
-                ", rol='" + rol + '\'' +
-                ", telefono='" + telefono + '\'' +
-                '}';
-    }*/
-/*
-    public void editarDatosPersonales(){
 
+    public String getFechaInicioAusencia() {
+        return fechaInicioAusencia;
     }
-    public void pedirPermiso(){
 
+    public void setFechaInicioAusencia(String fechaInicioAusencia) {
+        this.fechaInicioAusencia = fechaInicioAusencia;
     }
-    public Boolean concederPermiso(){
-    return false;
+
+    public String getFechaFinAusencia() {
+        return fechaFinAusencia;
     }
-    public Double consultarVacaciones(){
-        return 0.0;
+
+    public void setFechaFinAusencia(String fechaFinAusencia) {
+        this.fechaFinAusencia = fechaFinAusencia;
     }
-    public Double consultarHorasExtras(){
-        return 0.0;
+
+    public String getDescripcionAusencia() {
+        return descripcionAusencia;
     }
-    public Double consultarHorasTrabajadas(){
-        return 0.0;
+
+    public void setDescripcionAusencia(String descripcionAusencia) {
+        this.descripcionAusencia = descripcionAusencia;
     }
-*/
 }
