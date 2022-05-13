@@ -173,7 +173,7 @@ public class NuevoUsuarioFragment extends Fragment {
                         "(?=.*[a-z])" +        //al menos 1 letra minúscula
                         "(?=.*[A-Z])" +        //al menos 1 letra mayúscula
                         "(?=\\S+$)" +           //sin espacios en blanco
-                        ".{4,}" +               //al menos 4 caracteres
+                        ".{6,}" +               //al menos 6 caracteres
                         "$"
         );
 
@@ -182,6 +182,22 @@ public class NuevoUsuarioFragment extends Fragment {
             resultado = false;
         } else if (!passwordRegex.matcher(contrasena).matches()) {
             showError("La contraseña es demasiado débil");
+            resultado = false;
+        }
+        return resultado;
+    }
+    private boolean validarTelefono() {
+        boolean resultado = true;
+        //Recuperamos el contenido del textInputLayout
+        String tlf = telefono.getText().toString();
+        // Patrón con expresiones regulares
+        Pattern tlfRegex = Pattern.compile(
+                "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
+                        + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
+                        + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$"
+        );
+        if (!tlfRegex.matcher(tlf).matches()) {
+            showError("El teléfono no es válido");
             resultado = false;
         }
         return resultado;
@@ -208,9 +224,13 @@ public class NuevoUsuarioFragment extends Fragment {
         } else if (correo.isEmpty()) {
             email.setError("Requerido");
             resultado = false;
-        }else if (telefon.isEmpty()) {
+        } else if (telefon.isEmpty()) {
             telefono.setError("Requerido");
             resultado = false;
+
+        } else if (!telefon.isEmpty()) {
+            validarTelefono();
+
         }else if (pass.isEmpty()) {
             password.setError("Requerido");
             resultado = false;
