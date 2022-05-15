@@ -57,4 +57,6 @@
     <string name="informes">Informes</string>
     <string name="volver">Volver</string>
     <string name="actualizar_datos">Actualizar datos</string>
+    <string name="visualizar">Visualizar</string>
+    <string name="descargar">Descargar</string>
 </resources>
