@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.pedroaguilar.andarivel.databinding.FragmentInformesBinding;
 
 
-public class InformesFragment extends Fragment {
+public class InformesFragment extends Fragment  {
     private FragmentInformesBinding binding;
     public InformesFragment() {
         // Required empty public constructor
@@ -30,4 +30,6 @@ public class InformesFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+
 }
