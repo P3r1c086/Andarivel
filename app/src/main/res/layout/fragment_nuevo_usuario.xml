@@ -26,7 +26,7 @@
         android:gravity="center"
         android:text="@string/crear_nuevo_usuario"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/tiNombreReal"
@@ -216,8 +216,8 @@
 
     <Button
         android:id="@+id/btAceptar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="130dp"
         android:backgroundTint="#000000"
         android:padding="18dp"

@@ -15,7 +15,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:text="Datos Usuario"
-        app:layout_constraintHeight_percent="0.04"
+        app:layout_constraintHeight_percent="0.05"
         app:layout_constraintBottom_toTopOf="@+id/imgPerfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
