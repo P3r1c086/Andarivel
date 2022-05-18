@@ -1,58 +1,32 @@
 package com.pedroaguilar.andarivel.ui.panelAdministrador.ausencias;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.DatePicker;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
-import com.pedroaguilar.andarivel.R;
-import com.pedroaguilar.andarivel.databinding.FragmentAusenciasBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.pedroaguilar.andarivel.databinding.FragmentSolicitarAusenciaBinding;
+import com.pedroaguilar.andarivel.modelo.Constantes;
+import com.pedroaguilar.andarivel.modelo.Usuario;
 
-import java.util.ArrayList;
+import java.util.Calendar;
 
-public class AusenciasFragment extends Fragment implements TabLayoutMediator.TabConfigurationStrategy {
+public class SolicitarAusenciaFragment extends Fragment {
+    private FragmentSolicitarAusenciaBinding binding;
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = firebaseDatabase.getReference();
+    private Usuario usuario = new Usuario();
 
-    private FragmentAusenciasBinding binding;
-    private ArrayList<String> titles;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        binding = FragmentAusenciasBinding.inflate(inflater, container, false);
-        titles = new ArrayList<>();
-        titles.add(getString(R.string.solicitar_ausencia_tab_title));
-        titles.add("Settings");
-        setViewPagerAdapter();
-        new TabLayoutMediator(binding.tabLayout, binding.viewPager2, this).attach();
-        return binding.getRoot();
-    }
-
-    public void setViewPagerAdapter(){
-        //LLAMAR SIEMPRE A REQUIEREACTIVITY Y REQUIERECONTEXT EN VEZ DE GETACTIVITY O GETCONTEXT
-
-        AdaptadorAuseciasTabs adaptadorAuseciasTabs = new
-                AdaptadorAuseciasTabs(requireActivity());// he sustituido this por getActivity()
-        ArrayList<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new SolicitarAusenciaFragment());
-        fragmentList.add(new ConcederAusenciaFragment());
-        adaptadorAuseciasTabs.setData(fragmentList);
-        binding.viewPager2.setAdapter(adaptadorAuseciasTabs);
-    }
-
-    @Override
-    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-        tab.setText(titles.get(position));
-    }
-}
-
-/*
-    public AusenciasFragment() {
+    public SolicitarAusenciaFragment() {
         // Required empty public constructor
     }
 
@@ -62,7 +36,7 @@ public class AusenciasFragment extends Fragment implements TabLayoutMediator.Tab
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        binding = FragmentAusenciasBinding.inflate(inflater, container, false);
+        binding = FragmentSolicitarAusenciaBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -89,10 +63,8 @@ public class AusenciasFragment extends Fragment implements TabLayoutMediator.Tab
         setListeners();
 
 
-    }*/
-
-
-  /*  private void setListeners(){
+    }
+    private void setListeners(){
         binding.spMotivoAusencia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -122,7 +94,7 @@ public class AusenciasFragment extends Fragment implements TabLayoutMediator.Tab
     /**
      * Mostrar el DatePicker en un dialog
      */
-   /* private void showFechaInicioDatePickerDialog() {
+    private void showFechaInicioDatePickerDialog() {
         final Calendar c = Calendar.getInstance();
         new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -139,7 +111,7 @@ public class AusenciasFragment extends Fragment implements TabLayoutMediator.Tab
     /**
      * Mostrar el DatePicker en un dialog
      */
-   /* private void showFechaFinDatePickerDialog() {
+    private void showFechaFinDatePickerDialog() {
         final Calendar c = Calendar.getInstance();
         new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -161,5 +133,5 @@ public class AusenciasFragment extends Fragment implements TabLayoutMediator.Tab
         user.setFechaFinAusencia(usuario.getFechaFinAusencia());
         user.setDescripcionAusencia(usuario.getDescripcionAusencia());
         databaseReference.child(Constantes.TABLA_AUSENCIAS).child(user.getID()).setValue(user);
-    }*/
-
+    }
+}

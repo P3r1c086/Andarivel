@@ -43,8 +43,6 @@ public class PanelAdministradorActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-                //Cuando navega siempre cierra el drawer
-                binding.drawerLayout.closeDrawers();
                 //se almacena el id de la ruta para actualizar el elemento del menu
                 int routeId = navController.getCurrentDestination().getId();
                 if (routeId == R.id.home_dest) binding.navView.getMenu().getItem(0).setChecked(true);
@@ -63,6 +61,8 @@ public class PanelAdministradorActivity extends AppCompatActivity {
         binding.navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                //Cuando clicamos siempre cierra el drawer
+                binding.drawerLayout.closeDrawers();
                 return NavigationUI.onNavDestinationSelected(item, navController);
             }
         });
