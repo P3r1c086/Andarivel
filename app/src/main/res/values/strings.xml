@@ -62,4 +62,5 @@
 
     <string name="informes_fragment_name_text">Nombre: %s</string>
     <string name="solicitar_ausencia_tab_title">Solicitar Ausencia</string>
+    <string name="conceder_ausencia_tab_title">Conceder Ausencia</string>
 </resources>
