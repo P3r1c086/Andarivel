@@ -6,6 +6,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:id="@+id/constraintLayout2"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
+    android:background="@drawable/color_de_fondo_principal"
 tools:context=".ui.panelAdministrador.ausencias.AusenciasFragment">
 
 <!--  <com.google.android.material.textfield.TextInputLayout
@@ -60,25 +61,26 @@ tools:context=".ui.panelAdministrador.ausencias.AusenciasFragment">
     android:textAlignment="center"
     app:layout_constraintBottom_toTopOf="@+id/etFechaInicio"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_percent="0.04"
+    app:layout_constraintHeight_percent="0.06"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/tvTitulo" />
 
 
-<EditText
-    android:id="@+id/etFechaInicio"
-    android:layout_width="150dp"
-    android:layout_height="wrap_content"
-    app:layout_constraintHeight_percent="0.5"
-    android:inputType="date"
-    android:focusable="false"
-    android:clickable="true"
-    android:gravity="center_horizontal"
-    android:hint="Fecha Inicio"
-    app:layout_constraintBottom_toTopOf="@+id/tvDescripcion"
-    app:layout_constraintEnd_toStartOf="@+id/etFechaFin"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/spMotivoAusencia"/>
+    <EditText
+        android:id="@+id/etFechaInicio"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="false"
+        android:gravity="center_horizontal"
+        android:hint="Fecha Inicio"
+        android:inputType="date"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvDescripcion"
+        app:layout_constraintEnd_toStartOf="@+id/etFechaFin"
+        app:layout_constraintHeight_percent="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spMotivoAusencia" />
 
 <TextView
     android:layout_width="wrap_content"
@@ -89,19 +91,20 @@ tools:context=".ui.panelAdministrador.ausencias.AusenciasFragment">
     app:layout_constraintTop_toTopOf="@id/etFechaInicio"
     app:layout_constraintBottom_toBottomOf="@id/etFechaInicio"/>
 
-<EditText
-    android:id="@+id/etFechaFin"
-    android:layout_width="150dp"
-    android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="false"
-    android:inputType="date"
-    android:gravity="center_horizontal"
-    android:hint="Fecha Fin"
-    app:layout_constraintBottom_toTopOf="@+id/tvDescripcion"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toEndOf="@+id/etFechaInicio"
-    app:layout_constraintTop_toBottomOf="@+id/spMotivoAusencia" />
+    <EditText
+        android:id="@+id/etFechaFin"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="false"
+        android:gravity="center_horizontal"
+        android:hint="Fecha Fin"
+        android:inputType="date"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvDescripcion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/etFechaInicio"
+        app:layout_constraintTop_toBottomOf="@+id/spMotivoAusencia" />
 
 <TextView
     android:id="@+id/tvDescripcion"
