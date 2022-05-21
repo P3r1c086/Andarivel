@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
+    android:background="@drawable/color_de_fondo_principal"
     tools:context=".ui.panelAdministrador.home.HomeFragment">
 
         <ImageView
@@ -15,14 +16,13 @@
             app:layout_constraintHeight_percent="0.3"
             android:contentDescription="@string/foto_de_usuario"
             android:src="@drawable/hombretrabajando"
-            app:layout_constraintBottom_toTopOf="@+id/fechaEntrada"
+            app:layout_constraintBottom_toTopOf="@+id/horaEntrada"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"/>
-
         <TextView
-            android:id="@+id/fechaEntrada"
+            android:id="@+id/horaEntrada"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="Momento Entrada"
@@ -32,13 +32,27 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintHeight_percent="0.15"
-            app:layout_constraintBottom_toTopOf="@id/fechaSalida"
+            app:layout_constraintBottom_toTopOf="@id/fechaEntrada"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imgHombreTrabajando"/>
-
         <TextView
-            android:id="@+id/fechaSalida"
+            android:id="@+id/fechaEntrada"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Fecha entrada"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintBottom_toTopOf="@id/horaSalida"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horaEntrada"/>
+        <TextView
+            android:id="@+id/horaSalida"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="Momento Salida"
@@ -48,17 +62,32 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintHeight_percent="0.15"
-            app:layout_constraintBottom_toTopOf="@id/btFichar"
+            app:layout_constraintBottom_toTopOf="@id/fechaSalida"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fechaEntrada"/>
+        <TextView
+            android:id="@+id/fechaSalida"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Fecha"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintBottom_toTopOf="@id/btFichar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horaSalida"/>
 
 
         <Button
             android:id="@+id/btFichar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
+            android:backgroundTint="#529826"
             android:padding="18dp"
             android:text="@string/fichar"
             app:cornerRadius='30sp'
@@ -72,7 +101,7 @@
             android:id="@+id/btFinalJornada"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
+            android:backgroundTint="#ED3A3A"
             android:padding="18dp"
             android:text="@string/salir_de_jornada"
             app:cornerRadius='30sp'
@@ -83,16 +112,6 @@
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btFichar"/>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:srcCompat="@android:drawable/ic_dialog_email"
-            tools:ignore="ContentDescription" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
