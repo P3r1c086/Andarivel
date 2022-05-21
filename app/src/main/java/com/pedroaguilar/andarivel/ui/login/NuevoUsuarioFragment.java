@@ -28,6 +28,7 @@ import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 /**
@@ -39,6 +40,7 @@ public class NuevoUsuarioFragment extends Fragment {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private final DatabaseReference databaseReference = firebaseDatabase.getReference();
+    //private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();    -----------------------  me da fallo-----------------
 
     private EditText nombre;
     private EditText apellidos;
@@ -48,7 +50,6 @@ public class NuevoUsuarioFragment extends Fragment {
     private EditText password;
     private Spinner spinner;
     private Button aceptar;
-
     private Boolean esAdministrador = false;
 
 
@@ -240,6 +241,9 @@ public class NuevoUsuarioFragment extends Fragment {
 
     public void crearUsuarioYEscribirEnBaseDeDatos(String firebaseAuthUsuarioId) {
         Usuario user = new Usuario();
+        ArrayList<Boolean> fichaje = new ArrayList<Boolean>();
+        boolean fichaje1 = true;
+        fichaje.add(fichaje1);
         user.setID(firebaseAuthUsuarioId);
         user.setNombre(nombre.getText().toString());
         user.setApellidos(apellidos.getText().toString());
@@ -248,6 +252,9 @@ public class NuevoUsuarioFragment extends Fragment {
         user.setTelefono(telefono.getText().toString());
         user.setPassword(password.getText().toString());
         user.setEsAdiminstrador(esAdministrador);
+        user.setFichaje(fichaje);
+        //database.crearUsuario(user.getID(),user); -----------------------  me da fallo-----------------
         databaseReference.child(Constantes.TABLA_USUARIOS).child(user.getID()).setValue(user);
     }
+
 }
