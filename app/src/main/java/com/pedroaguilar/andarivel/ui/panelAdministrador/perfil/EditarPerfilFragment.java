@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.databinding.FragmentEditarPerfilBinding;
 import com.pedroaguilar.andarivel.modelo.Constantes;
+import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,7 @@ public class EditarPerfilFragment extends Fragment {
     FirebaseUser user = auth.getCurrentUser();
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private final DatabaseReference databaseReference = firebaseDatabase.getReference();
+    private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
     public EditarPerfilFragment() {
         // Required empty public constructor
     }
@@ -72,6 +74,7 @@ public class EditarPerfilFragment extends Fragment {
             childUpdates.put("/apellidos/", (String) binding.etApellidos.getText().toString());
             childUpdates.put("/direccion/", (String) binding.etDireccion.getText().toString());
             childUpdates.put("/telefono/", (String) binding.etTelefono.getText().toString());
+            //database.actualizarDatosUsuario(auth.getCurrentUser().getUid(),childUpdates);
             databaseReference.child(Constantes.TABLA_USUARIOS).child(auth.getCurrentUser().getUid()).updateChildren(childUpdates);
 
     }
