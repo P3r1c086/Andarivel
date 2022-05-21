@@ -14,7 +14,15 @@
         android:layout_height="wrap_content"
         tools:text="Fecha:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvFechaDato"/>
+    <TextView
+        android:id="@+id/tvFechaDato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dato"
+        app:layout_constraintEnd_toStartOf="@+id/tvNombreUsuario"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvNombreUsuario"
@@ -22,6 +30,13 @@
         android:layout_height="wrap_content"
         android:text=" Nombre:"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvFecha"/>
+        app:layout_constraintStart_toEndOf="@id/tvFechaDato"/>
+    <TextView
+        android:id="@+id/tvNombreUsuarioDato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dato"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvNombreUsuario"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
