@@ -27,7 +27,7 @@ public class AusenciasFragment extends Fragment implements TabLayoutMediator.Tab
         binding = FragmentAusenciasBinding.inflate(inflater, container, false);
         titles = new ArrayList<>();
         titles.add(getString(R.string.solicitar_ausencia_tab_title));
-        titles.add("Settings");
+        titles.add(getString(R.string.conceder_ausencia_tab_title));
         setViewPagerAdapter();
         new TabLayoutMediator(binding.tabLayout, binding.viewPager2, this).attach();
         return binding.getRoot();
