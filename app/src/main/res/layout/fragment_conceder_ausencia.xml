@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/color_de_fondo_principal"
     tools:context=".ui.panelAdministrador.ausencias.ConcederAusenciaFragment">
 
     <!-- TODO: Update blank fragment layout -->
