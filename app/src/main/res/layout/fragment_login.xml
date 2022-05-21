@@ -8,29 +8,12 @@
     android:background="@drawable/color_de_fondo_principal"
     tools:context=".ui.login.LoginFragment">
 
-    <TextView
-        android:id="@+id/texoBienvenida"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/bienvenida"
-        android:textColor="#FFFFFF"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        app:layout_constraintHeight_percent="0.1"
-        app:layout_constraintBottom_toTopOf="@+id/imgLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/imgLogin"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="80dp"
         android:layout_marginHorizontal="80dp"
         app:layout_constraintHeight_percent="0.15"
         android:contentDescription="@string/foto_de_usuario"
@@ -38,7 +21,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tiEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/texoBienvenida" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tiEmail"
@@ -64,6 +47,7 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/arial"
             android:inputType="textEmailAddress"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -92,6 +76,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/arial"
             android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -99,17 +84,18 @@
 
     <Button
         android:id="@+id/btEntrar"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:backgroundTint="#2196F3"
-        android:textSize="25dp"
-        android:padding="20dp"
+        android:textSize="20dp"
         android:text="@string/entrar"
         android:gravity="center"
         android:layout_marginHorizontal="120dp"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/arial"
+        android:textStyle="bold"
         app:cornerRadius='30sp'
-        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintHeight_percent="0.08"
         app:layout_constraintBottom_toTopOf="@+id/tvIrRegistro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -125,6 +111,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/arial"
         android:layout_marginHorizontal="100dp"
         app:layout_constraintHeight_percent="0.05"
         app:layout_constraintBottom_toTopOf="@+id/tvOlvidar"
@@ -141,6 +128,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:gravity="center"
+        android:fontFamily="@font/arial"
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="100dp"
         app:layout_constraintHeight_percent="0.05"
