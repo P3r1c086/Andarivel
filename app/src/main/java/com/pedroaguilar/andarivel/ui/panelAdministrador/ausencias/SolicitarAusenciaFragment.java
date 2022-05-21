@@ -14,8 +14,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.databinding.FragmentSolicitarAusenciaBinding;
-import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.modelo.Usuario;
+import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 
 import java.util.Calendar;
 
@@ -24,6 +24,7 @@ public class SolicitarAusenciaFragment extends Fragment {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private final DatabaseReference databaseReference = firebaseDatabase.getReference();
+    private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
     private Usuario usuario = new Usuario();
 
     public SolicitarAusenciaFragment() {
@@ -132,6 +133,7 @@ public class SolicitarAusenciaFragment extends Fragment {
         user.setFechaInicioAusencia(usuario.getFechaInicioAusencia());
         user.setFechaFinAusencia(usuario.getFechaFinAusencia());
         user.setDescripcionAusencia(usuario.getDescripcionAusencia());
-        databaseReference.child(Constantes.TABLA_AUSENCIAS).child(user.getID()).setValue(user);
+        database.crearAusencia(user.getID(),user);  // -----------------------  me crea un nodo con el nombre de la tabla dentro de la tabla-----------------
+        //databaseReference.child(Constantes.TABLA_AUSENCIAS).child(user.getID()).setValue(user);
     }
 }
