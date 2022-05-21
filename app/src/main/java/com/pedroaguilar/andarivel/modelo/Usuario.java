@@ -1,5 +1,7 @@
 package com.pedroaguilar.andarivel.modelo;
 
+import java.util.ArrayList;
+
 public class Usuario {
     private Double horasDescanso;
     private String ID;
@@ -22,8 +24,30 @@ public class Usuario {
     private String telefono;
     private String horaEntrada;
     private String horaSalida;
+    private ArrayList<Boolean> fichaje;
+    private String fecha;
 
     public Usuario() {
+    }
+
+    public Usuario(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public ArrayList<Boolean> getFichaje() {
+        return fichaje;
+    }
+
+    public void setFichaje(ArrayList<Boolean> fichaje) {
+        this.fichaje = fichaje;
     }
 
     public Double getHorasDescanso() {
