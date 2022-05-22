@@ -19,7 +19,7 @@ public class BaseDatosFirebase extends Activity{
     public void escribirEnBd(){
         // Escribir un mensaje en la base de datos
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(Constantes.TABLA_USUARIOS);
+        DatabaseReference myRef = database.getReference(Constantes.NODO_USUARIOS);
 
        /* Bundle extras = getIntent().getExtras();
         user.setHorasDescanso(250.5);
@@ -60,7 +60,7 @@ public class BaseDatosFirebase extends Activity{
 
     }
     public void leerEnBd(){
-        databaseReference = FirebaseDatabase.getInstance().getReference().child(Constantes.TABLA_USUARIOS);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(Constantes.NODO_USUARIOS);
         // Leer de la base de datos
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

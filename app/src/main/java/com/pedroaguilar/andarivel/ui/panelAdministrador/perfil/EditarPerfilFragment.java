@@ -29,10 +29,7 @@ public class EditarPerfilFragment extends Fragment {
     private EditText telefono;
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
-    FirebaseUser user = auth.getCurrentUser();
-    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private final DatabaseReference databaseReference = firebaseDatabase.getReference();
-    private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
+    private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
     public EditarPerfilFragment() {
         // Required empty public constructor
     }
@@ -69,14 +66,12 @@ public class EditarPerfilFragment extends Fragment {
     }
 
     private void actualizarUsuario(){
-            Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put("/nombre/", (String) binding.etNombreReal.getText().toString());
-            childUpdates.put("/apellidos/", (String) binding.etApellidos.getText().toString());
-            childUpdates.put("/direccion/", (String) binding.etDireccion.getText().toString());
-            childUpdates.put("/telefono/", (String) binding.etTelefono.getText().toString());
-            //database.actualizarDatosUsuario(auth.getCurrentUser().getUid(),childUpdates);
-            databaseReference.child(Constantes.TABLA_USUARIOS).child(auth.getCurrentUser().getUid()).updateChildren(childUpdates);
-
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/nombre/", (String) binding.etNombreReal.getText().toString());
+        childUpdates.put("/apellidos/", (String) binding.etApellidos.getText().toString());
+        childUpdates.put("/direccion/", (String) binding.etDireccion.getText().toString());
+        childUpdates.put("/telefono/", (String) binding.etTelefono.getText().toString());
+        database.actualizarDatosUsuario(auth.getCurrentUser().getUid() , childUpdates);
     }
     private boolean validarCampos() {
         boolean resultado = true;

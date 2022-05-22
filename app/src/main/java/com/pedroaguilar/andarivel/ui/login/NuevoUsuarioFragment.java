@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.modelo.Usuario;
+import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity;
 
 import java.util.ArrayList;
@@ -38,9 +39,7 @@ import java.util.regex.Pattern;
 public class NuevoUsuarioFragment extends Fragment {
 
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private final DatabaseReference databaseReference = firebaseDatabase.getReference();
-    //private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();    -----------------------  me da fallo-----------------
+    private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
 
     private EditText nombre;
     private EditText apellidos;
@@ -253,8 +252,8 @@ public class NuevoUsuarioFragment extends Fragment {
         user.setPassword(password.getText().toString());
         user.setEsAdiminstrador(esAdministrador);
         user.setFichaje(fichaje);
-        //database.crearUsuario(user.getID(),user); -----------------------  me da fallo-----------------
-        databaseReference.child(Constantes.TABLA_USUARIOS).child(user.getID()).setValue(user);
+        database.crearUsuario(firebaseAuthUsuarioId, user);
+        //databaseReference.child(Constantes.TABLA_USUARIOS).child(user.getID()).setValue(user);
     }
 
 }

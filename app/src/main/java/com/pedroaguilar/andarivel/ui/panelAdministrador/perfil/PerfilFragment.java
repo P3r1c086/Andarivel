@@ -53,7 +53,7 @@ public class PerfilFragment extends Fragment {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     //Con getInstance accedo a la base de datos y con getReference tabla usuarios accedo al hijo con ese nombre "Usuarios"
-    DatabaseReference databaseReferenceUsuarios = FirebaseDatabase.getInstance().getReference(Constantes.TABLA_USUARIOS);
+    DatabaseReference databaseReferenceUsuarios = FirebaseDatabase.getInstance().getReference(Constantes.NODO_USUARIOS);
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,

@@ -2,7 +2,8 @@ package com.pedroaguilar.andarivel.modelo;
 
 public interface Constantes {
 
-    String TABLA_USUARIOS = "Usuarios";
-    String TABLA_HORARIOS = "HorarioFichaje";
-    String TABLA_AUSENCIAS = "Ausencias";
+    String NODO_USUARIOS = "Usuarios";
+    String NODO_FICHAJE = "Fichaje";
+    String NODO_HORARIOS = "HorarioFichaje";
+    String NODO_AUSENCIAS = "Ausencias";
 }

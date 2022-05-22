@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:background="@color/verde_andarivel"
         android:fitsSystemWindows="true"
+        android:background="#699D3D"
         android:theme="@style/Theme.MenuLateral.AppBarOverlay">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
