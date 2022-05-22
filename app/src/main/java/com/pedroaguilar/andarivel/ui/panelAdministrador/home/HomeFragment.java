@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding.imgEstado2.setVisibility(View.INVISIBLE);
         return binding.getRoot();
     }
 
@@ -82,6 +83,8 @@ public class HomeFragment extends Fragment {
                 public void onClick(View v) {
                     binding.btFichar.setVisibility(View.INVISIBLE);
                     binding.btFinalJornada.setVisibility(View.VISIBLE);
+                    binding.imgEstado1.setVisibility(View.INVISIBLE);
+                    binding.imgEstado2.setVisibility(View.VISIBLE);
                     //TODO: separar hora de fecha y crear dos textview diferentes donde colocarlas
                     SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
                     SimpleDateFormat dateformat = new SimpleDateFormat("EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
@@ -98,6 +101,8 @@ public class HomeFragment extends Fragment {
                 public void onClick(View v) {
                     binding.btFichar.setVisibility(View.VISIBLE);
                     binding.btFinalJornada.setVisibility(View.INVISIBLE);
+                    binding.imgEstado2.setVisibility(View.INVISIBLE);
+                    binding.imgEstado1.setVisibility(View.VISIBLE);
                     SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
                     SimpleDateFormat dateformat = new SimpleDateFormat("EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
                     binding.horaSalida.setText("Final jornada " + format.format(Calendar.getInstance().getTime().getTime()));
