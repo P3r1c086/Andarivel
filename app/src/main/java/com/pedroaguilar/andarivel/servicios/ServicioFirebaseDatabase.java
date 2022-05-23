@@ -34,20 +34,35 @@ public class ServicioFirebaseDatabase {
                 .child(firebaseAuthUsuarioId).setValue(user);
     }
 
-    public void actualizarDatosUsuario(String firebaseAuthUsuarioId,Map<String, Object> childUpdates){
+    public void actualizarDatosUsuario(String firebaseAuthUsuarioId, Map<String, Object> childUpdates){
         databaseReferenceUsuarios
-                .child(Constantes.NODO_USUARIOS)
                 .child(firebaseAuthUsuarioId).updateChildren(childUpdates);
+    }
+
+    public void getInfoUser(String firebaseAuthUsuarioId, OnCompleteListener<DataSnapshot> listener){
+        databaseReferenceUsuarios
+                .child(firebaseAuthUsuarioId)
+                .get()
+                .addOnCompleteListener(listener);
     }
 
     //Fin Zona Usuario
 
     //Zona Fichaje
 
-    public void abrirFichaje(Map<String, Object> childUpdates){
+    public void cuentaFichaje(OnCompleteListener<DataSnapshot> listener) {
+        firebaseDataBase.getReference(Constantes.NODO_FICHAJE).get().addOnCompleteListener(listener);
+    }
+
+    public void actualizarFichaje(Map<String, Object> childUpdates){
         databaseReferenceFichaje
-                .child(Constantes.NODO_FICHAJE)
                 .updateChildren(childUpdates);
+    }
+
+    public void getFichajes(OnCompleteListener<DataSnapshot> listener){
+        databaseReferenceFichaje
+                .get()
+                .addOnCompleteListener(listener);
     }
 
     //Fin Zona Fichaje
@@ -91,10 +106,6 @@ public class ServicioFirebaseDatabase {
         databaseReferenceAusencia.child(Constantes.NODO_AUSENCIAS).child(firebaseAuthUsuarioId).setValue(user);
     }
 
-
-    public void cuentaFichaje(OnCompleteListener<DataSnapshot> listener) {
-        firebaseDataBase.getReference(Constantes.NODO_FICHAJE).get().addOnCompleteListener(listener);
-    }
     /*
     new Transaction.Handler() {
             @NonNull

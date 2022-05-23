@@ -1,8 +1,6 @@
 package com.pedroaguilar.andarivel.ui.panelAdministrador.home;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Transaction;
 import com.pedroaguilar.andarivel.databinding.FragmentHomeBinding;
-import com.pedroaguilar.andarivel.modelo.Constantes;
-import com.pedroaguilar.andarivel.modelo.Fichaje;
-import com.pedroaguilar.andarivel.modelo.Usuario;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +21,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Fragmento que contiene los botones de fichar y salir.
@@ -142,10 +135,10 @@ public class HomeFragment extends Fragment {
                     if (task.getResult().getValue() == null){
                         crearNodoFichaje("1");
                     } else {
-                        crearNodoFichaje(task.getResult().getValue().toString());
+                        crearNodoFichaje((((Map<String, Object>)task.getResult().getValue()).entrySet().size() + 1) + "");
                     }
                 } else {
-
+                    //Controlar si firebase da error
                 }
             }
         });
@@ -153,22 +146,36 @@ public class HomeFragment extends Fragment {
     }
 
     public void crearNodoFichaje(String nNodo){
-        Fichaje fichaje = new Fichaje();
-        fichaje.setUsuario(mAuth.getUid());
-        fichaje.setFecha((String) binding.fechaEntrada.getText());
-        fichaje.setHoraEntrada((String) binding.horaEntrada.getText());
-
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Fichaje"+nNodo+"/fecha", fichaje.getFecha());
-        childUpdates.put("/Fichaje"+nNodo+"/horaEntrada", fichaje.getHoraEntrada());
-        childUpdates.put("/Fichaje"+nNodo+"/usuario", fichaje.getUsuario());
-        database.abrirFichaje(childUpdates);
+        childUpdates.put("/Fichaje"+nNodo+"/number", nNodo);
+        childUpdates.put("/Fichaje"+nNodo+"/fecha", binding.fechaEntrada.getText());
+        childUpdates.put("/Fichaje"+nNodo+"/horaEntrada", binding.horaEntrada.getText());
+        childUpdates.put("/Fichaje"+nNodo+"/usuario", mAuth.getUid());
+        database.actualizarFichaje(childUpdates);
+        childUpdates.clear();
+        childUpdates.put("/Fichajes/Fichaje"+nNodo, true);
+        database.actualizarDatosUsuario(mAuth.getUid(), childUpdates);
     }
 
     private void almacenarFechaYhoraFinal() {
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/horaSalida/", (String) binding.horaSalida.getText());
-        childUpdates.put("/fechaSalida/", (String) binding.fechaSalida.getText());
+        database.getFichajes(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()){
+                    String nodoFichaje = "";
+                    Map<String, Object> fichajes = (Map<String, Object>) task.getResult().getValue();
+                    for (Map.Entry<String, Object> entry : fichajes.entrySet()) {
+                        if (Objects.equals(mAuth.getUid(), ((Map<String, Object>) entry.getValue()).get("usuario"))){
+                            nodoFichaje = entry.getKey();
+                            break;
+                        }
+                    }
+                    Map<String, Object> childUpdates = new HashMap<>();
+                    childUpdates.put("/"+ nodoFichaje +"/horaSalida", (String) binding.horaSalida.getText());
+                    database.actualizarFichaje(childUpdates);
+                }
+            }
+        });
         //database.ficharSalida(mAuth.getCurrentUser().getUid(),childUpdates);   // -----------------------  me crea un nodo con el nombre de la tabla dentro de la tabla-----------------
         //databaseReference.child(Constantes.NODO_HORARIOS).child(mAuth.getCurrentUser().getUid()).updateChildren(childUpdates);
         //no hace falta actualizar
