@@ -17,6 +17,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/verde_andarivel"
         android:fitsSystemWindows="true"
         android:theme="@style/Theme.MenuLateral.AppBarOverlay">
         <androidx.appcompat.widget.Toolbar
