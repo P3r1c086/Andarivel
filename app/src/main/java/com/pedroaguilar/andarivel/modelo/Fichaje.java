@@ -2,7 +2,7 @@ package com.pedroaguilar.andarivel.modelo;
 
 public class Fichaje {
     private String fecha;
-    private String usuario;
+    private String nombreUsuario;
     private String horaEntrada;
     private String horaSalida;
 
@@ -14,12 +14,12 @@ public class Fichaje {
         this.fecha = fecha;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     public String getHoraEntrada() {

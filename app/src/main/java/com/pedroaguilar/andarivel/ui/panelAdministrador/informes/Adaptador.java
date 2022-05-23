@@ -10,18 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pedroaguilar.andarivel.R;
-import com.pedroaguilar.andarivel.modelo.Usuario;
+import com.pedroaguilar.andarivel.modelo.Fichaje;
 
 import java.util.ArrayList;
 
 public class Adaptador extends RecyclerView.Adapter<Adaptador.UsuarioViewHolder> {
 
 
-    private ArrayList<Usuario> listaUsuarios;
+    private ArrayList<Fichaje> listaFichaje;
 
 
-    public Adaptador(ArrayList<Usuario> listaUsuarios) {
-        this.listaUsuarios = listaUsuarios;
+    public Adaptador(ArrayList<Fichaje> lista) {
+        this.listaFichaje = lista;
 
     }
 
@@ -38,12 +38,10 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.UsuarioViewHolder>
         // asiganacion de los elementos del componente antes tienen que estar deados de alta como elementos de UsuarioViewHolder de abajo
         //son los metodos de tu entidad Usuario
         Context context = holder.itemView.getContext();
-        holder.fecha.setText(listaUsuarios.get(position).getFecha());
-        //holder.nombreUsuario.setText(context.getString(R.string.informes_fragment_name_text, listaUsuarios.get(position).getNombre()));
-        //holder.ausencia.setText(Double.toString(listaUsuarios.get(position).getPresupuesto()));
-        holder.horaEntrada.setText((listaUsuarios.get(position).getHoraEntrada()));
-        holder.horaSalida.setText((listaUsuarios.get(position).getHoraSalida()));
-        //holder.horasExtras.setText(Double.toString(listaUsuarios.get(position).getGastos()));
+        holder.fecha.setText(listaFichaje.get(position).getFecha());
+        holder.nombreUsuario.setText(context.getString(R.string.informes_fragment_name_text, listaFichaje.get(position).getNombreUsuario()));
+        holder.horaEntrada.setText((listaFichaje.get(position).getHoraEntrada()));
+        holder.horaSalida.setText((listaFichaje.get(position).getHoraSalida()));
     }
     /**
      * Returns the total number of items in the data set held by the adapter.
@@ -53,22 +51,19 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.UsuarioViewHolder>
     @Override
     public int getItemCount() {
         //Necesita saber el tamaño de la lista
-        return listaUsuarios.size();
+        return listaFichaje.size();
     }
 
-    public class UsuarioViewHolder extends RecyclerView.ViewHolder {
+    public static class UsuarioViewHolder extends RecyclerView.ViewHolder {
 
         TextView fecha, nombreUsuario, ausencia, horaEntrada, horaSalida, horasExtras;
 
         public UsuarioViewHolder(@NonNull View itemView) {
             super(itemView);
-
             fecha = itemView.findViewById(R.id.tvFechaDato);
-            //nombreUsuario = itemView.findViewById(R.id.tvNombreUsuarioDato);
-            //ausencia = itemView.findViewById(R.id.tvAusencia);
+            nombreUsuario = itemView.findViewById(R.id.tvNombreUsuarioDato);
             horaEntrada = itemView.findViewById(R.id.tvHoraEntrada);
             horaSalida = itemView.findViewById(R.id.tvHoraSalida);
-           // horasExtras = itemView.findViewById(R.id.tvHorasExtras);
         }
     }
 }
