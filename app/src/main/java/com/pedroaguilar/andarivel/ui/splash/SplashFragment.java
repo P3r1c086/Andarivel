@@ -1,5 +1,6 @@
 package com.pedroaguilar.andarivel.ui.splash;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -11,13 +12,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.pedroaguilar.andarivel.R;
+import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity;
 
 /**
  * Fragmento inicial que muestra el logo de la app y tras 2 segundos realiza la accion de navegacion
  * (action_splash_to_login), para inflar el siguiente fragmento (LoginFragment)
  */
 public class SplashFragment extends Fragment {
+
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseUser user = firebaseAuth.getCurrentUser();
 
     /**
      * Aquí se crea la vista, inflando el layout fragment.splash
@@ -53,7 +60,12 @@ public class SplashFragment extends Fragment {
                 /**
                  * Este objeto Navigation es un singleton, es decir, solo se puede crear una instacia de el.
                  */
-                Navigation.findNavController(view).navigate(R.id.action_splash_to_login);
+                if (user != null){
+                    startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
+                    getActivity().finish();
+                } else {
+                    Navigation.findNavController(view).navigate(R.id.action_splash_to_login);
+                }
             }
         };
         /**
