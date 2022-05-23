@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,7 +19,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.pedroaguilar.andarivel.databinding.FragmentInformesBinding;
 import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.modelo.Usuario;
-import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,8 @@ public class InformesFragment extends Fragment  {
     private FragmentInformesBinding binding;
     private RecyclerView listaTrabajadores;
     private ArrayList<Usuario> arrayListUsuarios = new ArrayList<Usuario>();
-    private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
+   // private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
+    //private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReferenceUsuarios = FirebaseDatabase.getInstance().getReference(Constantes.TABLA_USUARIOS);
     private Adaptador adaptador = new Adaptador(arrayListUsuarios);
 
@@ -95,22 +96,26 @@ public class InformesFragment extends Fragment  {
 //        arrayListUsuarios.add(us);
 //        Adaptador adaptador = new Adaptador(arrayListUsuarios);
 //        listaTrabajadores.setAdapter(adaptador);
-        //leerTodosUsuariosDatabase();
-        Adaptador adapter = new Adaptador(leerUsuarios());
-        listaTrabajadores.setAdapter(adapter);
+        databaseReferenceUsuarios = FirebaseDatabase.getInstance().getReference();
+        leerTodosUsuariosDatabase();
+        //Adaptador adapter = new Adaptador(leerUsuarios());
+        //listaTrabajadores.setAdapter(adapter);
     }
 
     public void leerTodosUsuariosDatabase(){
-        databaseReferenceUsuarios.child(Constantes.TABLA_USUARIOS).addValueEventListener(new ValueEventListener() {
+
+        databaseReferenceUsuarios.child("Fichaje").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     for (DataSnapshot ds: snapshot.getChildren()) {
-                        String nombre = ds.child("nombre").getValue().toString();
-                        arrayListUsuarios.add(new Usuario(nombre));
+                        Usuario user = ds.getValue(Usuario.class);
+                        arrayListUsuarios.add(user);
                     }
                     adaptador = new Adaptador(arrayListUsuarios);
                     listaTrabajadores.setAdapter(adaptador);
+                }else{
+                    Toast.makeText(getContext(), "fallo", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -119,14 +124,17 @@ public class InformesFragment extends Fragment  {
 
             }
         });
+
     }
-    public ArrayList<Usuario> leerUsuarios(){
-        arrayListUsuarios.add(new Usuario("Pedro"));
-        arrayListUsuarios.add(new Usuario("Angel"));
-        arrayListUsuarios.add(new Usuario("Mario"));
-        arrayListUsuarios.add(new Usuario("Lorena"));
-        arrayListUsuarios.add(new Usuario("Maria"));
-        arrayListUsuarios.add(new Usuario("Emma"));
-        return  arrayListUsuarios;
-    }
+//    public ArrayList<Usuario> leerUsuarios(){
+//
+//        leerTodosUsuariosDatabase();
+////        arrayListUsuarios.add(new Usuario("Pedro"));
+////        arrayListUsuarios.add(new Usuario("Angel"));
+////        arrayListUsuarios.add(new Usuario("Mario"));
+////        arrayListUsuarios.add(new Usuario("Lorena"));
+////        arrayListUsuarios.add(new Usuario("Maria"));
+////        arrayListUsuarios.add(new Usuario("Emma"));
+//        return  arrayListUsuarios;
+//    }
 }

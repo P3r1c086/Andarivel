@@ -19,10 +19,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.UsuarioViewHolder>
 
     private ArrayList<Usuario> listaUsuarios;
 
-    /**
-     * Al constructor hay que pasarle una lista de Usuarios
-     * @param listaUsuarios
-     */
+
     public Adaptador(ArrayList<Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
 
@@ -41,11 +38,11 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.UsuarioViewHolder>
         // asiganacion de los elementos del componente antes tienen que estar deados de alta como elementos de UsuarioViewHolder de abajo
         //son los metodos de tu entidad Usuario
         Context context = holder.itemView.getContext();
-       // holder.fecha.setText(Integer.toString(listaUsuarios.get(position).getCodigo()));
-        holder.nombreUsuario.setText(context.getString(R.string.informes_fragment_name_text, listaUsuarios.get(position).getNombre()));
+        holder.fecha.setText(listaUsuarios.get(position).getFecha());
+        //holder.nombreUsuario.setText(context.getString(R.string.informes_fragment_name_text, listaUsuarios.get(position).getNombre()));
         //holder.ausencia.setText(Double.toString(listaUsuarios.get(position).getPresupuesto()));
-        /*holder.horaEntrada.setText((listaUsuarios.get(position).getHoraEntrada()));
-        holder.horaSalida.setText((listaUsuarios.get(position).getHoraSalida()));*/
+        holder.horaEntrada.setText((listaUsuarios.get(position).getHoraEntrada()));
+        holder.horaSalida.setText((listaUsuarios.get(position).getHoraSalida()));
         //holder.horasExtras.setText(Double.toString(listaUsuarios.get(position).getGastos()));
     }
     /**
@@ -66,12 +63,12 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.UsuarioViewHolder>
         public UsuarioViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            fecha = itemView.findViewById(R.id.tvFecha);
-            nombreUsuario = itemView.findViewById(R.id.tvNombreUsuario);
-            /*ausencia = itemView.findViewById(R.id.tvAusencia);
+            fecha = itemView.findViewById(R.id.tvFechaDato);
+            //nombreUsuario = itemView.findViewById(R.id.tvNombreUsuarioDato);
+            //ausencia = itemView.findViewById(R.id.tvAusencia);
             horaEntrada = itemView.findViewById(R.id.tvHoraEntrada);
             horaSalida = itemView.findViewById(R.id.tvHoraSalida);
-            horasExtras = itemView.findViewById(R.id.tvHorasExtras);*/
+           // horasExtras = itemView.findViewById(R.id.tvHorasExtras);
         }
     }
 }
