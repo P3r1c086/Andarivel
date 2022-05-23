@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">Andarivel</string>
+    <string name="bienvenida">Welcome to Andarivel</string>
+    <string name="etNombre">User Name</string>
+    <string name="tvPass">Password</string>
+    <string name="foto_de_usuario">User photo</string>
+    <string name="introduce_tu_nombre">Enter your nickname</string>
+    <string name="introduce_tu_pass">Password</string>
+    <string name="entrar">Enter</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="crear_nuevo_usuario">Create New User</string>
+    <string name="nombre">Name</string>
+    <string name="apellidos">Surname</string>
+    <string name="introduce_tus_apellidos">Surname</string>
+    <string name="introduce_una_direcci_n">Address</string>
+    <string name="email">Email</string>
+    <string name="introduce_tu_email">Email</string>
+    <string name="registrarse">Register</string>
+    <string name="atras">Back</string>
+    <string name="olvid_contrase_a">Forgot password?</string>
+    <string name="entrar_en_app">Enter app</string>
+    <string name="direcci_n">Address</string>
+    <string name="aceptar">Accept</string>
+    <string name="salir">Exit</string>
+    <string-array name="roles">
+        <item>Select</item>
+        <item>Administrator</item>
+        <item>Employee</item>
+    </string-array>
+    <string-array name="ausencias">
+        <item>Select</item>
+        <item>Disease</item>
+        <item>Own affairs</item>
+        <item>Maternity</item>
+        <item>Paternity</item>
+    </string-array>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_calendario">Calendar</string>
+    <string name="menu_slideshow">Profile</string>
+    <string name="fichar">Check in</string>
+    <string name="salir_de_jornada">Check out</string>
+    <string name="perfil">Profile</string>
+    <string name="tel_fono">Phone number</string>
+    <string name="calendario_de_tareas">Calendar of tasks</string>
+    <string name="editar_perfil">Edit Profile</string>
+    <string name="ausencia">Absent</string>
+    <string name="solicitar_ausencia">Requesting absence</string>
+    <string name="solicitar">Request</string>
+    <string name="descripci_n">Description</string>
+    <string name="informes">Reports</string>
+    <string name="volver">Back</string>
+    <string name="actualizar_datos">Update data</string>
+    <string name="visualizar">View</string>
+    <string name="descargar">Download</string>
+
+    <string name="informes_fragment_name_text">Name: %s</string>
+    <string name="solicitar_ausencia_tab_title">Requesting absence</string>
+    <string name="conceder_ausencia_tab_title">Granting Absence</string>
+</resources>
