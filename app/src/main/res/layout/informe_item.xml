@@ -1,46 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp">
 
-    <TextView
-        android:id="@+id/tvFecha"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/arial"
-        tools:text="Fecha:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvFechaDato"/>
-    <TextView
-        android:id="@+id/tvFechaDato"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/arial"
-        android:text="dato"
-        app:layout_constraintEnd_toStartOf="@+id/tvNombreUsuario"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:cardBackgroundColor="#3EB0B8B1"
+        app:cardCornerRadius="5dp"
+        app:cardMaxElevation="1dp"
+        app:cardElevation="1dp"
+        app:contentPadding="3dp"
+        android:layout_margin="5dp">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvNombreUsuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/arial"
-        android:text=" Nombre:"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvFechaDato"/>
-    <TextView
-        android:id="@+id/tvNombreUsuarioDato"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/arial"
-        android:text="dato"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvNombreUsuario"/>
 
+        <TextView
+            android:id="@+id/tvFecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arial"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvFechaDato"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Fecha: " />
+
+        <TextView
+            android:id="@+id/tvFechaDato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arial"
+            android:text="dato"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/tvNombreUsuarioDato"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvNombreUsuarioDato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arial"
+            android:text="Nombre usuario"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@id/tvFechaDato"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHoraEntrada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arial"
+            android:textColor="@color/verde_andarivel"
+            android:text="hora entrada"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvFecha" />
+        <TextView
+            android:id="@+id/tvguion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arial"
+            android:textColor="@color/black"
+            android:text=" / "
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/tvHoraEntrada"
+            app:layout_constraintTop_toBottomOf="@+id/tvFecha" />
+
+        <TextView
+            android:id="@+id/tvHoraSalida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arial"
+            android:textColor="#C62020"
+            android:text="hora salida"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/tvguion"
+            app:layout_constraintTop_toBottomOf="@+id/tvNombreUsuarioDato" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
