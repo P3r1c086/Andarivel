@@ -147,7 +147,6 @@ public class HomeFragment extends Fragment {
 
     public void crearNodoFichaje(String nNodo){
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Fichaje"+nNodo+"/number", nNodo);
         childUpdates.put("/Fichaje"+nNodo+"/fecha", binding.fechaEntrada.getText());
         childUpdates.put("/Fichaje"+nNodo+"/horaEntrada", binding.horaEntrada.getText());
         childUpdates.put("/Fichaje"+nNodo+"/usuario", mAuth.getUid());
