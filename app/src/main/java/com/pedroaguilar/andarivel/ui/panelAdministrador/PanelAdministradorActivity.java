@@ -84,6 +84,7 @@ public class PanelAdministradorActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(PanelAdministradorActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
