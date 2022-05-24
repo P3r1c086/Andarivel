@@ -83,7 +83,7 @@ public class HomeFragment extends Fragment {
                 //TODO: separar hora de fecha y crear dos textview diferentes donde colocarlas
                 SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
                 SimpleDateFormat dateformat = new SimpleDateFormat("EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
-                binding.horaEntrada.setText("Inicio jornada " + format.format(Calendar.getInstance().getTime()));
+                binding.horaEntrada.setText("" + format.format(Calendar.getInstance().getTime()));
                 binding.fechaEntrada.setText(dateformat.format(Calendar.getInstance().getTime()));
                 binding.horaSalida.setText("");
                 binding.fechaSalida.setText("");
@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment {
                 binding.imgEstado1.setVisibility(View.VISIBLE);
                 SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
                 SimpleDateFormat dateformat = new SimpleDateFormat("EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
-                binding.horaSalida.setText("Final jornada " + format.format(Calendar.getInstance().getTime().getTime()));
+                binding.horaSalida.setText("" + format.format(Calendar.getInstance().getTime().getTime()));
                 binding.fechaSalida.setText(dateformat.format(Calendar.getInstance().getTime().getTime()));
                 almacenarFechaYhoraFinal();
                 //TODO: enviar datos del usuario y la hora a la que se ha pulsado a la base de datos
