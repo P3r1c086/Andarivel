@@ -44,7 +44,7 @@
     <fragment
         android:id="@+id/ausencias_dest"
         android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.ausencias.AusenciasFragment"
-        android:label="Ausencias"
+        android:label="@string/ausencias_title_appbar"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -53,7 +53,7 @@
     <fragment
         android:id="@+id/informes_dest"
         android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.informes.InformesFragment"
-        android:label="Informes"
+        android:label="@string/informes_title_appbar"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -63,7 +63,7 @@
     <fragment
         android:id="@+id/editarPerfil_dest"
         android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.perfil.EditarPerfilFragment"
-        android:label="Editar Perfil"
+        android:label="@string/editar_perfil_title_appbar"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
