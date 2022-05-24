@@ -85,18 +85,18 @@ public class PerfilFragment extends Fragment {
                 if (task.isSuccessful()) {
                     //obtengo los datos de firebase
                     //String uid = "" + snapshot.child("id").getValue(); si quiero sacar el id
-                    String nombre = "Nombre: " + task.getResult().child("nombre").getValue();
+                    String nombre = "" + task.getResult().child("nombre").getValue();
                     String apellidos = "" + task.getResult().child("apellidos").getValue();
-                    String direccion = "Dirección: " + task.getResult().child("direccion").getValue();
-                    String telefono = "Teléfono: " + task.getResult().child("telefono").getValue();
-                    String email = "Email: " + task.getResult().child("email").getValue();
+                    String direccion = "" + task.getResult().child("direccion").getValue();
+                    String telefono = "" + task.getResult().child("telefono").getValue();
+                    String email = "" + task.getResult().child("email").getValue();
                     // String imagenPerfil = "" + snapshot.child("imagen").getValue();//en el caso de meter la imagen en la base de datos
 
                     //seteo los datos en los textView e imageView
-                    binding.tvNombreCompletoPerfil.setText(nombre.concat(" " + apellidos));
-                    binding.tvDireccionPerfil.setText(direccion);
-                    binding.tvTelefonoPerfil.setText(telefono);
-                    binding.tvEmailPerfil.setText(email);
+                    binding.tvNombreCompletoPerfilDato.setText(nombre.concat(" " + apellidos));
+                    binding.tvDireccionPerfilDato.setText(direccion);
+                    binding.tvTelefonoPerfilDato.setText(telefono);
+                    binding.tvEmailPerfilDato.setText(email);
                     //para obtener la imagen
               /*  try {
                     //si existe imagen
@@ -206,6 +206,7 @@ public class PerfilFragment extends Fragment {
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
                         binding.imgPerfil.setImageBitmap(selectedImage);
+
                     }
                     break;
                 case 1:
