@@ -63,4 +63,18 @@
     <string name="informes_fragment_name_text">Name: %s</string>
     <string name="solicitar_ausencia_tab_title">Requesting absence</string>
     <string name="conceder_ausencia_tab_title">Granting Absence</string>
+    <string name="escribe_aqu">Write here</string>
+    <string name="fecha_inicio">Start date</string>
+    <string name="fecha_fin">End date</string>
+    <string name="datos_usuario">User data</string>
+    <string name="correo">Email:</string>
+    <string name="telefono">Phone:</string>
+    <string name="direccion">Address:</string>
+    <string name="nombr_">Name:</string>
+    <string name="ausencias_title_appbar">Absence</string>
+    <string name="editar_perfil_title_appbar">Edit profile</string>
+    <string name="informes_title_appbar">Reports</string>
+    <string name="fecha">Date:</string>
+    <string name="nombre_usuario">User name</string>
+    <string name="cerrar_sesi_n">Logout</string>
 </resources>
