@@ -74,7 +74,7 @@
     <string name="ausencias_title_appbar">Absence</string>
     <string name="editar_perfil_title_appbar">Edit profile</string>
     <string name="informes_title_appbar">Reports</string>
-    <string name="fecha">Date:</string>
-    <string name="nombre_usuario">User name</string>
+    <string name="fecha">Date: </string>
+    <string name="nombre_usuario">User name: </string>
     <string name="cerrar_sesi_n">Logout</string>
 </resources>
