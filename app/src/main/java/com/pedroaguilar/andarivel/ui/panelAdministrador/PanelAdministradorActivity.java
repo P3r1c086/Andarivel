@@ -1,7 +1,11 @@
 package com.pedroaguilar.andarivel.ui.panelAdministrador;
 
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,9 +17,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.ActivityPanelAdministradorBinding;
+import com.pedroaguilar.andarivel.ui.login.LoginActivity;
 
+import java.time.Instant;
 import java.util.Objects;
 
 /**
@@ -26,6 +35,8 @@ import java.util.Objects;
 public class PanelAdministradorActivity extends AppCompatActivity {
 
     private ActivityPanelAdministradorBinding binding;
+    StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+    private Instant Glide;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,5 +77,24 @@ public class PanelAdministradorActivity extends AppCompatActivity {
                 return NavigationUI.onNavDestinationSelected(item, navController);
             }
         });
+
+        binding.logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(PanelAdministradorActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        View header = binding.navView.getHeaderView(0);
+        header.findViewById(R.id.imgFotoPerfil).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(PanelAdministradorActivity.this, "Has tocado la foto",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
 }
