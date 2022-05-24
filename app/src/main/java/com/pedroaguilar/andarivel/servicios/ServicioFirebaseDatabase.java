@@ -1,17 +1,9 @@
 package com.pedroaguilar.andarivel.servicios;
 
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Transaction;
 import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 
@@ -39,9 +31,8 @@ public class ServicioFirebaseDatabase {
                 .child(firebaseAuthUsuarioId).updateChildren(childUpdates);
     }
 
-    public void getInfoUser(String firebaseAuthUsuarioId, OnCompleteListener<DataSnapshot> listener){
+    public void getInfoUsers(OnCompleteListener<DataSnapshot> listener){
         databaseReferenceUsuarios
-                .child(firebaseAuthUsuarioId)
                 .get()
                 .addOnCompleteListener(listener);
     }
