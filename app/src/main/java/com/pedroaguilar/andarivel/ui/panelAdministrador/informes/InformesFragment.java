@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.pedroaguilar.andarivel.databinding.FragmentInformesBinding;
 import com.pedroaguilar.andarivel.modelo.Fichaje;
@@ -54,29 +53,59 @@ public class InformesFragment extends Fragment  {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()){
                     ArrayList<Fichaje> listaFichajes = new ArrayList<Fichaje>();
-                    for (Map.Entry<String, Object> entry: ((Map<String, Object>)task.getResult().getValue()).entrySet()) {
-                        Map<String, String> mapFichaje = (Map<String, String>) entry.getValue();
-                        Fichaje fichaje = new Fichaje();
-                        fichaje.setNombreUsuario(mapFichaje.get("nombre"));
-                        fichaje.setFecha(mapFichaje.get("fecha"));
-                        fichaje.setHoraEntrada(mapFichaje.get("horaEntrada"));
-                        fichaje.setHoraSalida(mapFichaje.get("horaSalida"));
-                        listaFichajes.add(fichaje);
-                    }
-                    database.getInfoUser(FirebaseAuth.getInstance().getUid(), new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                //Todo Recorrer como en lineas superiores y coger el nombre y setear en la lista
-                                binding.listaUsuarios.setAdapter(new Adaptador(listaFichajes));
-                            }
+                    Map<String, Object> mapRaiz = (Map<String, Object>) task.getResult().getValue();
+                    if (mapRaiz != null  && !mapRaiz.isEmpty()) {
+                        for (Map.Entry<String, Object> entry : mapRaiz.entrySet()) {
+                            Map<String, String> mapFichaje = (Map<String, String>) entry.getValue();
+                            Fichaje fichaje = new Fichaje();
+                            fichaje.setIDUsuario(mapFichaje.get("usuario"));
+                            fichaje.setFecha(mapFichaje.get("fecha"));
+                            fichaje.setHoraEntrada(mapFichaje.get("horaEntrada"));
+                            fichaje.setHoraSalida(mapFichaje.get("horaSalida"));
+                            listaFichajes.add(fichaje);
                         }
-                    });
+                        database.getInfoUsers(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    ArrayList<Fichaje> listaFichajesCompleta = new ArrayList<Fichaje>();
+                                    Map<String, Object> mapRaiz = (Map<String, Object>) task.getResult().getValue();
+                                    for (Map.Entry<String, Object> entry : mapRaiz.entrySet()) {
+                                        Map<String, String> mapFichaje = (Map<String, String>) entry.getValue();
+                                        Fichaje f = findFichaje(listaFichajes, entry.getKey());
+                                        while (f!= null) {
+                                            listaFichajes.remove(f);
+                                            f.setNombreUsuario(mapFichaje.get("nombre") + " " + mapFichaje.get("apellidos"));
+                                            listaFichajesCompleta.add(f);
+                                            f = findFichaje(listaFichajes, entry.getKey());
+                                        }
+
+                                    }
+                                    binding.listaUsuarios.setAdapter(new Adaptador(listaFichajesCompleta));
+                                }
+                            }
+                        });
+                    } else {
+                        ArrayList<Fichaje> listaConVacio = new ArrayList<>();
+                        Fichaje fVacio = new Fichaje();
+                        fVacio.setNombreUsuario("NO HAY FICHAJES");
+                        listaConVacio.add(fVacio);
+                        binding.listaUsuarios.setAdapter(new Adaptador(listaConVacio));
+                    }
 
                 } else {
                     Toast.makeText(getContext(), "fallo", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private Fichaje findFichaje(ArrayList<Fichaje> list, String idUser){
+        for (Fichaje f : list) {
+            if (f.getIDUsuario().equals(idUser)){
+                return f;
+            }
+        }
+        return null;
     }
 }
