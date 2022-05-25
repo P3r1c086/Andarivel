@@ -21,10 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.R;
-import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity;
@@ -195,6 +192,7 @@ public class NuevoUsuarioFragment extends Fragment {
                 "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
                         + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
                         + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$"
+                        + ".{9,13}$"//longitud entre 9 y 13 caracteres
         );
         if (!tlfRegex.matcher(tlf).matches()) {
             showError("El teléfono no es válido");
