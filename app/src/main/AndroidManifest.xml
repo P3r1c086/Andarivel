@@ -17,9 +17,10 @@
         <!-- Actividades declaradas-->
         <activity
             android:name=".ui.login.LoginActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="fullSensor"
             android:launchMode="singleTask"> <!-- El modo de lanzamiento single Task permite que solo pueda haber una instancia de esta actividad,
                                             pero permite que otras actividades formen parte de su tarea. -->
             <intent-filter>
@@ -30,7 +31,8 @@
 
         <activity
             android:name=".ui.panelAdministrador.PanelAdministradorActivity"
-            android:screenOrientation="fullSensor"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" />
     </application>
