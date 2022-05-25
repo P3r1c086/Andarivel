@@ -87,7 +87,6 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:backgroundTint="@color/verde_botones"
-        android:textSize="20dp"
         android:text="@string/entrar"
         android:gravity="center"
         android:textColor="@color/black"
