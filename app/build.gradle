@@ -61,4 +61,13 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.4.2'
     implementation 'androidx.navigation:navigation-ui:2.4.2'
 
+    //Glide - Carga de imagenes
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+
+    //Spiner de carga
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // FirebaseUI - Para el manejo del firebase cloud storage
+    implementation 'com.firebaseui:firebase-ui-storage:7.2.0'
 }
