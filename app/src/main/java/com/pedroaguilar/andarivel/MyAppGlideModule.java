@@ -10,7 +10,7 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.InputStream;
-
+//Clase necesaria para cargar imagenes con Glide mediante FirebaseUi
 @GlideModule
 public class MyAppGlideModule extends AppGlideModule {
 
