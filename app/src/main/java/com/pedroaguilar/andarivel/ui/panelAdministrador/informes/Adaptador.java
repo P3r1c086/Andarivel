@@ -29,7 +29,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.UsuarioViewHolder>
     @Override
     public Adaptador.UsuarioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //asignar el diseño de los elemetos de la lista a el recurso vista e departamentos layout
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.informe_item,null, false);
+        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.informe_item,parent, false);
         return new UsuarioViewHolder(vista);
     }
 
