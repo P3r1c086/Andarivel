@@ -9,9 +9,9 @@
       android:id="@+id/tabLayout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:tabTextColor="@color/white"
+      app:tabTextColor="@color/black"
       app:layout_constraintTop_toTopOf="parent"
-      android:background="@color/verde_andarivel" />
+      android:background="@color/verde_botones" />
   <androidx.viewpager2.widget.ViewPager2
       android:id="@+id/viewPager2"
       android:layout_width="match_parent"
