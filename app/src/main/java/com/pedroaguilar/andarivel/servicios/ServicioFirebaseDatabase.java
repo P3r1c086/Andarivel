@@ -22,7 +22,6 @@ public class ServicioFirebaseDatabase {
 
     public void crearUsuario(String firebaseAuthUsuarioId, Usuario user){
         databaseReferenceUsuarios
-                .child(Constantes.NODO_USUARIOS)
                 .child(firebaseAuthUsuarioId).setValue(user);
     }
 
