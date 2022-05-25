@@ -7,7 +7,7 @@
     <string name="introduce_tu_nombre">Introduce tu nick</string>
     <string name="introduce_tu_pass">Contraseña</string>
     <string name="entrar">Entrar</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">En construcción</string>
     <string name="crear_nuevo_usuario">Crear Nuevo Usuario</string>
     <string name="nombre">Nombre</string>
     <string name="apellidos">Apellidos</string>
@@ -77,4 +77,7 @@
     <string name="fecha">Fecha: </string>
     <string name="nombre_usuario">Nombre usuario: </string>
     <string name="cerrar_sesi_n">Cerrar Sesión</string>
+    <string name="motivo_ausencia">Motivo Ausencia:</string>
+    <string name="descripcion">Descripción:</string>
+    <string name="denegar">Denegar</string>
 </resources>

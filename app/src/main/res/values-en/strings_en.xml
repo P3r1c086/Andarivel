@@ -7,7 +7,7 @@
     <string name="introduce_tu_nombre">Enter your nickname</string>
     <string name="introduce_tu_pass">Password</string>
     <string name="entrar">Enter</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Coming soon</string>
     <string name="crear_nuevo_usuario">Create New User</string>
     <string name="nombre">Name</string>
     <string name="apellidos">Surname</string>
@@ -77,4 +77,7 @@
     <string name="fecha">Date: </string>
     <string name="nombre_usuario">User name: </string>
     <string name="cerrar_sesi_n">Logout</string>
+    <string name="motivo_ausencia">Reason for absence:</string>
+    <string name="descripcion">Description:</string>
+    <string name="denegar">Deny</string>
 </resources>
