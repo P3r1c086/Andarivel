@@ -27,26 +27,35 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
+import com.bumptech.glide.signature.ObjectKey;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.UploadTask;
+import com.pedroaguilar.andarivel.GlideApp;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentPerfilBinding;
 import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
+import com.pedroaguilar.andarivel.servicios.ServicioFirebaseStorage;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class PerfilFragment extends Fragment {
 
     private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
+    private final ServicioFirebaseStorage storage = new ServicioFirebaseStorage();
 
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 10;
     private FragmentPerfilBinding binding;
@@ -97,16 +106,22 @@ public class PerfilFragment extends Fragment {
                     binding.tvDireccionPerfilDato.setText(direccion);
                     binding.tvTelefonoPerfilDato.setText(telefono);
                     binding.tvEmailPerfilDato.setText(email);
-                    //para obtener la imagen
-              /*  try {
-                    //si existe imagen
-                    Picasso.get().load(imagen).placeholder(R.drawable.foto_perfil).into.(ImagenDato);
-                }catch (Exception e){
-                    //si no existe imagen
-                    Picasso.get().load(R.drawable.foto_perfil).into(ImagenDato);
-                    }*/
-                } else {
-                    Toast.makeText(getContext(), "Error al obtener los datos del usuario", Toast.LENGTH_SHORT).show();
+
+                    CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(requireContext());
+                    circularProgressDrawable.setStrokeWidth(5f);
+                    circularProgressDrawable.setCenterRadius(30f);
+                    circularProgressDrawable.start();
+
+
+                    //para obtener la imagen usamos la libreria de Glide
+                    GlideApp.with(requireContext())
+                            .load(storage.getUserPerfilUrl(firebaseAuth.getUid()))
+                            .placeholder(circularProgressDrawable)
+                            .circleCrop()
+                            .error(R.mipmap.ic_launcher)
+                            .signature(new ObjectKey(UUID.randomUUID().toString()))
+                            .into(binding.imgPerfil);
+
                 }
             }
         });
@@ -205,7 +220,7 @@ public class PerfilFragment extends Fragment {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        binding.imgPerfil.setImageBitmap(selectedImage);
+                        guardarYSettearImagen(selectedImage);
 
                     }
                     break;
@@ -219,7 +234,8 @@ public class PerfilFragment extends Fragment {
                                 cursor.moveToFirst();
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                                 String picturePath = cursor.getString(columnIndex);
-                                binding.imgPerfil.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+                                guardarYSettearImagen(bitmap);
                                 cursor.close();
                             }
                         }
@@ -227,6 +243,36 @@ public class PerfilFragment extends Fragment {
                     break;
             }
         }
+    }
+
+    private void guardarYSettearImagen(Bitmap bitmap){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        storage.guardarImagenDePerfil(FirebaseAuth.getInstance().getUid(), data, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(requireContext(), "Error al subir la imagen", Toast.LENGTH_SHORT).show();
+                //Fail to upload image
+            }
+        }, new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(requireContext());
+                circularProgressDrawable.setStrokeWidth(5f);
+                circularProgressDrawable.setCenterRadius(30f);
+                circularProgressDrawable.start();
+
+
+                GlideApp.with(requireContext())
+                        .load(storage.getUserPerfilUrl(firebaseAuth.getUid()))
+                        .placeholder(circularProgressDrawable)
+                        .circleCrop()
+                        .error(R.mipmap.ic_launcher)
+                        .signature(new ObjectKey(UUID.randomUUID().toString()))
+                        .into(binding.imgPerfil);
+            }
+        });
     }
 
     @Override
