@@ -226,12 +226,14 @@ public class NuevoUsuarioFragment extends Fragment {
             telefono.setError("Requerido");
             resultado = false;
 
-        } else if (!telefon.isEmpty()) {
-            validarTelefono();
-
-        }else if (pass.isEmpty()) {
+        } else if (pass.isEmpty()) {
             password.setError("Requerido");
             resultado = false;
+        }
+
+        if (!telefon.isEmpty()) {
+            resultado = validarTelefono();
+
         }
         return resultado;
     }

@@ -5,20 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.pedroaguilar.andarivel.databinding.FragmentEditarPerfilBinding;
-import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class EditarPerfilFragment extends Fragment {
 
@@ -73,6 +71,26 @@ public class EditarPerfilFragment extends Fragment {
         childUpdates.put("/telefono/", (String) binding.etTelefono.getText().toString());
         database.actualizarDatosUsuario(auth.getCurrentUser().getUid() , childUpdates);
     }
+    private void showError(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+    private boolean validarTelefono() {
+        boolean resultado = true;
+        //Recuperamos el contenido del textInputLayout
+        String tlf = telefono.getText().toString();
+        // Patrón con expresiones regulares
+        Pattern tlfRegex = Pattern.compile(
+                "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
+                        + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
+                        + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$"
+                        + ".{9,13}$"//longitud entre 9 y 13 caracteres
+        );
+        if (!tlfRegex.matcher(tlf).matches()) {
+            showError("El teléfono no es válido");
+            resultado = false;
+        }
+        return resultado;
+    }
     private boolean validarCampos() {
         boolean resultado = true;
         String nombreReal = binding.etNombreReal.getText().toString();
@@ -92,6 +110,10 @@ public class EditarPerfilFragment extends Fragment {
         } else if (telefon.isEmpty()) {
             binding.etTelefono.setError("Requerido");
             resultado = false;
+        }
+        if (!telefon.isEmpty()) {
+            resultado = validarTelefono();
+
         }
         return resultado;
     }
