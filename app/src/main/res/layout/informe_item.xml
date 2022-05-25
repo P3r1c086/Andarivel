@@ -10,7 +10,6 @@
     app:cardCornerRadius="5dp"
     app:cardElevation="1dp"
     app:cardMaxElevation="1dp"
-    app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
     app:contentPadding="5dp">
 
@@ -24,43 +23,48 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/arial"
             android:text="@string/fecha"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/tvFechaDato"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/tvFechaDato"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/arial"
             android:textSize="20sp"
             android:gravity="center_horizontal"
             tools:text="martes 24 de mayo de 2022"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintStart_toEndOf="@+id/tvFecha"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/tvFecha"
+            app:layout_constraintBottom_toBottomOf="@id/tvFecha"/>
 
         <TextView
             android:id="@+id/tvNombreUsuarioDato"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/arial"
             android:text="@string/nombre_usuario"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvFecha" />
+            app:layout_constraintTop_toBottomOf="@+id/tvFechaDato" />
 
         <TextView
             android:id="@+id/tvHoraEntrada"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/arial"
             tools:text="hora entrada"
             android:textColor="@color/verde_andarivel"
             android:textSize="20sp"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvguion"
             app:layout_constraintTop_toBottomOf="@+id/tvNombreUsuarioDato" />
 
         <TextView
@@ -72,17 +76,20 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/tvHoraEntrada"
+            app:layout_constraintEnd_toStartOf="@id/tvHoraSalida"
             app:layout_constraintTop_toBottomOf="@+id/tvNombreUsuarioDato" />
 
         <TextView
             android:id="@+id/tvHoraSalida"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/arial"
             tools:text="hora salida"
             android:textColor="#C62020"
             android:textSize="20sp"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/tvguion"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvNombreUsuarioDato" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
