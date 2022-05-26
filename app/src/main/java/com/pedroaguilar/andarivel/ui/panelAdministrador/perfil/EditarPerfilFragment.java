@@ -21,10 +21,6 @@ import java.util.regex.Pattern;
 public class EditarPerfilFragment extends Fragment {
 
     private FragmentEditarPerfilBinding binding;
-    private EditText nombre;
-    private EditText apellidos;
-    private EditText direccion;
-    private EditText telefono;
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
     private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
@@ -47,6 +43,13 @@ public class EditarPerfilFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (getArguments()!= null){
+            binding.etNombreReal.setText(getArguments().getString("nombre"));
+            binding.etApellidos.setText(getArguments().getString("apellidos"));
+            binding.etDireccion.setText(getArguments().getString("direccion"));
+            binding.etTelefono.setText(getArguments().getString("telefono"));
+        }
+
         binding.btAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,10 +57,7 @@ public class EditarPerfilFragment extends Fragment {
                     actualizarUsuario();
                     Navigation.findNavController(v).navigateUp();
                 }
-
-
             }
-
         });
 
 
@@ -77,7 +77,7 @@ public class EditarPerfilFragment extends Fragment {
     private boolean validarTelefono() {
         boolean resultado = true;
         //Recuperamos el contenido del textInputLayout
-        String tlf = telefono.getText().toString();
+        String tlf = binding.etTelefono.getText().toString();
         // Patrón con expresiones regulares
         Pattern tlfRegex = Pattern.compile(
                 "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"

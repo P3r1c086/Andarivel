@@ -65,6 +65,10 @@ public class PerfilFragment extends Fragment {
     //Con getInstance accedo a la base de datos y con getReference tabla usuarios accedo al hijo con ese nombre "Usuarios"
     DatabaseReference databaseReferenceUsuarios = FirebaseDatabase.getInstance().getReference(Constantes.NODO_USUARIOS);
 
+    private String nombre ="";
+    private String apellidos ="";
+    private String direccion ="";
+    private String telefono ="";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -95,10 +99,10 @@ public class PerfilFragment extends Fragment {
                 if (task.isSuccessful()) {
                     //obtengo los datos de firebase
                     //String uid = "" + snapshot.child("id").getValue(); si quiero sacar el id
-                    String nombre = "" + task.getResult().child("nombre").getValue();
-                    String apellidos = "" + task.getResult().child("apellidos").getValue();
-                    String direccion = "" + task.getResult().child("direccion").getValue();
-                    String telefono = "" + task.getResult().child("telefono").getValue();
+                    nombre = "" + task.getResult().child("nombre").getValue();
+                    apellidos = "" + task.getResult().child("apellidos").getValue();
+                    direccion = "" + task.getResult().child("direccion").getValue();
+                    telefono = "" + task.getResult().child("telefono").getValue();
                     String email = "" + task.getResult().child("email").getValue();
                     // String imagenPerfil = "" + snapshot.child("imagen").getValue();//en el caso de meter la imagen en la base de datos
 
@@ -129,7 +133,12 @@ public class PerfilFragment extends Fragment {
         binding.botonEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_perfil_dest_to_editarPerfil_fragment);
+                Bundle bundle = new Bundle();
+                bundle.putString("nombre", nombre);
+                bundle.putString("apellidos", apellidos);
+                bundle.putString("direccion", direccion);
+                bundle.putString("telefono", telefono);
+                Navigation.findNavController(v).navigate(R.id.action_perfil_dest_to_editarPerfil_fragment, bundle);
             }
         });
         binding.imgPerfil.setOnClickListener(new View.OnClickListener() {
