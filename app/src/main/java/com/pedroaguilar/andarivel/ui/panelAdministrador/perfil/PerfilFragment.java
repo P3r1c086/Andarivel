@@ -36,13 +36,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.UploadTask;
 import com.pedroaguilar.andarivel.GlideApp;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentPerfilBinding;
-import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseStorage;
 import com.pedroaguilar.andarivel.ui.login.LoginActivity;
@@ -55,15 +52,13 @@ import java.util.UUID;
 
 public class PerfilFragment extends Fragment {
 
-    private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
+    private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
     private final ServicioFirebaseStorage storage = new ServicioFirebaseStorage();
 
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 10;
     private FragmentPerfilBinding binding;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
-    //Con getInstance accedo a la base de datos y con getReference tabla usuarios accedo al hijo con ese nombre "Usuarios"
-    DatabaseReference databaseReferenceUsuarios = FirebaseDatabase.getInstance().getReference(Constantes.NODO_USUARIOS);
 
     private String nombre ="";
     private String apellidos ="";
@@ -92,8 +87,7 @@ public class PerfilFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //obtengo el hijo de usuarios con este id
         //si quiero solo una foto o momento, es decir, que no me llegue tod el rato llamo a get()
-        //database.leerUsuario(new OnCompleteListener<DataSnapshot>() {
-        databaseReferenceUsuarios.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        database.getInfoUser(firebaseAuth.getUid(), new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()) {

@@ -22,6 +22,10 @@ public class ServicioFirebaseDatabase {
 
     //Zona Usuario
 
+    public void getInfoUser(String firebaseAuthUsuarioId, OnCompleteListener<DataSnapshot> listener){
+        //Con getInstance accedo a la base de datos y con getReference tabla usuarios accedo al hijo con ese nombre "Usuarios"
+        databaseReferenceUsuarios.child(firebaseAuthUsuarioId).get().addOnCompleteListener(listener);
+    }
 
     public void crearUsuario(String firebaseAuthUsuarioId, Usuario user){
         databaseReferenceUsuarios
