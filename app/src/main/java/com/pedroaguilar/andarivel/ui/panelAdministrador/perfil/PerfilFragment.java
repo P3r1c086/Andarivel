@@ -45,6 +45,7 @@ import com.pedroaguilar.andarivel.databinding.FragmentPerfilBinding;
 import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseStorage;
+import com.pedroaguilar.andarivel.ui.login.LoginActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -137,6 +138,22 @@ public class PerfilFragment extends Fragment {
                 if (checkAndRequestPermissions(getActivity())){
                     chooseImage(getActivity());
                 }
+            }
+        });
+        binding.botonBorrarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Todo: Mostrar AlertDialog para en la confirmacion llamar a:
+                storage.borrarFotoPerfil(firebaseAuth.getUid());
+                database.borrarUsuario(firebaseAuth.getUid(), new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        firebaseAuth.getCurrentUser().delete();
+                        Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                        startActivity(intent);
+                        requireActivity().finish();
+                    }
+                });
             }
         });
     }

@@ -1,6 +1,9 @@
 package com.pedroaguilar.andarivel.servicios;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,6 +39,42 @@ public class ServicioFirebaseDatabase {
                 .addOnCompleteListener(listener);
     }
 
+    public void getInfoUser(String firebaseAuthUsuarioId, OnCompleteListener<DataSnapshot> listener){
+        databaseReferenceUsuarios
+                .child(firebaseAuthUsuarioId)
+                .get()
+                .addOnCompleteListener(listener);
+    }
+
+    public void borrarUsuario(String firebaseAuthUsuarioId, OnCompleteListener<Void> listener){
+        getInfoUser(firebaseAuthUsuarioId, new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()){
+                    Map<String, Object> fichajes = (Map<String, Object>)((Map<String, Object>) task.getResult().getValue()).get("Fichajes");
+                    if (fichajes != null) {
+                        for (String key :
+                                fichajes.keySet()) {
+                            fichajes.put(key, null);
+                        }
+                        databaseReferenceFichaje.updateChildren(fichajes).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                databaseReferenceUsuarios
+                                        .child(firebaseAuthUsuarioId).removeValue().addOnCompleteListener(listener);
+                            }
+                        });
+                    } else {
+                        databaseReferenceUsuarios
+                                .child(firebaseAuthUsuarioId).removeValue().addOnCompleteListener(listener);
+                    }
+                }
+            }
+        });
+
+
+    }
+
     //Fin Zona Usuario
 
     //Zona Fichaje
@@ -57,40 +96,6 @@ public class ServicioFirebaseDatabase {
 
     //Fin Zona Fichaje
 
-
-
-
-    public void leerUsuario(String firebaseAuthUsuarioId, OnCompleteListener<DataSnapshot> listener){
-        databaseReferenceUsuarios.child(firebaseAuthUsuarioId).get().addOnCompleteListener(listener);
-    }
-//    public void leerTodosUsuariosDatabase(){
-//        databaseReferenceUsuarios.child(Constantes.TABLA_USUARIOS).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if(snapshot.exists()){
-//                    for (DataSnapshot ds: snapshot.getChildren()) {
-//                        String nombre = ds.child("nombre").getValue().toString();
-//                            arrayListUsuarios.add(new Usuario(nombre));
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
-
-
-    public void ficharEntrada(String firebaseAuthUsuarioId, Usuario user){
-        //Crear nodo FichajeN, apuntar FichajeN en Fichajes del usuario y apuntar en FichajesDiarios
-        databaseReferenceFichaje.child(Constantes.NODO_HORARIOS).child(firebaseAuthUsuarioId).setValue(user);
-    }
-
-    public void ficharSalida(String firebaseAuthUsuarioId, Map<String, Object> childUpdates){
-        databaseReferenceFichaje.child(Constantes.NODO_HORARIOS).child(firebaseAuthUsuarioId).updateChildren(childUpdates);
-    }
 
     public void crearAusencia(String firebaseAuthUsuarioId, Usuario user){
         databaseReferenceAusencia.child(Constantes.NODO_AUSENCIAS).child(firebaseAuthUsuarioId).setValue(user);
@@ -128,11 +133,4 @@ public class ServicioFirebaseDatabase {
     }
 }*/
 
-
-    /**
-     * Método para autenticar el email y la contraseña
-     */
-    public void autenticar(){
-
-    }
 }

@@ -8,8 +8,8 @@ import com.google.firebase.storage.UploadTask;
 
 public class ServicioFirebaseStorage {
 
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageReference = storage.getReference();
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
+    private final StorageReference storageReference = storage.getReference();
 
     public void guardarImagenDePerfil(String userID, byte[] data, OnFailureListener failureListener, OnCompleteListener<UploadTask.TaskSnapshot> onCompleteListener){
         UploadTask uploadTask = storageReference.child("imagenesPerfil/" + userID +".jpg").putBytes(data);
@@ -20,5 +20,8 @@ public class ServicioFirebaseStorage {
         return storage.getReferenceFromUrl("gs://andarivel-ficha.appspot.com/imagenesPerfil/" + userID +".jpg");
     }
 
+    public void borrarFotoPerfil(String userID){
+        storageReference.child("imagenesPerfil/" + userID +".jpg").delete();
+    }
 
 }
