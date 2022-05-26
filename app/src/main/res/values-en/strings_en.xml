@@ -80,4 +80,5 @@
     <string name="motivo_ausencia">Reason for absence:</string>
     <string name="descripcion">Description:</string>
     <string name="denegar">Deny</string>
+    <string name="borrar">Delete user</string>
 </resources>
