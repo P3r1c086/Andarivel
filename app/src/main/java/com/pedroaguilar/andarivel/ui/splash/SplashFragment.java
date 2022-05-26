@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity;
 
@@ -22,9 +21,6 @@ import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivi
  * (action_splash_to_login), para inflar el siguiente fragmento (LoginFragment)
  */
 public class SplashFragment extends Fragment {
-
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private FirebaseUser user = firebaseAuth.getCurrentUser();
 
     /**
      * Aquí se crea la vista, inflando el layout fragment.splash
@@ -60,7 +56,7 @@ public class SplashFragment extends Fragment {
                 /**
                  * Este objeto Navigation es un singleton, es decir, solo se puede crear una instacia de el.
                  */
-                if (user != null){
+                if (FirebaseAuth.getInstance().getCurrentUser() != null){
                     startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
                     getActivity().finish();
                 } else {
