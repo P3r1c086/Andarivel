@@ -39,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:navGraph="@navigation/mobile_admin_navigation_nested" />
+        app:navGraph="@navigation/mobile_no_admin_navigation_nested" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -50,7 +50,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/panel_administrador_drawer">
+        app:menu="@menu/panel_no_administrador_drawer">
 
         <LinearLayout
             android:layout_width="match_parent"

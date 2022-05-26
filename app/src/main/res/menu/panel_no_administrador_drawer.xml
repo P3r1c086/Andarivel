@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home_dest"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/calendario_dest"
+            android:icon="@drawable/ic_baseline_calendar_month_24"
+            android:title="@string/menu_calendario" />
+        <item
+            android:id="@+id/perfil_dest"
+            android:icon="@drawable/ic_baseline_account_box_24"
+            android:title="@string/perfil" />
+        <item
+            android:id="@+id/ausencias_dest"
+            android:icon="@drawable/ic_baseline_health_and_safety_24"
+            android:title="@string/ausencia" />
+    </group>
+</menu>
