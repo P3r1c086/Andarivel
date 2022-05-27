@@ -147,16 +147,33 @@ public class PerfilFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Todo: Mostrar AlertDialog para en la confirmacion llamar a:
-                storage.borrarFotoPerfil(firebaseAuth.getUid());
-                database.borrarUsuario(firebaseAuth.getUid(), new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        firebaseAuth.getCurrentUser().delete();
-                        Intent intent = new Intent(requireActivity(), LoginActivity.class);
-                        startActivity(intent);
-                        requireActivity().finish();
-                    }
-                });
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setIcon(R.drawable.ic_baseline_exit_to_app_24);
+                builder.setTitle(R.string.titulo_borrado);
+                builder.setMessage(getString(R.string.aleta_borrado));
+                        builder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                storage.borrarFotoPerfil(firebaseAuth.getUid());
+                                database.borrarUsuario(firebaseAuth.getUid(), new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        firebaseAuth.getCurrentUser().delete();
+                                        Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                                        startActivity(intent);
+                                        requireActivity().finish();
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
     }

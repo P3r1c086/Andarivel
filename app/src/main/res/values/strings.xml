@@ -22,11 +22,6 @@
     <string name="direcci_n">Dirección</string>
     <string name="aceptar">Aceptar</string>
     <string name="salir">Salir</string>
-    <string-array name="roles">
-        <item>Selecciona</item>
-        <item>Administrador</item>
-        <item>Empleado</item>
-    </string-array>
     <string-array name="ausencias">
         <item>Selecciona</item>
         <item>Enfermedad</item>
@@ -81,4 +76,8 @@
     <string name="descripcion">Descripción:</string>
     <string name="denegar">Denegar</string>
     <string name="borrar">Borrar usuario</string>
+    <string name="titulo_borrado">Confirmar Borrado</string>
+    <string name="aleta_borrado">¿Estás seguro?</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
 </resources>

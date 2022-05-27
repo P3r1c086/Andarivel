@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -56,6 +55,7 @@ public class EditarPerfilFragment extends Fragment {
                 if(validarCampos()){
                     actualizarUsuario();
                     Navigation.findNavController(v).navigateUp();
+                    Toast.makeText(getContext(), "Se ha actualizado correctamente", Toast.LENGTH_SHORT).show();
                 }
             }
         });

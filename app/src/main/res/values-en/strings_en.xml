@@ -22,11 +22,6 @@
     <string name="direcci_n">Address</string>
     <string name="aceptar">Accept</string>
     <string name="salir">Exit</string>
-    <string-array name="roles">
-        <item>Select</item>
-        <item>Administrator</item>
-        <item>Employee</item>
-    </string-array>
     <string-array name="ausencias">
         <item>Select</item>
         <item>Disease</item>
@@ -81,4 +76,8 @@
     <string name="descripcion">Description:</string>
     <string name="denegar">Deny</string>
     <string name="borrar">Delete user</string>
+    <string name="titulo_borrado">Confirm Deletion?</string>
+    <string name="aleta_borrado">Are you sure?</string>
+    <string name="si">Yes</string>
+    <string name="no">No</string>
 </resources>
