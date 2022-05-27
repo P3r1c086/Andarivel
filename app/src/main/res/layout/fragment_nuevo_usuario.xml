@@ -189,7 +189,7 @@
         app:endIconMode="password_toggle"
         android:layout_marginHorizontal="50dp"
         app:layout_constraintHeight_percent="0.09"
-        app:layout_constraintBottom_toTopOf="@+id/spRol"
+        app:layout_constraintBottom_toTopOf="@+id/btAceptar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tiTelefono">
@@ -202,25 +202,6 @@
             android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
-
-
-
-    <Spinner
-        android:id="@+id/spRol"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:entries="@array/roles"
-        android:minHeight="30dp"
-        android:textAlignment="center"
-        android:layout_marginHorizontal="130dp"
-        android:fontFamily="@font/arial"
-        app:layout_constraintBottom_toTopOf="@id/btAceptar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.07"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiPass"
-        tools:ignore="SpeakableTextPresentCheck" />
-
 
     <Button
         android:id="@+id/btAceptar"
@@ -238,7 +219,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.10"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spRol" />
+        app:layout_constraintTop_toBottomOf="@+id/tiPass" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,7 +41,6 @@ public class NuevoUsuarioFragment extends Fragment {
     private EditText email;
     private EditText telefono;
     private EditText password;
-    private Spinner spinner;
     private Button aceptar;
     private Boolean esAdministrador = false;
 
@@ -80,7 +77,6 @@ public class NuevoUsuarioFragment extends Fragment {
         apellidos = view.findViewById(R.id.etApellidos);
         direccion = view.findViewById(R.id.etDireccion);
         telefono = view.findViewById(R.id.etTelefono);
-        spinner = view.findViewById(R.id.spRol);
         aceptar = view.findViewById(R.id.btAceptar);
 
         setListeners();
@@ -125,19 +121,7 @@ public class NuevoUsuarioFragment extends Fragment {
                 }
             }
         });
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String elementoSeleccionado = (String) parent.getItemAtPosition(position);
-                if (elementoSeleccionado.equals("Administrador")) {
-                    esAdministrador = true;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
     }
 
     private boolean validateEmail() {
@@ -248,7 +232,6 @@ public class NuevoUsuarioFragment extends Fragment {
         user.setPassword(password.getText().toString());
         user.setEsAdiminstrador(esAdministrador);
         database.crearUsuario(firebaseAuthUsuarioId, user);
-        //databaseReference.child(Constantes.TABLA_USUARIOS).child(user.getID()).setValue(user);
     }
 
 }
