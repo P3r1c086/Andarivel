@@ -25,6 +25,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
     <TextView
+        android:id="@+id/tvNombreUsuarioAusenciaDato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:fontFamily="@font/arial"
+        app:layout_constraintStart_toEndOf="@+id/tvNombreUsuarioAusencia"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
         android:id="@+id/tvMotivoAusencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,6 +40,14 @@
         android:textStyle="bold"
         android:text="@string/motivo_ausencia"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNombreUsuarioAusencia"/>
+    <TextView
+        android:id="@+id/tvMotivoAusenciaDato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/arial"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tvMotivoAusencia"
         app:layout_constraintTop_toBottomOf="@+id/tvNombreUsuarioAusencia"/>
     <TextView
         android:id="@+id/tvFechaInicioAusencia"
@@ -67,6 +83,15 @@
         android:textStyle="bold"
         android:text="@string/descripcion"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFechaInicioAusencia"/>
+    <TextView
+        android:id="@+id/tvDescripcionAusenciaDato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/arial"
+        android:textStyle="bold"
+        android:text="@string/descripcion"
+        app:layout_constraintStart_toEndOf="@+id/tvDescripcionAusencia"
         app:layout_constraintTop_toBottomOf="@+id/tvFechaInicioAusencia"/>
     <Button
         android:id="@+id/btAceptarAusencia"
