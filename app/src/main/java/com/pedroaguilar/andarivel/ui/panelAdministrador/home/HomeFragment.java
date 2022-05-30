@@ -40,36 +40,6 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
     }
 
-    //    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        //TODO: crear estados TRABAJANDO y DESCANSANDO
-//        binding.btFichar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                binding.btFichar.setVisibility(View.INVISIBLE);
-//                binding.btFinalJornada.setVisibility(View.VISIBLE);
-//                //TODO: separar hora de fecha y crear dos textview diferentes donde colocarlas
-//                SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
-//                binding.fechaEntrada.setText("Momento inicial " + format.format(Calendar.getInstance().getTime()));
-//                binding.fechaSalida.setText("");
-//                almacenarFechaYhoraInicial();
-//
-//            }
-//        });
-//        binding.btFinalJornada.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                binding.btFichar.setVisibility(View.VISIBLE);
-//                binding.btFinalJornada.setVisibility(View.INVISIBLE);
-//                SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
-//                binding.fechaSalida.setText("Momento final " + format.format(Calendar.getInstance().getTime().getTime()));
-//                almacenarFechaYhoraFinal();
-//                //TODO: enviar datos del usuario y la hora a la que se ha pulsado a la base de datos
-//
-//            }
-//        });
-//    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -80,7 +50,6 @@ public class HomeFragment extends Fragment {
                 binding.btFinalJornada.setVisibility(View.VISIBLE);
                 binding.imgEstado1.setVisibility(View.INVISIBLE);
                 binding.imgEstado2.setVisibility(View.VISIBLE);
-                //TODO: separar hora de fecha y crear dos textview diferentes donde colocarlas
                 SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
                 SimpleDateFormat dateformat = new SimpleDateFormat("EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
                 binding.horaEntrada.setText("" + format.format(Calendar.getInstance().getTime()));
@@ -103,29 +72,10 @@ public class HomeFragment extends Fragment {
                 binding.horaSalida.setText("" + format.format(Calendar.getInstance().getTime().getTime()));
                 binding.fechaSalida.setText(dateformat.format(Calendar.getInstance().getTime().getTime()));
                 almacenarFechaYhoraFinal();
-                //TODO: enviar datos del usuario y la hora a la que se ha pulsado a la base de datos
-
             }
         });
     }
 
-//    private void almacenarFechaYhoraInicial(){
-//        Usuario user = new Usuario();
-//        user.setID(mAuth.getCurrentUser().getUid());
-//        user.setHoraEntrada((String) binding.fechaEntrada.getText());
-//        //database.ficharEntrada(user.getID(),user);   // -----------------------  me crea un nodo con el nombre de la tabla dentro de la tabla-----------------
-//        databaseReference.child(Constantes.TABLA_HORARIOS).child(user.getID()).setValue(user);
-//        DatabaseReference horarioFichaje = FirebaseDatabase.getInstance().getReference().child(Constantes.TABLA_USUARIOS).child(user.getID()).child("HorarioFichaje");
-//        horarioFichaje.setValue(user);
-//    }
-//    private void almacenarFechaYhoraFinal(){
-//        Map<String, Object> childUpdates = new HashMap<>();
-//        childUpdates.put("/horaSalida/", (String) binding.fechaSalida.getText());
-//        //database.ficharSalida(mAuth.getCurrentUser().getUid(),childUpdates);   // -----------------------  me crea un nodo con el nombre de la tabla dentro de la tabla-----------------
-//        databaseReference.child(Constantes.TABLA_HORARIOS).child(mAuth.getCurrentUser().getUid()).updateChildren(childUpdates);
-//        databaseReference.child(Constantes.TABLA_USUARIOS).child(mAuth.getCurrentUser().getUid()).child("HorarioFichaje").updateChildren(childUpdates);
-//
-//    }
 
     private void almacenarFechaYhoraInicial() {
         database.cuentaFichaje(new OnCompleteListener<DataSnapshot>(){
@@ -138,7 +88,7 @@ public class HomeFragment extends Fragment {
                         crearNodoFichaje((((Map<String, Object>)task.getResult().getValue()).entrySet().size() + 1) + "");
                     }
                 } else {
-                    //Controlar si firebase da error
+
                 }
             }
         });
@@ -175,10 +125,6 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-        //database.ficharSalida(mAuth.getCurrentUser().getUid(),childUpdates);   // -----------------------  me crea un nodo con el nombre de la tabla dentro de la tabla-----------------
-        //databaseReference.child(Constantes.NODO_HORARIOS).child(mAuth.getCurrentUser().getUid()).updateChildren(childUpdates);
-        //no hace falta actualizar
-        //databaseReference.child(Constantes.TABLA_USUARIOS).child(mAuth.getCurrentUser().getUid()).child("fichaje").child("numFichaje").updateChildren(childUpdates);
 
     }
 
