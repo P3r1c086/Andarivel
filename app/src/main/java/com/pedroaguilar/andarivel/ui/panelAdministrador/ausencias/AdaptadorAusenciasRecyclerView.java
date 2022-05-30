@@ -37,11 +37,11 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
         // asiganacion de los elementos del componente antes tienen que estar deados de alta como elementos de UsuarioViewHolder de abajo
         //son los metodos de tu entidad Usuario
         Context context = holder.itemView.getContext();
-        holder.motivo.setText(listaAusencia.get(position).getMotivoAusencia());
-        holder.nombreUsuario.setText(listaAusencia.get(position).getNombreUsuario());
-        holder.fechaI.setText((listaAusencia.get(position).getFechaInicioAusencia()));
-        holder.fechaF.setText((listaAusencia.get(position).getFechaFinAusencia()));
-        holder.descripcion.setText((listaAusencia.get(position).getDescripcionAusencia()));
+        holder.motivo.setText(" " + listaAusencia.get(position).getMotivoAusencia());
+        holder.nombreUsuario.setText(" " + listaAusencia.get(position).getNombreUsuario());
+        holder.fechaI.setText(listaAusencia.get(position).getFechaInicioAusencia());
+        holder.fechaF.setText(listaAusencia.get(position).getFechaFinAusencia());
+        holder.descripcion.setText(" " + listaAusencia.get(position).getDescripcionAusencia());
     }
     /**
      * Returns the total number of items in the data set held by the adapter.
