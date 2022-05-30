@@ -8,22 +8,24 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DataSnapshot;
 import com.pedroaguilar.andarivel.databinding.FragmentSolicitarAusenciaBinding;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SolicitarAusenciaFragment extends Fragment {
     private FragmentSolicitarAusenciaBinding binding;
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private final DatabaseReference databaseReference = firebaseDatabase.getReference();
     private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
     private Usuario usuario = new Usuario();
 
@@ -63,7 +65,6 @@ public class SolicitarAusenciaFragment extends Fragment {
         });
         setListeners();
 
-
     }
     private void setListeners(){
         binding.spMotivoAusencia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -86,8 +87,9 @@ public class SolicitarAusenciaFragment extends Fragment {
                 }else {
                     usuario.setDescripcionAusencia(binding.etDescripcion.getText().toString());
                 }
-                //todo:falta pasarlo a la base de datos
                 introducirDatosEnBd();
+                almacenarDatosAusencia();
+
             }
         });
     }
@@ -104,7 +106,7 @@ public class SolicitarAusenciaFragment extends Fragment {
                 final String selectedDateInicio = day + " / " + (month+1) + " / " + year;
                 binding.etFechaInicio.setText(selectedDateInicio);
                 usuario.setFechaInicioAusencia(selectedDateInicio);
-                //almacenarFechaInicio();
+
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH),  c.get(Calendar.DAY_OF_MONTH)).show();
     }
@@ -121,10 +123,42 @@ public class SolicitarAusenciaFragment extends Fragment {
                 final String selectedDateFin = day + " / " + (month+1) + " / " + year;
                 binding.etFechaFin.setText(selectedDateFin);
                 usuario.setFechaFinAusencia(selectedDateFin);
-                //almacenarFechaFin();
+
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH),  c.get(Calendar.DAY_OF_MONTH)).show();
     }
+    private void almacenarDatosAusencia() {
+        database.cuentaAusencia(new OnCompleteListener<DataSnapshot>(){
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()){
+                    if (task.getResult().getValue() == null){
+                        crearNodoAusencia("1");
+                    } else {
+                        crearNodoAusencia((((Map<String, Object>)task.getResult().getValue()).entrySet().size() + 1) + "");
+                    }
+                } else {
+
+                }
+            }
+        });
+
+    }
+    public void crearNodoAusencia(String nNodo){
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/Ausencia"+nNodo+"/motivoAusencia", usuario.getMotivoAusencia());//no se si ya lo tiene tomado aqui el valor
+        childUpdates.put("/Ausencia"+nNodo+"/fechaInicio", binding.etFechaInicio.getText().toString());
+        childUpdates.put("/Ausencia"+nNodo+"/fechaFin", binding.etFechaFin.getText().toString());
+        childUpdates.put("/Ausencia"+nNodo+"/descripcion", binding.etDescripcion.getText().toString());
+        childUpdates.put("/Ausencia"+nNodo+"/usuario", mAuth.getUid());
+        database.actualizarAusencia(childUpdates);
+        childUpdates.clear();
+        childUpdates.put("/Ausencias/Ausencia"+nNodo, true);
+        database.actualizarDatosUsuario(mAuth.getUid(), childUpdates);
+        //todo:poner toast para informar que se ha creado correctamente, pero no se donde exactamente
+    }
+
+
 
     private void introducirDatosEnBd(){
         Usuario user = new Usuario();
@@ -133,7 +167,6 @@ public class SolicitarAusenciaFragment extends Fragment {
         user.setFechaInicioAusencia(usuario.getFechaInicioAusencia());
         user.setFechaFinAusencia(usuario.getFechaFinAusencia());
         user.setDescripcionAusencia(usuario.getDescripcionAusencia());
-        database.crearAusencia(user.getID(),user);  // -----------------------  me crea un nodo con el nombre de la tabla dentro de la tabla-----------------
-        //databaseReference.child(Constantes.TABLA_AUSENCIAS).child(user.getID()).setValue(user);
+       // database.crearAusencia(user.getID(),user);
     }
 }
