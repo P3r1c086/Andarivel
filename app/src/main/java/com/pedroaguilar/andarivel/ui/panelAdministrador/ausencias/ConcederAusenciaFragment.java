@@ -4,62 +4,111 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.pedroaguilar.andarivel.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.pedroaguilar.andarivel.databinding.FragmentConcederAusenciaBinding;
+import com.pedroaguilar.andarivel.modelo.Ausencia;
+import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ConcederAusenciaFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.Map;
+
+
 public class ConcederAusenciaFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FragmentConcederAusenciaBinding binding;
+    private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
 
     public ConcederAusenciaFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ConcederAusenciaFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ConcederAusenciaFragment newInstance(String param1, String param2) {
-        ConcederAusenciaFragment fragment = new ConcederAusenciaFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_conceder_ausencia, container, false);
+        binding = FragmentConcederAusenciaBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.listaAusencias.setLayoutManager(new LinearLayoutManager(getContext()));
+        leerTodosUsuariosDatabase();
+    }
+
+    public void leerTodosUsuariosDatabase(){
+
+        database.getAusencias(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()){
+                    ArrayList<Ausencia> listaAusencias = new ArrayList<Ausencia>();
+                    Map<String, Object> mapRaiz = (Map<String, Object>) task.getResult().getValue();
+                    if (mapRaiz != null  && !mapRaiz.isEmpty()) {
+                        for (Map.Entry<String, Object> entry : mapRaiz.entrySet()) {
+                            Map<String, String> mapAusencia = (Map<String, String>) entry.getValue();
+                            Ausencia ausencia = new Ausencia();
+                            ausencia.setIdAusencia(mapAusencia.get("usuario"));
+                            ausencia.setFechaInicioAusencia(mapAusencia.get("fechaInicio"));
+                            ausencia.setFechaFinAusencia(mapAusencia.get("fechaFin"));
+                            ausencia.setMotivoAusencia(mapAusencia.get("motivoAusencia"));
+                            ausencia.setDescripcionAusencia(mapAusencia.get("descripcion"));
+                            listaAusencias.add(ausencia);
+                        }
+                        database.getInfoUsers(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    ArrayList<Ausencia> listaAusenciasCompleta = new ArrayList<Ausencia>();
+                                    Map<String, Object> mapRaiz = (Map<String, Object>) task.getResult().getValue();
+                                    for (Map.Entry<String, Object> entry : mapRaiz.entrySet()) {
+                                        Map<String, String> mapAusencia = (Map<String, String>) entry.getValue();
+                                        Ausencia a = findAusencia(listaAusencias, entry.getKey());
+                                        while (a!= null) {
+                                            listaAusencias.remove(a);
+                                            a.setNombreUsuario(mapAusencia.get("nombre") + " " + mapAusencia.get("apellidos"));
+                                            listaAusenciasCompleta.add(a);
+                                            a = findAusencia(listaAusencias, entry.getKey());
+                                        }
+
+                                    }
+                                    binding.listaAusencias.setAdapter(new AdaptadorAusenciasRecyclerView(listaAusenciasCompleta));
+                                }
+                            }
+                        });
+                    } else {
+                        ArrayList<Ausencia> listaConVacio = new ArrayList<>();
+                        Ausencia aVacio = new Ausencia();
+                        aVacio.setNombreUsuario("NO HAY PETICIONES DE AUSENCIA");
+                        listaConVacio.add(aVacio);
+                        binding.listaAusencias.setAdapter(new AdaptadorAusenciasRecyclerView(listaConVacio));
+                    }
+
+                } else {
+                    Toast.makeText(getContext(), "fallo", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private Ausencia findAusencia(ArrayList<Ausencia> list, String idUser){
+        for (Ausencia a : list) {
+            if (a.getIdAusencia().equals(idUser)){
+                return a;
+            }
+        }
+        return null;
     }
 }
