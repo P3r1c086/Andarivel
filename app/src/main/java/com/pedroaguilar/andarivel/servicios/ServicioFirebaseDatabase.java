@@ -94,41 +94,22 @@ public class ServicioFirebaseDatabase {
 
     //Fin Zona Fichaje
 
-
+    //Zona Ausencia
     public void crearAusencia(String firebaseAuthUsuarioId, Usuario user){
         databaseReferenceAusencia.child(Constantes.NODO_AUSENCIAS).child(firebaseAuthUsuarioId).setValue(user);
     }
-
-    /*
-    new Transaction.Handler() {
-            @NonNull
-            @Override
-            public Transaction.Result doTransaction(@NonNull final MutableData currentData) {
-                if (currentData.getValue() == null) {
-                    currentData.setValue(1);
-                } else {
-                    currentData.setValue((Long) currentData.getValue() + 1);
-                }
-
-                return Transaction.success(currentData);
-            }
-
-            /**
-             * This method will be called once with the results of the transaction.
-             *
-             * @param firebaseError       null if no errors occurred, otherwise it contains a description of the error
-             * @param committed   True if the transaction successfully completed, false if it was aborted or
-             *                    an error occurred
-             * @param currentData The current data at the location or null if an error occurred
-             */
-   /* @Override
-    public void onComplete(@Nullable DatabaseError firebaseError, boolean committed, @Nullable DataSnapshot currentData) {
-        if (firebaseError != null) {
-            Log.d(ServicioFirebaseDatabase.class.getSimpleName(), "Firebase counter increment failed.");
-        } else {
-            Log.d(ServicioFirebaseDatabase.class.getSimpleName(), "Firebase counter increment succeeded.");
-        }
+    public void cuentaAusencia(OnCompleteListener<DataSnapshot> listener) {
+        firebaseDataBase.getReference(Constantes.NODO_AUSENCIAS).get().addOnCompleteListener(listener);
     }
-}*/
+    public void actualizarAusencia(Map<String, Object> childUpdates){
+        databaseReferenceAusencia
+                .updateChildren(childUpdates);
+    }
+    public void getAusencias(OnCompleteListener<DataSnapshot> listener){
+        databaseReferenceAusencia
+                .get()
+                .addOnCompleteListener(listener);
+    }
+    //Fin Zona Ausencia
 
 }
