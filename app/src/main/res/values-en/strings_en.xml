@@ -54,7 +54,7 @@
     <string name="actualizar_datos">Update data</string>
     <string name="visualizar">View</string>
     <string name="descargar">Download</string>
-
+    <string name="ausencias_fragment_name_text">Nombre: %s</string>
     <string name="informes_fragment_name_text">Name: %s</string>
     <string name="solicitar_ausencia_tab_title">Requesting absence</string>
     <string name="conceder_ausencia_tab_title">Granting Absence</string>
