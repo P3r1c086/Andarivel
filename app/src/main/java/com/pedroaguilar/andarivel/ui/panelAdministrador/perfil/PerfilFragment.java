@@ -67,12 +67,7 @@ public class PerfilFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-       /* SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);*/
-
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
-        //final TextView textView = binding.textSlideshow;
-        //slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return binding.getRoot();
     }
 
@@ -146,7 +141,6 @@ public class PerfilFragment extends Fragment {
         binding.botonBorrarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Todo: Mostrar AlertDialog para en la confirmacion llamar a:
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setIcon(R.drawable.ic_baseline_exit_to_app_24);
                 builder.setTitle(R.string.titulo_borrado);
@@ -169,7 +163,7 @@ public class PerfilFragment extends Fragment {
                         .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                dialog.dismiss();
                             }
                         });
                 AlertDialog alertDialog = builder.create();
