@@ -59,6 +59,7 @@
     <string name="ausencias_fragment_name_text"></string>
     <string name="solicitar_ausencia_tab_title">Solicitar Ausencia</string>
     <string name="conceder_ausencia_tab_title">Conceder Ausencia</string>
+    <string name="notificar_ausencia_tab_title">Notificaciones</string>
     <string name="escribe_aqu">Escribe aquí</string>
     <string name="fecha_inicio">Fecha Inicio</string>
     <string name="fecha_fin">Fecha Fin</string>
@@ -81,4 +82,5 @@
     <string name="aleta_borrado">¿Estás seguro?</string>
     <string name="si">Si</string>
     <string name="no">No</string>
+    <string name="solicitar_ausencia_creacion_exito_mensaje">Solicitud de Ausencia creada con éxito</string>
 </resources>

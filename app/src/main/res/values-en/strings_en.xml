@@ -56,6 +56,7 @@
     <string name="descargar">Download</string>
     <string name="ausencias_fragment_name_text">Nombre: %s</string>
     <string name="informes_fragment_name_text">Name: %s</string>
+    <string name="notificar_ausencia_tab_title">Notifications</string>
     <string name="solicitar_ausencia_tab_title">Requesting absence</string>
     <string name="conceder_ausencia_tab_title">Granting Absence</string>
     <string name="escribe_aqu">Write here</string>
@@ -80,4 +81,5 @@
     <string name="aleta_borrado">Are you sure?</string>
     <string name="si">Yes</string>
     <string name="no">No</string>
+    <string name="solicitar_ausencia_creacion_exito_mensaje">Successfully created Absence Request</string>
 </resources>
