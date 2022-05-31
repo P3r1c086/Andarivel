@@ -49,6 +49,8 @@ public class AusenciasFragment extends Fragment implements TabLayoutMediator.Tab
                     titles.add(getString(R.string.solicitar_ausencia_tab_title));
                     if (esAdmin!= null && esAdmin){
                         titles.add(getString(R.string.conceder_ausencia_tab_title));
+                    } else {
+                        titles.add(getString(R.string.notificar_ausencia_tab_title));
                     }
                     setViewPagerAdapter(esAdmin);
                     new TabLayoutMediator(binding.tabLayout, binding.viewPager2, AusenciasFragment.this).attach();
@@ -69,7 +71,12 @@ public class AusenciasFragment extends Fragment implements TabLayoutMediator.Tab
                 AdaptadorAuseciasTabs(requireActivity());// he sustituido this por getActivity()
         ArrayList<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new SolicitarAusenciaFragment());
-        if (esAdmin) fragmentList.add(new ConcederAusenciaFragment());
+        if (esAdmin) {
+            fragmentList.add(new ConcederAusenciaFragment());
+        }
+        else {
+            fragmentList.add(new NotificarAusenciaFragment());
+        }
         adaptadorAuseciasTabs.setData(fragmentList);
         binding.viewPager2.setAdapter(adaptadorAuseciasTabs);
     }
