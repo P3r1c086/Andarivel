@@ -140,6 +140,19 @@ public class PanelAdministradorActivity extends AppCompatActivity {
                                         .error(R.mipmap.ic_launcher)
                                         .signature(new ObjectKey(UUID.randomUUID().toString()))
                                         .into((ImageView) header.findViewById(R.id.imgFotoPerfil));
+
+                                database.getInfoUser(firebaseAuth.getUid(), new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            String nombre = "" + task.getResult().child("nombre").getValue();
+                                            String apellidos = "" + task.getResult().child("apellidos").getValue();
+                                            ((TextView) header.findViewById(R.id.tvNombreCompleto)).setText(nombre + " " + apellidos);
+
+                                        }
+                                    }
+                                });
+
                             }
 
                             @Override
