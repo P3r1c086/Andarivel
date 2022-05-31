@@ -103,7 +103,10 @@ public class HomeFragment extends Fragment {
         database.actualizarFichaje(childUpdates);
         childUpdates.clear();
         childUpdates.put("/Fichajes/Fichaje"+nNodo, true);
-        database.actualizarDatosUsuario(mAuth.getUid(), childUpdates);
+        database.actualizarDatosUsuario(mAuth.getUid(), childUpdates, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) { }
+        });
     }
 
     private void almacenarFechaYhoraFinal() {

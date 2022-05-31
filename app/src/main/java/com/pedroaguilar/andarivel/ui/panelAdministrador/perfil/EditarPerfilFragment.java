@@ -6,9 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pedroaguilar.andarivel.databinding.FragmentEditarPerfilBinding;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
@@ -69,7 +72,10 @@ public class EditarPerfilFragment extends Fragment {
         childUpdates.put("/apellidos/", (String) binding.etApellidos.getText().toString());
         childUpdates.put("/direccion/", (String) binding.etDireccion.getText().toString());
         childUpdates.put("/telefono/", (String) binding.etTelefono.getText().toString());
-        database.actualizarDatosUsuario(auth.getCurrentUser().getUid() , childUpdates);
+        database.actualizarDatosUsuario(auth.getCurrentUser().getUid() , childUpdates , new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) { }
+        });
     }
     private void showError(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
