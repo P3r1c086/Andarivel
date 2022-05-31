@@ -26,9 +26,9 @@ public class ServicioFirebaseDatabase {
                 .child(firebaseAuthUsuarioId).setValue(user);
     }
 
-    public void actualizarDatosUsuario(String firebaseAuthUsuarioId, Map<String, Object> childUpdates){
+    public void actualizarDatosUsuario(String firebaseAuthUsuarioId, Map<String, Object> childUpdates, OnCompleteListener<Void> listener){
         databaseReferenceUsuarios
-                .child(firebaseAuthUsuarioId).updateChildren(childUpdates);
+                .child(firebaseAuthUsuarioId).updateChildren(childUpdates).addOnCompleteListener(listener);
     }
 
     public void getInfoUsers(OnCompleteListener<DataSnapshot> listener){
@@ -101,15 +101,17 @@ public class ServicioFirebaseDatabase {
     public void cuentaAusencia(OnCompleteListener<DataSnapshot> listener) {
         firebaseDataBase.getReference(Constantes.NODO_AUSENCIAS).get().addOnCompleteListener(listener);
     }
-    public void actualizarAusencia(Map<String, Object> childUpdates){
+    public void actualizarAusencia(Map<String, Object> childUpdates, OnCompleteListener<Void> listener){
         databaseReferenceAusencia
-                .updateChildren(childUpdates);
+                .updateChildren(childUpdates)
+        .addOnCompleteListener(listener);
     }
     public void getAusencias(OnCompleteListener<DataSnapshot> listener){
         databaseReferenceAusencia
                 .get()
                 .addOnCompleteListener(listener);
     }
+
     //Fin Zona Ausencia
 
 }

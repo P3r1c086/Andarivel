@@ -8,8 +8,17 @@ public class Ausencia {
     private String descripcionAusencia;
     private String fechaInicioAusencia;
     private String fechaFinAusencia;
+    private String estado;
 
     public Ausencia() {
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getIdAusencia() {

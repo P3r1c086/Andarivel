@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentSolicitarAusenciaBinding;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
@@ -28,7 +30,10 @@ public class SolicitarAusenciaFragment extends Fragment {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
     private Usuario usuario = new Usuario();
-
+    private String motivoAusencia ="";
+    private String fechaI ="";
+    private String fechaF ="";
+    private String descripcion ="";
     public SolicitarAusenciaFragment() {
         // Required empty public constructor
     }
@@ -151,11 +156,21 @@ public class SolicitarAusenciaFragment extends Fragment {
         childUpdates.put("/Ausencia"+nNodo+"/fechaFin", binding.etFechaFin.getText().toString());
         childUpdates.put("/Ausencia"+nNodo+"/descripcion", binding.etDescripcion.getText().toString());
         childUpdates.put("/Ausencia"+nNodo+"/usuario", mAuth.getUid());
-        database.actualizarAusencia(childUpdates);
-        childUpdates.clear();
-        childUpdates.put("/Ausencias/Ausencia"+nNodo, true);
-        database.actualizarDatosUsuario(mAuth.getUid(), childUpdates);
-        //todo:poner toast para informar que se ha creado correctamente, pero no se donde exactamente
+        childUpdates.put("/Ausencia"+nNodo+"/estado", "Pendiente");
+        database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                childUpdates.clear();
+                childUpdates.put("/Ausencias/Ausencia"+nNodo, true);
+                database.actualizarDatosUsuario(mAuth.getUid(), childUpdates, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(requireContext(), R.string.solicitar_ausencia_creacion_exito_mensaje, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+
     }
 
 

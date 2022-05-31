@@ -34,6 +34,7 @@
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_informes.xml" value="0.18" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_inicio.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_login.xml" value="0.22" />
+        <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_notificacion_ausencia.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_nuevo_usuario.xml" value="0.22" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_panel_administrador.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_perfil.xml" value="0.25" />
@@ -48,6 +49,7 @@
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/menu/activity_main_drawer.xml" value="0.3625" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/menu/main.xml" value="0.24375" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/menu/panel_administrador_drawer.xml" value="0.3625" />
+        <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/menu/panel_no_administrador_drawer.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.246" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.367" />
         <entry key="..\:/Users/pajar/AppData/Local/Android/Sdk/platforms/android-31/data/res/drawable/gallery_item_background.xml" value="0.244" />
