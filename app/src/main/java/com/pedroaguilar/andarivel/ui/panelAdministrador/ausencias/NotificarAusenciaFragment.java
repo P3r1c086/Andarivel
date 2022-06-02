@@ -59,7 +59,7 @@ public class NotificarAusenciaFragment extends Fragment {
                                    ausencia.setDescripcionAusencia(mapAusencia.get("descripcion"));
                                    ausencia.setEstado(mapAusencia.get("estado"));
 
-                                   binding.tvNombreUsuarioAusenciaDato.setText(ausencia.getNombreUsuario());
+//                                   binding.tvNombreUsuarioAusenciaDato.setText(ausencia.getNombreUsuario());
                                    binding.tvMotivoAusenciaDato.setText(ausencia.getMotivoAusencia());
                                    binding.tvFechaInicioAusencia.setText(ausencia.getFechaInicioAusencia());
                                    binding.tvFechaFinAusencia.setText(ausencia.getFechaFinAusencia());

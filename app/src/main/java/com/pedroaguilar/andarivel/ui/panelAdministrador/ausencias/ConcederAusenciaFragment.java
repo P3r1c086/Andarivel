@@ -60,11 +60,13 @@ public class ConcederAusenciaFragment extends Fragment {
                         for (Map.Entry<String, Object> entry : mapRaiz.entrySet()) {
                             Map<String, String> mapAusencia = (Map<String, String>) entry.getValue();
                             Ausencia ausencia = new Ausencia();
-                            ausencia.setIdAusencia(mapAusencia.get("usuario"));
+                            ausencia.setIdAusencia(entry.getKey());
+                            ausencia.setNombreUsuario(mapAusencia.get("usuario"));
                             ausencia.setFechaInicioAusencia(mapAusencia.get("fechaInicio"));
                             ausencia.setFechaFinAusencia(mapAusencia.get("fechaFin"));
                             ausencia.setMotivoAusencia(mapAusencia.get("motivoAusencia"));
                             ausencia.setDescripcionAusencia(mapAusencia.get("descripcion"));
+                            ausencia.setEstado(mapAusencia.get("estado"));
                             listaAusencias.add(ausencia);
                         }
                         database.getInfoUsers(new OnCompleteListener<DataSnapshot>() {
@@ -105,10 +107,11 @@ public class ConcederAusenciaFragment extends Fragment {
 
     private Ausencia findAusencia(ArrayList<Ausencia> list, String idUser){
         for (Ausencia a : list) {
-            if (a.getIdAusencia().equals(idUser)){
+            if (a.getNombreUsuario().equals(idUser)){
                 return a;
             }
         }
         return null;
     }
+
 }

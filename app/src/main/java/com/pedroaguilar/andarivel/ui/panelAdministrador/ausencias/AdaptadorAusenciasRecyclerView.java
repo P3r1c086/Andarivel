@@ -4,20 +4,27 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
+import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<AdaptadorAusenciasRecyclerView.UsuarioViewHolder>{
 
-    private ArrayList<Ausencia> listaAusencia;
-
+    private final ArrayList<Ausencia> listaAusencia;
+    private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
 
     public AdaptadorAusenciasRecyclerView(ArrayList<Ausencia> lista) {
         this.listaAusencia = lista;
@@ -42,6 +49,55 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
         holder.fechaI.setText(listaAusencia.get(position).getFechaInicioAusencia());
         holder.fechaF.setText(listaAusencia.get(position).getFechaFinAusencia());
         holder.descripcion.setText(" " + listaAusencia.get(position).getDescripcionAusencia());
+        String estado = listaAusencia.get(position).getEstado();
+        holder.estado.setText(estado);
+        if (!estado.equals("Pendiente")) {
+            holder.aceptar.setVisibility(View.INVISIBLE);
+            holder.denegar.setVisibility(View.INVISIBLE);
+        } else {
+            holder.aceptar.setVisibility(View.VISIBLE);
+            holder.denegar.setVisibility(View.VISIBLE);
+        }
+        holder.aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<String, Object> childUpdates = new HashMap<>();
+                childUpdates.put("/"+ listaAusencia.get(position).getIdAusencia() + "/estado", "Aceptada");
+                database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            listaAusencia.get(position).setEstado("Aceptada");
+                            notifyItemChanged(position);
+                            Toast.makeText(context, "Ausencia Aceptada", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+
+        });
+        holder.denegar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<String, Object> childUpdates = new HashMap<>();
+                childUpdates.put("/"+ listaAusencia.get(position).getIdAusencia() + "/estado", "Denegada");
+                database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            listaAusencia.get(position).setEstado("Denegada");
+                            notifyItemChanged(position);
+                            Toast.makeText(context, "Ausencia Denegada", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+
+        });
     }
     /**
      * Returns the total number of items in the data set held by the adapter.
@@ -56,7 +112,8 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
 
     public static class UsuarioViewHolder extends RecyclerView.ViewHolder {
 
-        TextView motivo, nombreUsuario, fechaI, fechaF, descripcion;
+        TextView motivo, nombreUsuario, fechaI, fechaF, descripcion , estado;
+        Button aceptar, denegar;
 
         public UsuarioViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,6 +122,9 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
             fechaI = itemView.findViewById(R.id.tvFechaInicioAusencia);
             fechaF = itemView.findViewById(R.id.tvFechaFinAusencia);
             descripcion = itemView.findViewById(R.id.tvDescripcionAusenciaDato);
+            estado = itemView.findViewById(R.id.tvEstadoAusencia);
+            aceptar = itemView.findViewById(R.id.btAceptarAusencia);
+            denegar = itemView.findViewById(R.id.btDenegarAusencia);
         }
     }
 }
