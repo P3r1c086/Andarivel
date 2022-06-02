@@ -23,7 +23,7 @@
     <string name="aceptar">Aceptar</string>
     <string name="salir">Salir</string>
     <string-array name="ausencias">
-        <item>Selecciona</item>
+        <item>Tipo de ausencia</item>
         <item>Enfermedad</item>
         <item>Asuntos propios</item>
         <item>Maternidad</item>
@@ -83,4 +83,8 @@
     <string name="si">Si</string>
     <string name="no">No</string>
     <string name="solicitar_ausencia_creacion_exito_mensaje">Solicitud de Ausencia creada con éxito</string>
+    <string name="ausencia_aceptada_exito_mensaje">La ausencia ha sido aceptada</string>
+    <string name="toast_error_tipo_ausencia">Debes introducir un tipo de ausencia</string>
+    <string name="toast_error_fecha_inicio_ausencia">Debes introducir una fecha de inicio</string>
+    <string name="toast_error_fecha_fin_ausencia">Debes introducir una fecha de fin</string>
 </resources>
