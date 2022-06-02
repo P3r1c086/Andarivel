@@ -30,10 +30,8 @@ public class SolicitarAusenciaFragment extends Fragment {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
     private Usuario usuario = new Usuario();
-    private String motivoAusencia ="";
-    private String fechaI ="";
-    private String fechaF ="";
-    private String descripcion ="";
+
+
     public SolicitarAusenciaFragment() {
         // Required empty public constructor
     }
@@ -78,22 +76,26 @@ public class SolicitarAusenciaFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String elementoSeleccionado = (String) parent.getItemAtPosition(position);
                 usuario.setMotivoAusencia(elementoSeleccionado);
-                //todo:falta pasarlo a la base de datos
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
         binding.btSolicitar.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                if(binding.etDescripcion.getText().toString().isEmpty()){
-                    usuario.setDescripcionAusencia("No especificado");
-                }else {
-                    usuario.setDescripcionAusencia(binding.etDescripcion.getText().toString());
+                if(validarDatosSolicitarAunsecia()){//todo:no me esta funcionando. Se sale del programa
+                    if(binding.etDescripcion.getText().toString().isEmpty()){
+                        usuario.setDescripcionAusencia("No especificado");
+                    }else {
+                        usuario.setDescripcionAusencia(binding.etDescripcion.getText().toString());
+                    }
+
+                        introducirDatosEnBd();
+                        almacenarDatosAusencia();
                 }
-                introducirDatosEnBd();
-                almacenarDatosAusencia();
+
 
             }
         });
@@ -182,6 +184,24 @@ public class SolicitarAusenciaFragment extends Fragment {
         user.setFechaInicioAusencia(usuario.getFechaInicioAusencia());
         user.setFechaFinAusencia(usuario.getFechaFinAusencia());
         user.setDescripcionAusencia(usuario.getDescripcionAusencia());
-       // database.crearAusencia(user.getID(),user);
+    }
+    private void showError(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+    private boolean validarDatosSolicitarAunsecia(){
+
+            boolean resultado = true;
+
+            if (usuario.getMotivoAusencia() == null || usuario.getMotivoAusencia().isEmpty()) {
+                showError(getString(R.string.toast_error_tipo_ausencia));
+                resultado = false;
+            } else if (usuario.getFechaInicioAusencia() == null || usuario.getFechaInicioAusencia().isEmpty()) {
+                showError(getString(R.string.toast_error_fecha_inicio_ausencia));
+                resultado = false;
+            } else if (usuario.getFechaFinAusencia() == null || usuario.getFechaFinAusencia().isEmpty()) {
+                showError(getString(R.string.toast_error_fecha_fin_ausencia));
+                resultado = false;
+            }
+            return resultado;
     }
 }
