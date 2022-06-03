@@ -18,10 +18,12 @@ import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 
 /**
  * Fragmento que contiene los botones de fichar y salir.
@@ -116,7 +118,9 @@ public class HomeFragment extends Fragment {
                 if (task.isSuccessful()){
                     String nodoFichaje = "";
                     Map<String, Object> fichajes = (Map<String, Object>) task.getResult().getValue();
-                    for (Map.Entry<String, Object> entry : fichajes.entrySet()) {
+                    TreeMap<String, Object> sorted = new TreeMap<>(new SortDescendingComparator());
+                    sorted.putAll(fichajes);
+                    for (Map.Entry<String, Object> entry : sorted.entrySet()) {
                         if (Objects.equals(mAuth.getUid(), ((Map<String, Object>) entry.getValue()).get("usuario"))){
                             nodoFichaje = entry.getKey();
                             break;
@@ -137,4 +141,17 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
+}
+
+class SortDescendingComparator implements Comparator<String> {
+    @Override
+    public int compare(String s1, String s2) {
+        if (s1.length() == s2.length()){
+            return (-1)* s1.compareTo(s2);
+        } if (s1.length() > s2.length()){
+            return -1;
+        } else {
+            return 1;
+        }
+    }
 }
