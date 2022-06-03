@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentSolicitarAusenciaBinding;
-import com.pedroaguilar.andarivel.modelo.Ausencia;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 
@@ -103,6 +102,8 @@ public class SolicitarAusenciaFragment extends Fragment {
                                     Map<String, Object> mapRaiz = (Map<String, Object>) task.getResult().getValue();
                                     if (mapRaiz != null && !mapRaiz.isEmpty()) {
                                         Boolean findPending = false;
+                                        //Recorremos el mapa buscando un nodo que pertenezca al usuario logueado y además que
+                                        //el estado de la ausencia sea Pendiente
                                         for (Map.Entry<String, Object> entry : mapRaiz.entrySet()) {
                                             Map<String, String> mapAusencia = (Map<String, String>) entry.getValue();
                                             if (mapAusencia.get("usuario").equals(FirebaseAuth.getInstance().getUid())
@@ -111,6 +112,7 @@ public class SolicitarAusenciaFragment extends Fragment {
                                                 break;
                                             }
                                         }
+                                        //En función de si no lo ha encontrado o sí, hace las llamadas o saca un mensaje
                                         if (!findPending){
                                             introducirDatosEnBd();
                                             almacenarDatosAusencia();

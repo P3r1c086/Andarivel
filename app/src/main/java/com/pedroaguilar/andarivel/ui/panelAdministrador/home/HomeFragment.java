@@ -15,10 +15,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.pedroaguilar.andarivel.databinding.FragmentHomeBinding;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
+import com.pedroaguilar.andarivel.utilidades.SortDescendingComparator;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -53,6 +53,8 @@ public class HomeFragment extends Fragment {
                     Map<String, Object> fichajes = (Map<String, Object>) task.getResult().getValue();
                     TreeMap<String, Object> sorted = new TreeMap<>(new SortDescendingComparator());
                     if (fichajes!= null ) sorted.putAll(fichajes);
+                    //Recorremos el mapa ordenado buscando el usuario que coincida con el de la sesión y que tenga
+                    // un nodo con horaSalida a null (que no exista el nodo)
                     for (Map.Entry<String, Object> entry : sorted.entrySet()) {
                         if (Objects.equals(mAuth.getUid(), ((Map<String, Object>) entry.getValue()).get("usuario"))
                                 && ((Map<String, Object>) entry.getValue()).get("horaSalida") == null){
@@ -60,6 +62,7 @@ public class HomeFragment extends Fragment {
                             break;
                         }
                     }
+                    //En función de si lo hemos encontrado o no, setteamos en la pantalla un estado u otro
                     if (estadoFinJornada){
                         setEstadoFinalJornada();
                     } else {
@@ -150,15 +153,20 @@ public class HomeFragment extends Fragment {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()){
                     String nodoFichaje = "";
+                    //Mapa completamente desordenado, devuelto por firebase
                     Map<String, Object> fichajes = (Map<String, Object>) task.getResult().getValue();
+                    //Construimos TreeMap con nuestro comparador de ordenacion descendente
                     TreeMap<String, Object> sorted = new TreeMap<>(new SortDescendingComparator());
+                    //Añadimos entries del mapa devuelto por firebase
                     sorted.putAll(fichajes);
+                    //Recorremos el mapa ordenado buscando valor que coincida con el usuario.
                     for (Map.Entry<String, Object> entry : sorted.entrySet()) {
                         if (Objects.equals(mAuth.getUid(), ((Map<String, Object>) entry.getValue()).get("usuario"))){
                             nodoFichaje = entry.getKey();
                             break;
                         }
                     }
+                    //Actualizamos campo horaSalida del nodo encontrado.
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put("/"+ nodoFichaje +"/horaSalida", (String) binding.horaSalida.getText());
                     database.actualizarFichaje(childUpdates);
@@ -176,15 +184,3 @@ public class HomeFragment extends Fragment {
 
 }
 
-class SortDescendingComparator implements Comparator<String> {
-    @Override
-    public int compare(String s1, String s2) {
-        if (s1.length() == s2.length()){
-            return (-1)* s1.compareTo(s2);
-        } if (s1.length() > s2.length()){
-            return -1;
-        } else {
-            return 1;
-        }
-    }
-}

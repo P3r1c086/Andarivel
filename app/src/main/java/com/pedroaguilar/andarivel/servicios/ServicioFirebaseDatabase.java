@@ -7,6 +7,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 
@@ -95,9 +96,7 @@ public class ServicioFirebaseDatabase {
     //Fin Zona Fichaje
 
     //Zona Ausencia
-    public void crearAusencia(String firebaseAuthUsuarioId, Usuario user){
-        databaseReferenceAusencia.child(Constantes.NODO_AUSENCIAS).child(firebaseAuthUsuarioId).setValue(user);
-    }
+
     public void cuentaAusencia(OnCompleteListener<DataSnapshot> listener) {
         firebaseDataBase.getReference(Constantes.NODO_AUSENCIAS).get().addOnCompleteListener(listener);
     }
@@ -110,6 +109,11 @@ public class ServicioFirebaseDatabase {
         databaseReferenceAusencia
                 .get()
                 .addOnCompleteListener(listener);
+    }
+
+    public void getAusencias(ValueEventListener listener){
+        databaseReferenceAusencia
+                .addValueEventListener(listener);
     }
 
     //Fin Zona Ausencia
