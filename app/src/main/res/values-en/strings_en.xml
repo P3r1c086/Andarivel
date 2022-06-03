@@ -86,4 +86,7 @@
     <string name="toast_error_tipo_ausencia">You must enter an absence type</string>
     <string name="toast_error_fecha_inicio_ausencia">You must enter a start date</string>
     <string name="toast_error_fecha_fin_ausencia">You must enter an end date</string>
+    <string name="no_peticiones_ausencia">NO REQUESTS FOR ABSENCE</string>
+    <string name="fallo">Failure</string>
+    <string name="ausencia_denegada">Absence Refused</string>
 </resources>

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentConcederAusenciaBinding;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
@@ -93,13 +94,13 @@ public class ConcederAusenciaFragment extends Fragment {
                     } else {
                         ArrayList<Ausencia> listaConVacio = new ArrayList<>();
                         Ausencia aVacio = new Ausencia();
-                        aVacio.setNombreUsuario("NO HAY PETICIONES DE AUSENCIA");
+                        aVacio.setNombreUsuario(getString(R.string.no_peticiones_ausencia));
                         listaConVacio.add(aVacio);
                         binding.listaAusencias.setAdapter(new AdaptadorAusenciasRecyclerView(listaConVacio));
                     }
 
                 } else {
-                    Toast.makeText(getContext(), "fallo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.fallo, Toast.LENGTH_SHORT).show();
                 }
             }
         });

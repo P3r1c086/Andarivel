@@ -89,7 +89,7 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
                         if (task.isSuccessful()) {
                             listaAusencia.get(position).setEstado("Denegada");
                             notifyItemChanged(position);
-                            Toast.makeText(context, "Ausencia Denegada", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.ausencia_denegada, Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
                         }

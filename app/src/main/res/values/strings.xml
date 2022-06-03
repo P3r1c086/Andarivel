@@ -87,4 +87,7 @@
     <string name="toast_error_tipo_ausencia">Debes introducir un tipo de ausencia</string>
     <string name="toast_error_fecha_inicio_ausencia">Debes introducir una fecha de inicio</string>
     <string name="toast_error_fecha_fin_ausencia">Debes introducir una fecha de fin</string>
+    <string name="no_peticiones_ausencia">NO HAY PETICIONES DE AUSENCIA</string>
+    <string name="fallo">Fallo</string>
+    <string name="ausencia_denegada">Ausencia Denegada</string>
 </resources>
