@@ -62,7 +62,7 @@
             android:textSize="20sp"
             android:fontFamily="@font/arial"
             android:textStyle="bold"
-            android:text=" / "
+            android:text=" - "
             app:layout_constraintStart_toEndOf="@+id/tvFechaInicioAusencia"
             app:layout_constraintTop_toBottomOf="@+id/tvMotivoAusencia"/>
         <TextView
