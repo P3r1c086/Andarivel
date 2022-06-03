@@ -45,19 +45,35 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        database.getFichajes(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()){
+                    Boolean estadoFinJornada = false;
+                    Map<String, Object> fichajes = (Map<String, Object>) task.getResult().getValue();
+                    TreeMap<String, Object> sorted = new TreeMap<>(new SortDescendingComparator());
+                    if (fichajes!= null ) sorted.putAll(fichajes);
+                    for (Map.Entry<String, Object> entry : sorted.entrySet()) {
+                        if (Objects.equals(mAuth.getUid(), ((Map<String, Object>) entry.getValue()).get("usuario"))
+                                && ((Map<String, Object>) entry.getValue()).get("horaSalida") == null){
+                            estadoFinJornada = true;
+                            break;
+                        }
+                    }
+                    if (estadoFinJornada){
+                        setEstadoFinalJornada();
+                    } else {
+                        setEstadoInicioJornada();
+                    }
+
+                }
+            }
+        });
+
         binding.btFichar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.btFichar.setVisibility(View.INVISIBLE);
-                binding.btFinalJornada.setVisibility(View.VISIBLE);
-                binding.imgEstado1.setVisibility(View.INVISIBLE);
-                binding.imgEstado2.setVisibility(View.VISIBLE);
-                SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-                SimpleDateFormat dateformat = new SimpleDateFormat("EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
-                binding.horaEntrada.setText("" + format.format(Calendar.getInstance().getTime()));
-                binding.fechaEntrada.setText(dateformat.format(Calendar.getInstance().getTime()));
-                binding.horaSalida.setText("");
-                binding.fechaSalida.setText("");
+                setEstadoFinalJornada();
                 almacenarFechaYhoraInicial();
 
             }
@@ -65,17 +81,34 @@ public class HomeFragment extends Fragment {
         binding.btFinalJornada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.btFichar.setVisibility(View.VISIBLE);
-                binding.btFinalJornada.setVisibility(View.INVISIBLE);
-                binding.imgEstado2.setVisibility(View.INVISIBLE);
-                binding.imgEstado1.setVisibility(View.VISIBLE);
-                SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-                SimpleDateFormat dateformat = new SimpleDateFormat("EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
-                binding.horaSalida.setText("" + format.format(Calendar.getInstance().getTime().getTime()));
-                binding.fechaSalida.setText(dateformat.format(Calendar.getInstance().getTime().getTime()));
+                setEstadoInicioJornada();
                 almacenarFechaYhoraFinal();
             }
         });
+    }
+
+    private void setEstadoInicioJornada(){
+        binding.btFichar.setVisibility(View.VISIBLE);
+        binding.btFinalJornada.setVisibility(View.INVISIBLE);
+        binding.imgEstado2.setVisibility(View.INVISIBLE);
+        binding.imgEstado1.setVisibility(View.VISIBLE);
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat dateformat = new SimpleDateFormat("EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
+        binding.horaSalida.setText("" + format.format(Calendar.getInstance().getTime().getTime()));
+        binding.fechaSalida.setText(dateformat.format(Calendar.getInstance().getTime().getTime()));
+    }
+
+    private void setEstadoFinalJornada(){
+        binding.btFichar.setVisibility(View.INVISIBLE);
+        binding.btFinalJornada.setVisibility(View.VISIBLE);
+        binding.imgEstado1.setVisibility(View.INVISIBLE);
+        binding.imgEstado2.setVisibility(View.VISIBLE);
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat dateformat = new SimpleDateFormat("EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
+        binding.horaEntrada.setText("" + format.format(Calendar.getInstance().getTime()));
+        binding.fechaEntrada.setText(dateformat.format(Calendar.getInstance().getTime()));
+        binding.horaSalida.setText("");
+        binding.fechaSalida.setText("");
     }
 
 
