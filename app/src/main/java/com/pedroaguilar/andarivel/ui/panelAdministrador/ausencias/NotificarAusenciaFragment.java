@@ -69,16 +69,27 @@ public class NotificarAusenciaFragment extends Fragment {
                                }
                            }
                            if (!find){
-                               binding.tvEstado.setText(binding.tvEstado.getText() + "No hay ausencias Pendientes de aprobar");
+                               showNoHayAusencias();
                            }
                        } else {
-                           binding.tvEstado.setText(binding.tvEstado.getText() + "No hay ausencias Pendientes de aprobar");
+                           showNoHayAusencias();
                        }
                    } else {
-                       binding.tvEstado.setText(binding.tvEstado.getText() + "No hay ausencias Pendientes de aprobar");
+                       showNoHayAusencias();
                    }
                }
            }
        });
+    }
+
+    private void showNoHayAusencias(){
+        binding.tvDescripcionAusencia.setVisibility(View.GONE);
+        binding.tvDescripcionAusenciaDato.setVisibility(View.GONE);
+        binding.tvMotivoAusencia.setVisibility(View.GONE);
+        binding.tvMotivoAusenciaDato.setVisibility(View.GONE);
+        binding.tvFechaFinAusencia.setVisibility(View.GONE);
+        binding.tvFechaguion.setVisibility(View.GONE);
+        binding.tvFechaInicioAusencia.setVisibility(View.GONE);
+        binding.tvEstado.setText(binding.tvEstado.getText() + "No hay ausencias Pendientes de aprobar");
     }
 }

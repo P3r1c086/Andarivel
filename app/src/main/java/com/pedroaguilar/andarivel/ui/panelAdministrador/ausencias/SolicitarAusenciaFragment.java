@@ -18,12 +18,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentSolicitarAusenciaBinding;
+import com.pedroaguilar.andarivel.modelo.Ausencia;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SolicitarAusenciaFragment extends Fragment {
     private FragmentSolicitarAusenciaBinding binding;
@@ -69,7 +71,8 @@ public class SolicitarAusenciaFragment extends Fragment {
         setListeners();
 
     }
-    private void setListeners(){
+
+    private void setListeners() {
         binding.spMotivoAusencia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -79,21 +82,46 @@ public class SolicitarAusenciaFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
         binding.btSolicitar.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if(validarDatosSolicitarAunsecia()){
-                    if(binding.etDescripcion.getText().toString().isEmpty()){
+                if (validarDatosSolicitarAunsecia()) {
+                    if (binding.etDescripcion.getText().toString().isEmpty()) {
                         usuario.setDescripcionAusencia("No especificado");
-                    }else {
+                    } else {
                         usuario.setDescripcionAusencia(binding.etDescripcion.getText().toString());
                     }
-
-                        introducirDatosEnBd();
-                        almacenarDatosAusencia();
+                    database.getAusencias(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                if (task.getResult().getValue() != null) {
+                                    Map<String, Object> mapRaiz = (Map<String, Object>) task.getResult().getValue();
+                                    if (mapRaiz != null && !mapRaiz.isEmpty()) {
+                                        Boolean findPending = false;
+                                        for (Map.Entry<String, Object> entry : mapRaiz.entrySet()) {
+                                            Map<String, String> mapAusencia = (Map<String, String>) entry.getValue();
+                                            if (mapAusencia.get("usuario").equals(FirebaseAuth.getInstance().getUid())
+                                                    && Objects.equals(mapAusencia.get("estado"), "Pendiente")) {
+                                                findPending = true;
+                                                break;
+                                            }
+                                        }
+                                        if (!findPending){
+                                            introducirDatosEnBd();
+                                            almacenarDatosAusencia();
+                                        } else {
+                                            Toast.makeText(requireContext(), "Tienes una ausencia pendiente de aprobar, tienes que esperar a que se resuelva para crear otra.", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
                 }
 
 
@@ -110,12 +138,12 @@ public class SolicitarAusenciaFragment extends Fragment {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 // +1 because January is zero
-                final String selectedDateInicio = day + " / " + (month+1) + " / " + year;
+                final String selectedDateInicio = day + " / " + (month + 1) + " / " + year;
                 binding.etFechaInicio.setText(selectedDateInicio);
                 usuario.setFechaInicioAusencia(selectedDateInicio);
 
             }
-        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH),  c.get(Calendar.DAY_OF_MONTH)).show();
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     /**
@@ -127,22 +155,23 @@ public class SolicitarAusenciaFragment extends Fragment {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 // +1 because January is zero
-                final String selectedDateFin = day + " / " + (month+1) + " / " + year;
+                final String selectedDateFin = day + " / " + (month + 1) + " / " + year;
                 binding.etFechaFin.setText(selectedDateFin);
                 usuario.setFechaFinAusencia(selectedDateFin);
 
             }
-        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH),  c.get(Calendar.DAY_OF_MONTH)).show();
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
     }
+
     private void almacenarDatosAusencia() {
-        database.cuentaAusencia(new OnCompleteListener<DataSnapshot>(){
+        database.cuentaAusencia(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()){
-                    if (task.getResult().getValue() == null){
+                if (task.isSuccessful()) {
+                    if (task.getResult().getValue() == null) {
                         crearNodoAusencia("1");
                     } else {
-                        crearNodoAusencia((((Map<String, Object>)task.getResult().getValue()).entrySet().size() + 1) + "");
+                        crearNodoAusencia((((Map<String, Object>) task.getResult().getValue()).entrySet().size() + 1) + "");
                     }
                 } else {
 
@@ -151,19 +180,20 @@ public class SolicitarAusenciaFragment extends Fragment {
         });
 
     }
-    public void crearNodoAusencia(String nNodo){
+
+    public void crearNodoAusencia(String nNodo) {
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Ausencia"+nNodo+"/motivoAusencia", usuario.getMotivoAusencia());//no se si ya lo tiene tomado aqui el valor
-        childUpdates.put("/Ausencia"+nNodo+"/fechaInicio", binding.etFechaInicio.getText().toString());
-        childUpdates.put("/Ausencia"+nNodo+"/fechaFin", binding.etFechaFin.getText().toString());
-        childUpdates.put("/Ausencia"+nNodo+"/descripcion", binding.etDescripcion.getText().toString());
-        childUpdates.put("/Ausencia"+nNodo+"/usuario", mAuth.getUid());
-        childUpdates.put("/Ausencia"+nNodo+"/estado", "Pendiente");
+        childUpdates.put("/Ausencia" + nNodo + "/motivoAusencia", usuario.getMotivoAusencia());//no se si ya lo tiene tomado aqui el valor
+        childUpdates.put("/Ausencia" + nNodo + "/fechaInicio", binding.etFechaInicio.getText().toString());
+        childUpdates.put("/Ausencia" + nNodo + "/fechaFin", binding.etFechaFin.getText().toString());
+        childUpdates.put("/Ausencia" + nNodo + "/descripcion", binding.etDescripcion.getText().toString());
+        childUpdates.put("/Ausencia" + nNodo + "/usuario", mAuth.getUid());
+        childUpdates.put("/Ausencia" + nNodo + "/estado", "Pendiente");
         database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 childUpdates.clear();
-                childUpdates.put("/Ausencias/Ausencia"+nNodo, true);
+                childUpdates.put("/Ausencias/Ausencia" + nNodo, true);
                 database.actualizarDatosUsuario(mAuth.getUid(), childUpdates, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -176,8 +206,7 @@ public class SolicitarAusenciaFragment extends Fragment {
     }
 
 
-
-    private void introducirDatosEnBd(){
+    private void introducirDatosEnBd() {
         Usuario user = new Usuario();
         user.setID(mAuth.getCurrentUser().getUid());
         user.setMotivoAusencia(usuario.getMotivoAusencia());
@@ -185,23 +214,25 @@ public class SolicitarAusenciaFragment extends Fragment {
         user.setFechaFinAusencia(usuario.getFechaFinAusencia());
         user.setDescripcionAusencia(usuario.getDescripcionAusencia());
     }
+
     private void showError(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
-    private boolean validarDatosSolicitarAunsecia(){
 
-            boolean resultado = true;
+    private boolean validarDatosSolicitarAunsecia() {
 
-            if (usuario.getMotivoAusencia() == null || usuario.getMotivoAusencia().isEmpty()) {
-                showError(getString(R.string.toast_error_tipo_ausencia));
-                resultado = false;
-            } else if (usuario.getFechaInicioAusencia() == null || usuario.getFechaInicioAusencia().isEmpty()) {
-                showError(getString(R.string.toast_error_fecha_inicio_ausencia));
-                resultado = false;
-            } else if (usuario.getFechaFinAusencia() == null || usuario.getFechaFinAusencia().isEmpty()) {
-                showError(getString(R.string.toast_error_fecha_fin_ausencia));
-                resultado = false;
-            }
-            return resultado;
+        boolean resultado = true;
+
+        if (usuario.getMotivoAusencia() == null || usuario.getMotivoAusencia().isEmpty()) {
+            showError(getString(R.string.toast_error_tipo_ausencia));
+            resultado = false;
+        } else if (usuario.getFechaInicioAusencia() == null || usuario.getFechaInicioAusencia().isEmpty()) {
+            showError(getString(R.string.toast_error_fecha_inicio_ausencia));
+            resultado = false;
+        } else if (usuario.getFechaFinAusencia() == null || usuario.getFechaFinAusencia().isEmpty()) {
+            showError(getString(R.string.toast_error_fecha_fin_ausencia));
+            resultado = false;
+        }
+        return resultado;
     }
 }
