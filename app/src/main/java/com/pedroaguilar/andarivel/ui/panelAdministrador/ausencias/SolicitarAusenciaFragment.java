@@ -85,7 +85,7 @@ public class SolicitarAusenciaFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                if(validarDatosSolicitarAunsecia()){//todo:no me esta funcionando. Se sale del programa
+                if(validarDatosSolicitarAunsecia()){
                     if(binding.etDescripcion.getText().toString().isEmpty()){
                         usuario.setDescripcionAusencia("No especificado");
                     }else {

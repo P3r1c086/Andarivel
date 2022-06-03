@@ -31,7 +31,7 @@ public class AusenciasFragment extends Fragment implements TabLayoutMediator.Tab
     private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentAusenciasBinding.inflate(inflater, container, false);
@@ -63,7 +63,7 @@ public class AusenciasFragment extends Fragment implements TabLayoutMediator.Tab
         //LLAMAR SIEMPRE A REQUIEREACTIVITY Y REQUIERECONTEXT EN VEZ DE GETACTIVITY O GETCONTEXT
 
         AdaptadorAuseciasTabs adaptadorAuseciasTabs = new
-                AdaptadorAuseciasTabs(requireActivity());// he sustituido this por getActivity()
+                AdaptadorAuseciasTabs(requireActivity());
         ArrayList<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new SolicitarAusenciaFragment());
         if (esAdmin) {

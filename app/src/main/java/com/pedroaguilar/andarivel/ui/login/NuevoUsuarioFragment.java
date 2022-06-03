@@ -172,10 +172,16 @@ public class NuevoUsuarioFragment extends Fragment {
         String tlf = telefono.getText().toString();
         // Patrón con expresiones regulares
         Pattern tlfRegex = Pattern.compile(
+                /**
+                 * Estos son los formatos que se van a validar
+                 * "2055550125","202 555 0125", "(202) 555-0125", "+111 (202) 555-0125",
+                 * "636 856 789", "+111 636 856 789", "636 85 67 89", "+111 636 85 67 89"
+                 */
+
                 "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
                         + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
                         + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$"
-                        + ".{9,13}$"//longitud entre 9 y 13 caracteres
+                        + ".{9,19}$"//longitud entre 9 y 19 caracteres
         );
         if (!tlfRegex.matcher(tlf).matches()) {
             showError("El teléfono no es válido");
