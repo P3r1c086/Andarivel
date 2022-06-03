@@ -9,10 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.pedroaguilar.andarivel.databinding.FragmentNotificacionAusenciaBinding;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
@@ -40,46 +40,45 @@ public class NotificarAusenciaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-       database.getAusencias(new OnCompleteListener<DataSnapshot>() {
-           @Override
-           public void onComplete(@NonNull Task<DataSnapshot> task) {
-               if (task.isSuccessful()){
-                   if (task.getResult().getValue() != null){
-                       Map<String, Object> mapRaiz = (Map<String, Object>) task.getResult().getValue();
-                       if (mapRaiz != null  && !mapRaiz.isEmpty()) {
-                           Boolean find = false;
-                           for (Map.Entry<String, Object> entry : mapRaiz.entrySet()) {
-                               Map<String, String> mapAusencia = (Map<String, String>) entry.getValue();
-                               if (mapAusencia.get("usuario").equals(FirebaseAuth.getInstance().getUid())) {
-                                   Ausencia ausencia = new Ausencia();
-                                   ausencia.setIdAusencia(mapAusencia.get("usuario"));
-                                   ausencia.setFechaInicioAusencia(mapAusencia.get("fechaInicio"));
-                                   ausencia.setFechaFinAusencia(mapAusencia.get("fechaFin"));
-                                   ausencia.setMotivoAusencia(mapAusencia.get("motivoAusencia"));
-                                   ausencia.setDescripcionAusencia(mapAusencia.get("descripcion"));
-                                   ausencia.setEstado(mapAusencia.get("estado"));
+        database.getAusencias(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() != null){
+                    Map<String, Object> mapRaiz = (Map<String, Object>) snapshot.getValue();
+                    if (mapRaiz != null  && !mapRaiz.isEmpty()) {
+                        Boolean find = false;
+                        for (Map.Entry<String, Object> entry : mapRaiz.entrySet()) {
+                            Map<String, String> mapAusencia = (Map<String, String>) entry.getValue();
+                            if (mapAusencia.get("usuario").equals(FirebaseAuth.getInstance().getUid())) {
+                                Ausencia ausencia = new Ausencia();
+                                ausencia.setIdAusencia(mapAusencia.get("usuario"));
+                                ausencia.setFechaInicioAusencia(mapAusencia.get("fechaInicio"));
+                                ausencia.setFechaFinAusencia(mapAusencia.get("fechaFin"));
+                                ausencia.setMotivoAusencia(mapAusencia.get("motivoAusencia"));
+                                ausencia.setDescripcionAusencia(mapAusencia.get("descripcion"));
+                                ausencia.setEstado(mapAusencia.get("estado"));
 
 //                                   binding.tvNombreUsuarioAusenciaDato.setText(ausencia.getNombreUsuario());
-                                   binding.tvMotivoAusenciaDato.setText(ausencia.getMotivoAusencia());
-                                   binding.tvFechaInicioAusencia.setText(ausencia.getFechaInicioAusencia());
-                                   binding.tvFechaFinAusencia.setText(ausencia.getFechaFinAusencia());
-                                   binding.tvDescripcionAusenciaDato.setText(ausencia.getDescripcionAusencia());
-                                   binding.tvEstado.setText(ausencia.getEstado());
-                                   find = true;
-                               }
-                           }
-                           if (!find){
-                               showNoHayAusencias();
-                           }
-                       } else {
-                           showNoHayAusencias();
-                       }
-                   } else {
-                       showNoHayAusencias();
-                   }
-               }
-           }
-       });
+                                showAusencia(ausencia);
+                                find = true;
+                            }
+                        }
+                        if (!find){
+                            showNoHayAusencias();
+                        }
+                    } else {
+                        showNoHayAusencias();
+                    }
+                } else {
+                    showNoHayAusencias();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void showNoHayAusencias(){
@@ -91,5 +90,20 @@ public class NotificarAusenciaFragment extends Fragment {
         binding.tvFechaguion.setVisibility(View.GONE);
         binding.tvFechaInicioAusencia.setVisibility(View.GONE);
         binding.tvEstado.setText(binding.tvEstado.getText() + "No hay ausencias Pendientes de aprobar");
+    }
+
+    private void showAusencia(Ausencia ausencia){
+        binding.tvDescripcionAusencia.setVisibility(View.VISIBLE);
+        binding.tvDescripcionAusenciaDato.setVisibility(View.VISIBLE);
+        binding.tvMotivoAusencia.setVisibility(View.VISIBLE);
+        binding.tvMotivoAusenciaDato.setVisibility(View.VISIBLE);
+        binding.tvFechaFinAusencia.setVisibility(View.VISIBLE);
+        binding.tvFechaguion.setVisibility(View.VISIBLE);
+        binding.tvFechaInicioAusencia.setVisibility(View.VISIBLE);
+        binding.tvMotivoAusenciaDato.setText(ausencia.getMotivoAusencia());
+        binding.tvFechaInicioAusencia.setText(ausencia.getFechaInicioAusencia());
+        binding.tvFechaFinAusencia.setText(ausencia.getFechaFinAusencia());
+        binding.tvDescripcionAusenciaDato.setText(ausencia.getDescripcionAusencia());
+        binding.tvEstado.setText(ausencia.getEstado());
     }
 }
