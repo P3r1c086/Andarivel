@@ -89,4 +89,10 @@
     <string name="no_peticiones_ausencia">NO REQUESTS FOR ABSENCE</string>
     <string name="fallo">Failure</string>
     <string name="ausencia_denegada">Absence Refused</string>
+    <string name="ausencia_pendiente">You have an absence pending approval, you have to wait for it to be resolved to create another one.</string>
+    <string name="no_hay_fichajes">NO CHECK IN</string>
+    <string name="actualizado_correctamente">It has been successfully updated</string>
+    <string name="telefono_no_valido">The phone is invalid</string>
+    <string name="requerido">Required</string>
+    <string name="error_subir_imagen">Error uploading image</string>
 </resources>

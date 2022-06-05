@@ -40,6 +40,7 @@ public class NotificarAusenciaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //Accedemos a todas las ausencias.
         database.getAusencias(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -49,6 +50,8 @@ public class NotificarAusenciaFragment extends Fragment {
                         Boolean find = false;
                         for (Map.Entry<String, Object> entry : mapRaiz.entrySet()) {
                             Map<String, String> mapAusencia = (Map<String, String>) entry.getValue();
+                            //Si el valor del dato usuario es igual al id del usuario al que notificar la ausencia,
+                            //obtenemos los datos de esa ausencia y los mostramos.
                             if (mapAusencia.get("usuario").equals(FirebaseAuth.getInstance().getUid())) {
                                 Ausencia ausencia = new Ausencia();
                                 ausencia.setIdAusencia(mapAusencia.get("usuario"));
@@ -81,6 +84,9 @@ public class NotificarAusenciaFragment extends Fragment {
         });
     }
 
+    /**
+     * Metodo para esconder los datos innecesarios en el caso de que no haya ausencias que mostrar
+     */
     private void showNoHayAusencias(){
         binding.tvDescripcionAusencia.setVisibility(View.GONE);
         binding.tvDescripcionAusenciaDato.setVisibility(View.GONE);
@@ -91,7 +97,9 @@ public class NotificarAusenciaFragment extends Fragment {
         binding.tvFechaInicioAusencia.setVisibility(View.GONE);
         binding.tvEstado.setText(binding.tvEstado.getText() + "No hay ausencias Pendientes de aprobar");
     }
-
+    /**
+     * Metodo para visibilizar los datos en el caso de que haya ausencias que mostrar
+     */
     private void showAusencia(Ausencia ausencia){
         binding.tvDescripcionAusencia.setVisibility(View.VISIBLE);
         binding.tvDescripcionAusenciaDato.setVisibility(View.VISIBLE);

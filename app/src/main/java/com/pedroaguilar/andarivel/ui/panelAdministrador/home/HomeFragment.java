@@ -38,6 +38,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+        //Al inflar la vista se pone la imagen del hombre con casco invisible.
         binding.imgEstado2.setVisibility(View.INVISIBLE);
         return binding.getRoot();
     }
@@ -45,13 +46,19 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //Obtenemos todos los fichajes y colocamos la app en el estadoFinJornada o estadoInicioJornada dependiendo de si encuentra algun fichaje
+        // completado o sin completar.
         database.getFichajes(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()){
                     Boolean estadoFinJornada = false;
+                    //Creamos un mapa con todos los fichajes sin ordenar.
                     Map<String, Object> fichajes = (Map<String, Object>) task.getResult().getValue();
+                    //Creamos otro mapa con todos los fichajes anteriores ordenados descendentemente, es decir, el primmero seria
+                    // el ultimo  que se ha introducido.
                     TreeMap<String, Object> sorted = new TreeMap<>(new SortDescendingComparator());
+                    //Añadimos entries del mapa devuelto por firebase
                     if (fichajes!= null ) sorted.putAll(fichajes);
                     //Recorremos el mapa ordenado buscando el usuario que coincida con el de la sesión y que tenga
                     // un nodo con horaSalida a null (que no exista el nodo)
@@ -139,7 +146,7 @@ public class HomeFragment extends Fragment {
         childUpdates.put("/Fichaje"+nNodo+"/horaEntrada", binding.horaEntrada.getText());
         childUpdates.put("/Fichaje"+nNodo+"/usuario", mAuth.getUid());
         database.actualizarFichaje(childUpdates);
-        childUpdates.clear();
+        childUpdates.clear();//todo: no entiendo para que hay que limpiar los hijos
         childUpdates.put("/Fichajes/Fichaje"+nNodo, true);
         database.actualizarDatosUsuario(mAuth.getUid(), childUpdates, new OnCompleteListener<Void>() {
             @Override
@@ -161,8 +168,9 @@ public class HomeFragment extends Fragment {
                     sorted.putAll(fichajes);
                     //Recorremos el mapa ordenado buscando valor que coincida con el usuario.
                     for (Map.Entry<String, Object> entry : sorted.entrySet()) {
+                                            //key                          //value
                         if (Objects.equals(mAuth.getUid(), ((Map<String, Object>) entry.getValue()).get("usuario"))){
-                            nodoFichaje = entry.getKey();
+                            nodoFichaje = entry.getKey(); //me devuelve fichaje n
                             break;
                         }
                     }

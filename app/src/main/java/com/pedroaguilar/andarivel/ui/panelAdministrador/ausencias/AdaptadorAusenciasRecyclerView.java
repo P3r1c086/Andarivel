@@ -41,8 +41,8 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
 
     @Override
     public void onBindViewHolder(@NonNull AdaptadorAusenciasRecyclerView.UsuarioViewHolder holder, int position) {
-        // asiganacion de los elementos del componente antes tienen que estar deados de alta como elementos de UsuarioViewHolder de abajo
-        //son los metodos de tu entidad Usuario
+        // asiganacion de los elementos del componente antes tienen que estar dados de alta como elementos de UsuarioViewHolder de abajo
+        //son los metodos de la entidad Usuario
         Context context = holder.itemView.getContext();
         holder.motivo.setText(" " + listaAusencia.get(position).getMotivoAusencia());
         holder.nombreUsuario.setText(" " + listaAusencia.get(position).getNombreUsuario());
@@ -51,6 +51,7 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
         holder.descripcion.setText(" " + listaAusencia.get(position).getDescripcionAusencia());
         String estado = listaAusencia.get(position).getEstado();
         holder.estado.setText(estado);
+        //Escondemos o visibilizamos los botones en funcion de si el estado de la solicitud es pendiente.
         if (!estado.equals("Pendiente")) {
             holder.aceptar.setVisibility(View.INVISIBLE);
             holder.denegar.setVisibility(View.INVISIBLE);
@@ -68,6 +69,7 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             listaAusencia.get(position).setEstado("Aceptada");
+                            //Notificamos que uno de los item ha cambiado
                             notifyItemChanged(position);
                             Toast.makeText(context, "Ausencia Aceptada", Toast.LENGTH_SHORT).show();
                         } else {

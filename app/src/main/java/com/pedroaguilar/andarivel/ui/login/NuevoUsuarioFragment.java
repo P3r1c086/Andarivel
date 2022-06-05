@@ -27,8 +27,8 @@ import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivi
 import java.util.regex.Pattern;
 
 /**
- * Fragmento para que el usuario intrduzca la informacion de crear un nuevo usuario.
- * Al crear nuevo usuario, si toddo bien, navegara a la actividad de PanelAdiminstrador
+ * Fragmento para que el usuario intrduzca la informacion para crear un nuevo usuario.
+ * Al crear el nuevo usuario, si toddo esta bien, navegara a la actividad de PanelAdiminstrador
  */
 public class NuevoUsuarioFragment extends Fragment {
 
@@ -58,15 +58,6 @@ public class NuevoUsuarioFragment extends Fragment {
 
     /**
      * En este método se crea la lógica. Se inicializa una vez generada la vista con el onCreateView()
-     *
-     * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
-     * has returned, but before any saved state has been restored in to the view.
-     * This gives subclasses a chance to initialize themselves once
-     * they know their view hierarchy has been completely created.  The fragment's
-     * view hierarchy is not however attached to its parent at this point.
-     *
-     * @param view               The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

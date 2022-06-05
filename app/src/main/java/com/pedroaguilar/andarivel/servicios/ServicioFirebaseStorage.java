@@ -6,6 +6,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+/**
+ * Esta clase externaliza la conexion al Storage de Firebase
+ */
 public class ServicioFirebaseStorage {
 
     private final FirebaseStorage storage = FirebaseStorage.getInstance();

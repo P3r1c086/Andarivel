@@ -56,6 +56,8 @@ public class SplashFragment extends Fragment {
                 /**
                  * Este objeto Navigation es un singleton, es decir, solo se puede crear una instacia de el.
                  */
+                //Comprobamos si el usuario ha iniciado sesion, y si es asi lo enviamos directamente al Panel de administrador
+                //sino navegara al login.
                 if (FirebaseAuth.getInstance().getCurrentUser() != null){
                     startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
                     getActivity().finish();

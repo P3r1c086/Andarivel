@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentEditarPerfilBinding;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 
@@ -45,6 +46,7 @@ public class EditarPerfilFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //Traemos los datos de perfil que hay en bundle y los colocamos en los textInputLayout de este fragmento
         if (getArguments()!= null){
             binding.etNombreReal.setText(getArguments().getString("nombre"));
             binding.etApellidos.setText(getArguments().getString("apellidos"));
@@ -58,7 +60,7 @@ public class EditarPerfilFragment extends Fragment {
                 if(validarCampos()){
                     actualizarUsuario();
                     Navigation.findNavController(v).navigateUp();
-                    Toast.makeText(getContext(), "Se ha actualizado correctamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.actualizado_correctamente, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -67,6 +69,7 @@ public class EditarPerfilFragment extends Fragment {
     }
 
     private void actualizarUsuario(){
+        //Creamos un mapa donde colocar los nuevos datos que introducira el usuario
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/nombre/", (String) binding.etNombreReal.getText().toString());
         childUpdates.put("/apellidos/", (String) binding.etApellidos.getText().toString());
@@ -86,13 +89,18 @@ public class EditarPerfilFragment extends Fragment {
         String tlf = binding.etTelefono.getText().toString();
         // Patrón con expresiones regulares
         Pattern tlfRegex = Pattern.compile(
+                /**
+                 * Estos son los formatos que se van a validar
+                 * "2055550125","202 555 0125", "(202) 555-0125", "+111 (202) 555-0125",
+                 * "636 856 789", "+111 636 856 789", "636 85 67 89", "+111 636 85 67 89"
+                 */
                 "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
                         + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
                         + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$"
-                        + ".{9,13}$"//longitud entre 9 y 13 caracteres
+                        + ".{9,19}$"//longitud entre 9 y 19 caracteres
         );
         if (!tlfRegex.matcher(tlf).matches()) {
-            showError("El teléfono no es válido");
+            showError(getString(R.string.telefono_no_valido));
             resultado = false;
         }
         return resultado;
@@ -105,16 +113,16 @@ public class EditarPerfilFragment extends Fragment {
         String telefon = binding.etTelefono.getText().toString();
 
         if (nombreReal.isEmpty()) {
-            binding.etNombreReal.setError("Requerido");
+            binding.etNombreReal.setError(getString(R.string.requerido));
             resultado = false;
         } else if (apellido.isEmpty()) {
-            binding.etApellidos.setError("Requerido");
+            binding.etApellidos.setError(getString(R.string.requerido));
             resultado = false;
         } else if (direcion.isEmpty()) {
-            binding.etDireccion.setError("Requerido");
+            binding.etDireccion.setError(getString(R.string.requerido));
             resultado = false;
         } else if (telefon.isEmpty()) {
-            binding.etTelefono.setError("Requerido");
+            binding.etTelefono.setError(getString(R.string.requerido));
             resultado = false;
         }
         if (!telefon.isEmpty()) {

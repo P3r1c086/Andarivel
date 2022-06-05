@@ -93,7 +93,6 @@ public class PerfilFragment extends Fragment {
                     direccion = "" + task.getResult().child("direccion").getValue();
                     telefono = "" + task.getResult().child("telefono").getValue();
                     String email = "" + task.getResult().child("email").getValue();
-                    // String imagenPerfil = "" + snapshot.child("imagen").getValue();//en el caso de meter la imagen en la base de datos
 
                     //seteo los datos en los textView e imageView
                     binding.tvNombreCompletoPerfilDato.setText(nombre.concat(" " + apellidos));
@@ -102,18 +101,22 @@ public class PerfilFragment extends Fragment {
                     binding.tvEmailPerfilDato.setText(email);
 
                     CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(requireContext());
+                    //Determinamos el ancho del trazo
                     circularProgressDrawable.setStrokeWidth(5f);
+                    //Longitud del radio
                     circularProgressDrawable.setCenterRadius(30f);
                     circularProgressDrawable.start();
 
 
                     //para obtener la imagen usamos la libreria de Glide
                     GlideApp.with(requireContext())
+                            //Cargar la URL del perfil pasandole el id del usuario
                             .load(storage.getUserPerfilUrl(firebaseAuth.getUid()))
                             .placeholder(circularProgressDrawable)
                             .circleCrop()
+                            //Si se produce algun error se carga la imagen por defecto de la app
                             .error(R.mipmap.ic_launcher)
-                            .signature(new ObjectKey(UUID.randomUUID().toString()))
+                            .signature(new ObjectKey(UUID.randomUUID().toString()))//todo: esta linea no entiedo que hace
                             .into(binding.imgPerfil);
 
                 }
@@ -122,6 +125,7 @@ public class PerfilFragment extends Fragment {
         binding.botonEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Creamos un bundle para llevar los datos de este fragmento al de editar perfil
                 Bundle bundle = new Bundle();
                 bundle.putString("nombre", nombre);
                 bundle.putString("apellidos", apellidos);
@@ -141,6 +145,7 @@ public class PerfilFragment extends Fragment {
         binding.botonBorrarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Colocamos una ventana emergente para confirmar que se quiere borrar el usuario
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setIcon(R.drawable.ic_baseline_exit_to_app_24);
                 builder.setTitle(R.string.titulo_borrado);
@@ -148,13 +153,17 @@ public class PerfilFragment extends Fragment {
                         builder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                //Borramos la foto de perfil del Storage de Firebaswe
                                 storage.borrarFotoPerfil(firebaseAuth.getUid());
                                 database.borrarUsuario(firebaseAuth.getUid(), new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
+                                        //Por ultimo borramos el usuario del autenticador
                                         firebaseAuth.getCurrentUser().delete();
                                         Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                                        //Lanzamos la activity login
                                         startActivity(intent);
+                                        //Finalizamos esta actividad
                                         requireActivity().finish();
                                     }
                                 });
@@ -172,7 +181,7 @@ public class PerfilFragment extends Fragment {
         });
     }
 
-    // function to check permission
+    // Metodo para comprobar los permisos de escritura en el dispositivo y el acceso a la camara.
     public static boolean checkAndRequestPermissions(final Activity context) {
         int WExtstorePermission = ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -194,7 +203,7 @@ public class PerfilFragment extends Fragment {
         return true;
     }
 
-    // Handled permission Result
+    // Metodo para manipular el resultado de los permisos.
     @Override
     public void onRequestPermissionsResult(int requestCode,String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -216,7 +225,7 @@ public class PerfilFragment extends Fragment {
         }
     }
 
-    // function to let's the user to choose image from camera or gallery
+    // Función que permite al usuario elegir una imagen de la cámara o de la galería.
     private void chooseImage(Context context){
         final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit" }; // create a menuOption Array
         // create a dialog for showing the optionsMenu
@@ -283,8 +292,7 @@ public class PerfilFragment extends Fragment {
         storage.guardarImagenDePerfil(FirebaseAuth.getInstance().getUid(), data, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(requireContext(), "Error al subir la imagen", Toast.LENGTH_SHORT).show();
-                //Fail to upload image
+                Toast.makeText(requireContext(), R.string.error_subir_imagen, Toast.LENGTH_SHORT).show();
             }
         }, new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override

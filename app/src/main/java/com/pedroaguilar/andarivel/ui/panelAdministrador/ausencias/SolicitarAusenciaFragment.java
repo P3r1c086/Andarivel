@@ -53,14 +53,16 @@ public class SolicitarAusenciaFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        //Asociar un evento de clic al EditText
+        //Asociar un evento de clic al EditText para mostrar un dialog con un calendario y poder
+        //seleccionar una fecha y tomar el dato.
         binding.etFechaInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showFechaInicioDatePickerDialog();
             }
         });
-        //Asociar un evento de clic al EditText
+        //Asociar un evento de clic al EditText para mostrar un dialog con un calendario y poder
+        //seleccionar una fecha y tomar el dato.
         binding.etFechaFin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +74,7 @@ public class SolicitarAusenciaFragment extends Fragment {
     }
 
     private void setListeners() {
+        //Comprueba la opcion seleccionada en el spinner y obtiene el dato.
         binding.spMotivoAusencia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -88,7 +91,10 @@ public class SolicitarAusenciaFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
+                //Se validan los datos antes de generar una ausencia.
                 if (validarDatosSolicitarAunsecia()) {
+                    //La descripcion no esta contemplada como obligatoria. En caso de no poner nada se le asigna un
+                    //valor por defecto.
                     if (binding.etDescripcion.getText().toString().isEmpty()) {
                         usuario.setDescripcionAusencia("No especificado");
                     } else {
@@ -97,13 +103,15 @@ public class SolicitarAusenciaFragment extends Fragment {
                     database.getAusencias(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            //Una vez realizada la consulta a la base de datos se obtiene un objeto Task con los datos.
                             if (task.isSuccessful()) {
                                 if (task.getResult().getValue() != null) {
+                                    //Se crea un objeto Mapa y se castean los resultado del objeto Task a tipo Mapa.
                                     Map<String, Object> mapRaiz = (Map<String, Object>) task.getResult().getValue();
                                     if (mapRaiz != null && !mapRaiz.isEmpty()) {
                                         Boolean findPending = false;
-                                        //Recorremos el mapa buscando un nodo que pertenezca al usuario logueado y además que
-                                        //el estado de la ausencia sea Pendiente
+                                        //Recorremos el mapa con un foreach buscando un nodo que pertenezca al usuario logueado y además que
+                                        //el estado de la ausencia sea Pendiente.
                                         for (Map.Entry<String, Object> entry : mapRaiz.entrySet()) {
                                             Map<String, String> mapAusencia = (Map<String, String>) entry.getValue();
                                             if (mapAusencia.get("usuario").equals(FirebaseAuth.getInstance().getUid())
@@ -117,7 +125,7 @@ public class SolicitarAusenciaFragment extends Fragment {
                                             introducirDatosEnBd();
                                             almacenarDatosAusencia();
                                         } else {
-                                            Toast.makeText(requireContext(), "Tienes una ausencia pendiente de aprobar, tienes que esperar a que se resuelva para crear otra.", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(requireContext(), R.string.ausencia_pendiente, Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 }
@@ -139,7 +147,7 @@ public class SolicitarAusenciaFragment extends Fragment {
         new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                // +1 because January is zero
+                // +1 porque enero es cero
                 final String selectedDateInicio = day + " / " + (month + 1) + " / " + year;
                 binding.etFechaInicio.setText(selectedDateInicio);
                 usuario.setFechaInicioAusencia(selectedDateInicio);
@@ -165,6 +173,10 @@ public class SolicitarAusenciaFragment extends Fragment {
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    /**
+     * Metodo para comprobar si hay ausencias creadas. Si no las hay, numera la primera con un uno
+     * y si ya hay alguna las cuenta y suma un al resultado.
+     */
     private void almacenarDatosAusencia() {
         database.cuentaAusencia(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -183,9 +195,13 @@ public class SolicitarAusenciaFragment extends Fragment {
 
     }
 
+    /**
+     * Metodo para crear un nodo ausencia y colocar sus datos correspondientes en su interior.
+     * Se le pasa por parametro el numero, en String, obtenido en el metodo almacenarDatosAusencia.
+     */
     public void crearNodoAusencia(String nNodo) {
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Ausencia" + nNodo + "/motivoAusencia", usuario.getMotivoAusencia());//no se si ya lo tiene tomado aqui el valor
+        childUpdates.put("/Ausencia" + nNodo + "/motivoAusencia", usuario.getMotivoAusencia());
         childUpdates.put("/Ausencia" + nNodo + "/fechaInicio", binding.etFechaInicio.getText().toString());
         childUpdates.put("/Ausencia" + nNodo + "/fechaFin", binding.etFechaFin.getText().toString());
         childUpdates.put("/Ausencia" + nNodo + "/descripcion", binding.etDescripcion.getText().toString());
@@ -194,6 +210,8 @@ public class SolicitarAusenciaFragment extends Fragment {
         database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                //Se crea un nodo ausencia n con valor true en los datos del usuario que la ha cerado para relacionar
+                //la ausencia creada con el usuario que la ha creado.
                 childUpdates.clear();
                 childUpdates.put("/Ausencias/Ausencia" + nNodo, true);
                 database.actualizarDatosUsuario(mAuth.getUid(), childUpdates, new OnCompleteListener<Void>() {
@@ -221,6 +239,10 @@ public class SolicitarAusenciaFragment extends Fragment {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Se validan los datos que introduce el usuario al crear una solicitud de ausencia.
+     * @return devuelve true si estan bien rellenado y false si no lo estan.
+     */
     private boolean validarDatosSolicitarAunsecia() {
 
         boolean resultado = true;

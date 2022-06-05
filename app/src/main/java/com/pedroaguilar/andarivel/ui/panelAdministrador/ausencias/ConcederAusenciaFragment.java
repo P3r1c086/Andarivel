@@ -22,7 +22,9 @@ import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Map;
 
-
+/**
+ * Fragmento solo usado por el administrador para conceder o denegar ausencias.
+ */
 public class ConcederAusenciaFragment extends Fragment {
 
     private FragmentConcederAusenciaBinding binding;
@@ -50,14 +52,16 @@ public class ConcederAusenciaFragment extends Fragment {
     }
 
     public void leerTodosUsuariosDatabase(){
-
+        //Accedemos a todas las ausencias
         database.getAusencias(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()){
                     ArrayList<Ausencia> listaAusencias = new ArrayList<Ausencia>();
+                    //Este mapa nos devuelve el nodo ausencia y todos los ausencia n que contenga.
                     Map<String, Object> mapRaiz = (Map<String, Object>) task.getResult().getValue();
                     if (mapRaiz != null  && !mapRaiz.isEmpty()) {
+                        //Con un foreach obtenemos los datos de todas las ausencias y las almacenamos en un array de Ausencia.
                         for (Map.Entry<String, Object> entry : mapRaiz.entrySet()) {
                             Map<String, String> mapAusencia = (Map<String, String>) entry.getValue();
                             Ausencia ausencia = new Ausencia();
@@ -70,6 +74,7 @@ public class ConcederAusenciaFragment extends Fragment {
                             ausencia.setEstado(mapAusencia.get("estado"));
                             listaAusencias.add(ausencia);
                         }
+                        //Accedemos a la informacion de todos los usuarios.
                         database.getInfoUsers(new OnCompleteListener<DataSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -106,6 +111,9 @@ public class ConcederAusenciaFragment extends Fragment {
         });
     }
 
+    /**
+     * Metodo para encontrar la ausencia que pertenece a un usuario
+     */
     private Ausencia findAusencia(ArrayList<Ausencia> list, String idUser){
         for (Ausencia a : list) {
             if (a.getNombreUsuario().equals(idUser)){

@@ -13,6 +13,10 @@ import com.pedroaguilar.andarivel.modelo.Usuario;
 
 import java.util.Map;
 
+/**
+ * Esta clase externaliza las conexiones a la base de datos y al autenticador de Firebase
+ */
+
 public class ServicioFirebaseDatabase {
 
     private final FirebaseDatabase firebaseDataBase =  FirebaseDatabase.getInstance();
@@ -50,10 +54,9 @@ public class ServicioFirebaseDatabase {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()){
-                    Map<String, Object> fichajes = (Map<String, Object>)((Map<String, Object>) task.getResult().getValue()).get("Fichajes");
+                    Map<String, Object> fichajes = (Map<String, Object>)((Map<String, Object>) task.getResult().getValue()).get("Fichajes");//todo: doble casting?
                     if (fichajes != null) {
-                        for (String key :
-                                fichajes.keySet()) {
+                        for (String key : fichajes.keySet()) {
                             fichajes.put(key, null);
                         }
                         databaseReferenceFichaje.updateChildren(fichajes).addOnCompleteListener(new OnCompleteListener<Void>() {
