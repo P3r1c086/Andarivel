@@ -146,7 +146,8 @@ public class HomeFragment extends Fragment {
         childUpdates.put("/Fichaje"+nNodo+"/horaEntrada", binding.horaEntrada.getText());
         childUpdates.put("/Fichaje"+nNodo+"/usuario", mAuth.getUid());
         database.actualizarFichaje(childUpdates);
-        childUpdates.clear();//todo: no entiendo para que hay que limpiar los hijos
+        //Hacemos un clear para reutilizar el mapa.
+        childUpdates.clear();
         childUpdates.put("/Fichajes/Fichaje"+nNodo, true);
         database.actualizarDatosUsuario(mAuth.getUid(), childUpdates, new OnCompleteListener<Void>() {
             @Override

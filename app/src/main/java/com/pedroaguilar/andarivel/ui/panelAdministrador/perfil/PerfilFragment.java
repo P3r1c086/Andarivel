@@ -116,7 +116,9 @@ public class PerfilFragment extends Fragment {
                             .circleCrop()
                             //Si se produce algun error se carga la imagen por defecto de la app
                             .error(R.mipmap.ic_launcher)
-                            .signature(new ObjectKey(UUID.randomUUID().toString()))//todo: esta linea no entiedo que hace
+                            //Le proporcionamos un id random a la cache de Glide para que al actualizarla luego vuelva a llamar a
+                            // la url se de cuenta de que es diferente y no la coja de su cache.
+                            .signature(new ObjectKey(UUID.randomUUID().toString()))
                             .into(binding.imgPerfil);
 
                 }

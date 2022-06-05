@@ -54,19 +54,24 @@ public class ServicioFirebaseDatabase {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()){
-                    Map<String, Object> fichajes = (Map<String, Object>)((Map<String, Object>) task.getResult().getValue()).get("Fichajes");//todo: doble casting?
+                    //Accedemos al mapa fichajes del nodo del usuario
+                    Map<String, Object> fichajes = (Map<String, Object>)((Map<String, Object>) task.getResult().getValue()).get("Fichajes");
                     if (fichajes != null) {
+                        //Nos guardamos las referencias de los fichajes del usuario
                         for (String key : fichajes.keySet()) {
                             fichajes.put(key, null);
                         }
+                        //Primero borramos el nodo fichajes del usuario asi como sus hijos.
                         databaseReferenceFichaje.updateChildren(fichajes).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
+                                //Borra tod el nodo del usuario.
                                 databaseReferenceUsuarios
                                         .child(firebaseAuthUsuarioId).removeValue().addOnCompleteListener(listener);
                             }
                         });
                     } else {
+                        //Si no hay fichajes borra tod el nodo del usuario.
                         databaseReferenceUsuarios
                                 .child(firebaseAuthUsuarioId).removeValue().addOnCompleteListener(listener);
                     }

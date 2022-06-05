@@ -76,25 +76,27 @@ public class InformesFragment extends Fragment  {
                                     ArrayList<Fichaje> listaFichajesCompleta = new ArrayList<Fichaje>();
                                     //Obtenemos un mapa con todos los usuarios.
                                     Map<String, Object> mapRaiz = (Map<String, Object>) task.getResult().getValue();
+                                    //Recorremos la informacion de todos los usuarios.
                                     for (Map.Entry<String, Object> entry : mapRaiz.entrySet()) {
                                         //Obtenemos un mapa con los datos de los fichajes.
-                                        Map<String, String> mapFichaje = (Map<String, String>) entry.getValue();
+                                        Map<String, String> mapInfoTodosUsuarios = (Map<String, String>) entry.getValue();
                                         //Nos devuelve el fichaje que coincide con el id del usuario.
                                         Fichaje f = findFichaje(listaFichajes, entry.getKey());
-                                        //Mientras exista el fichaje.
+                                        //Mientras existan el fichajes.
                                         while (f!= null) {
-                                            listaFichajes.remove(f);//todo; no entiendo por que hay que borrar el fichaje de la lista
+                                            //Quita el fichaje encontrado de la lista de fichajes.
+                                            listaFichajes.remove(f);
                                             //Le concatenamos el valor de nombre y apelldos del usuario y se lo asignamos al fichaje.
-                                            f.setNombreUsuario(mapFichaje.get("nombre") + " " + mapFichaje.get("apellidos"));
+                                            f.setNombreUsuario(mapInfoTodosUsuarios.get("nombre") + " " + mapInfoTodosUsuarios.get("apellidos"));
                                             //Añadimos el fichaje con todos los datos necesarios a la listaFichajesCompleta
                                             listaFichajesCompleta.add(f);
-                                            //todo:En f asignamos el fichaje que coincide con el id del usuario?
+                                            //Volvemos a buscar por si hay mas fichajes de ese usuario.
                                             f = findFichaje(listaFichajes, entry.getKey());
                                         }
 
                                     }
                                     //Colocamos en el adaptador la lista de fichajes que continen todos los datos necesarios.
-                                    binding.listaUsuarios.setAdapter(new Adaptador(listaFichajesCompleta));
+                                    binding.listaUsuarios.setAdapter(new AdaptadorInformes(listaFichajesCompleta));
                                 }
                             }
                         });
@@ -104,7 +106,7 @@ public class InformesFragment extends Fragment  {
                         //En caso de que no haya fichajes todavia, notificamos al administrador que no hay fichajes.
                         fVacio.setNombreUsuario(getString(R.string.no_hay_fichajes));
                         listaConVacio.add(fVacio);
-                        binding.listaUsuarios.setAdapter(new Adaptador(listaConVacio));
+                        binding.listaUsuarios.setAdapter(new AdaptadorInformes(listaConVacio));
                     }
 
                 } else {

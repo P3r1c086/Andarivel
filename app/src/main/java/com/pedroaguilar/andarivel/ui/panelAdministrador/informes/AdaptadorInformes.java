@@ -14,32 +14,32 @@ import com.pedroaguilar.andarivel.modelo.Fichaje;
 
 import java.util.ArrayList;
 
-public class Adaptador extends RecyclerView.Adapter<Adaptador.UsuarioViewHolder> {
+public class AdaptadorInformes extends RecyclerView.Adapter<AdaptadorInformes.UsuarioViewHolder> {
 
 
     private ArrayList<Fichaje> listaFichaje;
 
 
-    public Adaptador(ArrayList<Fichaje> lista) {
+    public AdaptadorInformes(ArrayList<Fichaje> lista) {
         this.listaFichaje = lista;
 
     }
 
     @NonNull
     @Override
-    public Adaptador.UsuarioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdaptadorInformes.UsuarioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //asignar el diseño de los elemetos de la lista al recurso vista e departamentos layout
         View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.informe_item,parent, false);
         return new UsuarioViewHolder(vista);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Adaptador.UsuarioViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdaptadorInformes.UsuarioViewHolder holder, int position) {
         // asiganacion de los elementos del componente, antes tienen que estar dados de alta como elementos de UsuarioViewHolder de abajo,
         //son los metodos de tu entidad Usuario
         Context context = holder.itemView.getContext();
         holder.fecha.setText(listaFichaje.get(position).getFecha());
-        holder.nombreUsuario.setText(context.getString(R.string.informes_fragment_name_text, listaFichaje.get(position).getNombreUsuario()));//todo:esta linea no me queda clara
+        holder.nombreUsuario.setText(context.getString(R.string.informes_fragment_name_text, listaFichaje.get(position).getNombreUsuario()));
         holder.horaEntrada.setText((listaFichaje.get(position).getHoraEntrada()));
         holder.horaSalida.setText((listaFichaje.get(position).getHoraSalida()));
     }
