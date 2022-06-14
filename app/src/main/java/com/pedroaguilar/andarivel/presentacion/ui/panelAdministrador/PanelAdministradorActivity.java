@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.ui.panelAdministrador;
+package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador;
 
 
 import android.content.Intent;
@@ -28,9 +28,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.pedroaguilar.andarivel.GlideApp;
 import com.pedroaguilar.andarivel.R;
+import com.pedroaguilar.andarivel.presentacion.ui.login.LoginActivity;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseStorage;
-import com.pedroaguilar.andarivel.ui.login.LoginActivity;
 
 import java.util.Map;
 import java.util.Objects;

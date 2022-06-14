@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.ui.panelAdministrador.informes;
+package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.informes;
 
 import android.content.Context;
 import android.view.LayoutInflater;

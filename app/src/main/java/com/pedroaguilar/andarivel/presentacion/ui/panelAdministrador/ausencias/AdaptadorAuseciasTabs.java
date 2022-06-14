@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.ui.panelAdministrador.ausencias;
+package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

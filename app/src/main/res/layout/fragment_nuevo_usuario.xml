@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/color_de_fondo_principal"
-    tools:context=".ui.login.NuevoUsuarioFragment"
+    tools:context=".presentacion.ui.login.NuevoUsuarioFragment"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="0dp"
     android:fillViewport="true"><!-- IMPORTANTE -->
@@ -16,7 +16,7 @@
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:background="@drawable/color_de_fondo_principal"
-    tools:context=".ui.login.NuevoUsuarioFragment">
+    tools:context=".presentacion.ui.login.NuevoUsuarioFragment">
 
 
     <TextView

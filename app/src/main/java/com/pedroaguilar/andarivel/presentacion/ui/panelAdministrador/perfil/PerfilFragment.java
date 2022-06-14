@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.ui.panelAdministrador.perfil;
+package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.perfil;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -40,9 +40,9 @@ import com.google.firebase.storage.UploadTask;
 import com.pedroaguilar.andarivel.GlideApp;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentPerfilBinding;
+import com.pedroaguilar.andarivel.presentacion.ui.login.LoginActivity;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseStorage;
-import com.pedroaguilar.andarivel.ui.login.LoginActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;

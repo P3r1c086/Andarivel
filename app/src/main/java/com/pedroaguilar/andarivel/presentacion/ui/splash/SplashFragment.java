@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.ui.splash;
+package com.pedroaguilar.andarivel.presentacion.ui.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.pedroaguilar.andarivel.R;
-import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity;
+import com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.PanelAdministradorActivity;
 
 /**
  * Fragmento inicial que muestra el logo de la app y tras 2 segundos realiza la accion de navegacion

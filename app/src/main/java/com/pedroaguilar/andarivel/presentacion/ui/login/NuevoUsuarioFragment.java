@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.ui.login;
+package com.pedroaguilar.andarivel.presentacion.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,8 +21,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.modelo.Usuario;
+import com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.PanelAdministradorActivity;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
-import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity;
 
 import java.util.regex.Pattern;
 

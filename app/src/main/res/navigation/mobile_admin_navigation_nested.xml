@@ -7,7 +7,7 @@
     app:startDestination="@id/home_dest">
     <fragment
         android:id="@+id/calendario_dest"
-        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.calendario.CalendarioFragment"
+        android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.calendario.CalendarioFragment"
         android:label="@string/menu_calendario"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
@@ -16,7 +16,7 @@
         tools:layout="@layout/fragment_calendario" />
     <fragment
         android:id="@+id/home_dest"
-        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.home.HomeFragment"
+        android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.home.HomeFragment"
         android:label="@string/menu_home"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
@@ -25,7 +25,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/perfil_dest"
-        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.perfil.PerfilFragment"
+        android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.perfil.PerfilFragment"
         android:label="@string/menu_slideshow"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
@@ -38,12 +38,12 @@
     </fragment>
     <activity
         android:id="@+id/panelAdministradorActivity"
-        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity"
+        android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.PanelAdministradorActivity"
         android:label="PanelAdministradorActivity"
         tools:layout="@layout/activity_panel_administrador"/>
     <fragment
         android:id="@+id/ausencias_dest"
-        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.ausencias.AusenciasFragment"
+        android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias.AusenciasFragment"
         android:label="@string/ausencias_title_appbar"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
@@ -52,7 +52,7 @@
         tools:layout="@layout/fragment_ausencias" />
     <fragment
         android:id="@+id/informes_dest"
-        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.informes.InformesFragment"
+        android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.informes.InformesFragment"
         android:label="@string/informes_title_appbar"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
@@ -62,7 +62,7 @@
     <!-- al tener una navegación aparte no se si tengo que ponerle  "_dest" -->
     <fragment
         android:id="@+id/editarPerfil_dest"
-        android:name="com.pedroaguilar.andarivel.ui.panelAdministrador.perfil.EditarPerfilFragment"
+        android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.perfil.EditarPerfilFragment"
         android:label="@string/editar_perfil_title_appbar"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"

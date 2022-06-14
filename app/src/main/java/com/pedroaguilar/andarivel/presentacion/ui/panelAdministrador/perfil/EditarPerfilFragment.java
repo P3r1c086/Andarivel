@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.ui.panelAdministrador.perfil;
+package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.perfil;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

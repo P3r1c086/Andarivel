@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.ui.login;
+package com.pedroaguilar.andarivel.presentacion.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentLoginBinding;
-import com.pedroaguilar.andarivel.ui.panelAdministrador.PanelAdministradorActivity;
+import com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.PanelAdministradorActivity;
 
 /**
  * Fragmento segundo que contiene campos para que rellene el usuario y realice la autenticacion con

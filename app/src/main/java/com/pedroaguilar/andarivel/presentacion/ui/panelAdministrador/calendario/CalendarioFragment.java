@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.ui.panelAdministrador.calendario;
+package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.calendario;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

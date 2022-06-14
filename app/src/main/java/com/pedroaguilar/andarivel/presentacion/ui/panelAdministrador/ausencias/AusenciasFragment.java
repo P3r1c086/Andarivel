@@ -1,4 +1,4 @@
-package com.pedroaguilar.andarivel.ui.panelAdministrador.ausencias;
+package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

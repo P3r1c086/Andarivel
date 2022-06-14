@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/color_de_fondo_principal"
-    tools:context=".ui.panelAdministrador.perfil.EditarPerfilFragment">
+    tools:context=".presentacion.ui.panelAdministrador.perfil.EditarPerfilFragment">
 
     <TextView
         android:id="@+id/texoEditarPerfil"
