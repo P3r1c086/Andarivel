@@ -96,4 +96,11 @@
     <string name="telefono_no_valido">El teléfono no es válido</string>
     <string name="requerido">Requerido</string>
     <string name="error_subir_imagen">Error al subir la imagen</string>
+    <string name="debes_completar_campos">Debes completar los campos</string>
+    <string name="autenticar_fallo">Fallo al autenticar.</string>
+    <string name="debes_introducir_email">Debes introducir un email</string>
+    <string name="debes_introducir_email_valido">Debes introducir un email válido</string>
+    <string name="debes_introducir_contrasena">Debes introducir una contraseña</string>
+    <string name="contrasena_debil">La contraseña es demasiado débil</string>
+    <string name="email_ya_registrado">Este email ya está registrado.</string>
 </resources>
