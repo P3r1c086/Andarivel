@@ -3,7 +3,6 @@ package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,25 +13,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.signature.ObjectKey;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.storage.StorageReference;
 import com.pedroaguilar.andarivel.GlideApp;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.presentacion.ui.login.LoginActivity;
-import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
-import com.pedroaguilar.andarivel.servicios.ServicioFirebaseStorage;
 
-import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -41,175 +33,130 @@ import java.util.UUID;
  * se integra con el drawerLayout y con la toolbar integrada en su xml. Con lo que conseguimos que
  * el icono del menu y el titulo que se muestra en la toolbar cambien conforme cambia la navegacion.
  */
-public class PanelAdministradorActivity extends AppCompatActivity {
+public class PanelAdministradorActivity extends AppCompatActivity implements PanelAdministradorView {
 
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
-    private final ServicioFirebaseStorage storage = new ServicioFirebaseStorage();
+    private final PanelAdministradorPresenter presenter = new PanelAdministradorPresenter();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            //Obtenemos la informacion del usuario que ha iniciado sesion.
-            database.getInfoUser(firebaseAuth.getUid(), new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        //Esta variable almacenara true o false dependiendo el valor que encuentre en el campo esAdministrador
-                        Boolean esAdmin = (Boolean) ((Map<String, Object>) task.getResult().getValue()).get("esAdiminstrador");
-                        //Si es administrador se cargara el panel del administrador y si no el del empleado.
-                        if (esAdmin != null && esAdmin) {
-                            setContentView(R.layout.activity_panel_administrador);
-                        } else {
-                            setContentView(R.layout.activity_panel_no_administrador);
-                        }
-
-                        NavigationView navView = findViewById(R.id.nav_view);
-                        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-                        Toolbar toolbar = findViewById(R.id.toolbar);
-                        TextView logout = findViewById(R.id.logout);
-
-                        // Pasar cada ID de menú como un conjunto de Ids porque cada menú debe ser considerado como destinos de primer nivel.
-
-                        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_content_nested);
-                        NavController navController = Objects.requireNonNull(navHostFragment).getNavController();
-
-                        //Cuando cambie la navegación, gracias al listener, esta parte salta.
-                        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-                            @Override
-                            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-                                //se almacena el id de la ruta para actualizar el elemento del menu
-                                int routeId = navController.getCurrentDestination().getId();
-                                if (routeId == R.id.home_dest)
-                                    navView.getMenu().getItem(0).setChecked(true);
-                                else if (routeId == R.id.calendario_dest)
-                                    navView.getMenu().getItem(1).setChecked(true);
-                                else if (routeId == R.id.perfil_dest)
-                                    navView.getMenu().getItem(2).setChecked(true);
-                                else if (routeId == R.id.ausencias_dest)
-                                    navView.getMenu().getItem(3).setChecked(true);
-                                else if (routeId == R.id.informes_dest)
-                                    navView.getMenu().getItem(4).setChecked(true);
-                            }
-                        });
-
-                        AppBarConfiguration mAppBarConfiguration = new AppBarConfiguration.Builder(
-                                navController.getGraph())
-                                .setOpenableLayout(drawerLayout)
-                                .build();
-                        NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
-                        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-                            @Override
-                            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                                //Cuando clicamos siempre cierra el drawer
-                                drawerLayout.closeDrawers();
-                                return NavigationUI.onNavDestinationSelected(item, navController);
-                            }
-                        });
-                        //Cerramos la sesion.
-                        logout.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                FirebaseAuth.getInstance().signOut();
-                                Intent intent = new Intent(PanelAdministradorActivity.this, LoginActivity.class);
-                                //Navegamos al loginActivity y finalizamos la actividad de PanelAdministradorActivity
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
-
-                        View header = navView.getHeaderView(0);
-                        //Al pulsar en la cabecera, cerramos el Drawer y navegamos al fragmento del perfil.
-                        header.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                drawerLayout.closeDrawers();
-                                navController.navigate(R.id.perfil_dest);
-                            }
-                        });
-                        //Realizamos esto para actualizar los campos imagen y nombre en la cabecera si el usuario los actualiza.
-                        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
-                            @Override
-                            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-
-                            }
-
-                            @Override
-                            public void onDrawerOpened(@NonNull View drawerView) {
-                                //para obtener la imagen usamos la libreria de Glide
-                                GlideApp.with(getApplicationContext())
-                                        .load(storage.getUserPerfilUrl(firebaseAuth.getUid()))
-                                        .circleCrop()
-                                        .error(R.mipmap.ic_launcher)
-                                        .signature(new ObjectKey(UUID.randomUUID().toString()))
-                                        .into((ImageView) header.findViewById(R.id.imgFotoPerfil));
-                                //Para obtener el nombre del usuario, accedemos a su informacion en la base de datos, concatenamos el
-                                //nombre y el apellido y lo colocamos en el TextView correspondiente de la cabecera del Drawer
-                                database.getInfoUser(firebaseAuth.getUid(), new OnCompleteListener<DataSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            String nombre = "" + task.getResult().child("nombre").getValue();
-                                            String apellidos = "" + task.getResult().child("apellidos").getValue();
-                                            ((TextView) header.findViewById(R.id.tvNombreCompleto)).setText(nombre + " " + apellidos);
-
-                                        }
-                                    }
-                                });
-
-                            }
-
-                            @Override
-                            public void onDrawerClosed(@NonNull View drawerView) {
-
-                            }
-
-                            @Override
-                            public void onDrawerStateChanged(int newState) {
-
-                            }
-                        });
-                        //Realizamos esta parte para obtener los datos de nombre, correo y foto del usuario.
-                        if (firebaseAuth != null) {
-                            database.getInfoUser(firebaseAuth.getUid(), new OnCompleteListener<DataSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        String nombre = "" + task.getResult().child("nombre").getValue();
-                                        String apellidos = "" + task.getResult().child("apellidos").getValue();
-                                        String email = "" + task.getResult().child("email").getValue();
-
-                                        //seteo los datos en los textView e imageView
-                                        ((TextView) header.findViewById(R.id.tvNombreCompleto)).setText(nombre + " " + apellidos);
-                                        ((TextView) header.findViewById(R.id.tvCorreo)).setText(email);
-
-                                        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(PanelAdministradorActivity.this);
-                                        circularProgressDrawable.setStrokeWidth(5f);
-                                        circularProgressDrawable.setCenterRadius(30f);
-                                        circularProgressDrawable.start();
-
-                                        //para obtener la imagen usamos la libreria de Glide
-                                        GlideApp.with(getApplicationContext())
-                                                .load(storage.getUserPerfilUrl(firebaseAuth.getUid()))
-                                                .placeholder(circularProgressDrawable)
-                                                .circleCrop()
-                                                .error(R.mipmap.ic_launcher)
-                                                .signature(new ObjectKey(UUID.randomUUID().toString()))
-                                                .into((ImageView) header.findViewById(R.id.imgFotoPerfil));
-
-                                    }
-                                }
-                            });
-                        }
-
-                    }
-                }
-            });
-
-
-        }
+        presenter.initialize(this);
+        presenter.logicaPanelAdministrador();
     }
 
+    @Override
+    public void inflarVistaSegunPerfil(Boolean esAdmin) {
+        if (esAdmin != null && esAdmin) {
+            setContentView(R.layout.activity_panel_administrador);
+        } else {
+            setContentView(R.layout.activity_panel_no_administrador);
+        }
+        setListeners();
+    }
+
+    private void setListeners() {
+        NavigationView navView = findViewById(R.id.nav_view);
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView logout = findViewById(R.id.logout);
+
+        // Pasar cada ID de menú como un conjunto de Ids porque cada menú debe ser considerado como destinos de primer nivel.
+
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_content_nested);
+        NavController navController = Objects.requireNonNull(navHostFragment).getNavController();
+
+        //Cuando cambie la navegación, gracias al listener, esta parte salta.
+        navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
+            //se almacena el id de la ruta para actualizar el elemento del menu
+            int routeId = navController1.getCurrentDestination().getId();
+            if (routeId == R.id.home_dest)
+                navView.getMenu().getItem(0).setChecked(true);
+            else if (routeId == R.id.calendario_dest)
+                navView.getMenu().getItem(1).setChecked(true);
+            else if (routeId == R.id.perfil_dest)
+                navView.getMenu().getItem(2).setChecked(true);
+            else if (routeId == R.id.ausencias_dest)
+                navView.getMenu().getItem(3).setChecked(true);
+            else if (routeId == R.id.informes_dest)
+                navView.getMenu().getItem(4).setChecked(true);
+        });
+        AppBarConfiguration mAppBarConfiguration = new AppBarConfiguration.Builder(
+                navController.getGraph())
+                .setOpenableLayout(drawerLayout)
+                .build();
+        NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
+        navView.setNavigationItemSelectedListener(item -> {
+            //Cuando clicamos siempre cierra el drawer
+            drawerLayout.closeDrawers();
+            return NavigationUI.onNavDestinationSelected(item, navController);
+        });
+        //Cerramos la sesion.
+        logout.setOnClickListener(v -> {
+            presenter.logout();
+        });
+        View header = navView.getHeaderView(0);
+        //Al pulsar en la cabecera, cerramos el Drawer y navegamos al fragmento del perfil.
+        header.setOnClickListener(view -> {
+            drawerLayout.closeDrawers();
+            navController.navigate(R.id.perfil_dest);
+        });
+        //Realizamos esto para actualizar los campos imagen y nombre en la cabecera si el usuario los actualiza.
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+                presenter.loadHeaderInfoUser();
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+    }
+
+    @Override
+    public void navegarAlLogin() {
+        Intent intent = new Intent(PanelAdministradorActivity.this, LoginActivity.class);
+        //Navegamos al loginActivity y finalizamos la actividad de PanelAdministradorActivity
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void setImageHeaderDrawer(StorageReference url) {
+        NavigationView navView = findViewById(R.id.nav_view);
+        View header = navView.getHeaderView(0);
+
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(PanelAdministradorActivity.this);
+        circularProgressDrawable.setStrokeWidth(5f);
+        circularProgressDrawable.setCenterRadius(30f);
+        circularProgressDrawable.start();
+
+        //para obtener la imagen usamos la libreria de Glide
+        GlideApp.with(getApplicationContext())
+                .load(url)
+                .placeholder(circularProgressDrawable)
+                .circleCrop()
+                .error(R.mipmap.ic_launcher)
+                .signature(new ObjectKey(UUID.randomUUID().toString()))
+                .into((ImageView) header.findViewById(R.id.imgFotoPerfil));
+    }
+
+    @Override
+    public void setTextHeaderDrawer(String nombre, String apellidos, String email) {
+        NavigationView navView = findViewById(R.id.nav_view);
+        View header = navView.getHeaderView(0);
+        ((TextView) header.findViewById(R.id.tvNombreCompleto)).setText(nombre + " " + apellidos);
+        ((TextView) header.findViewById(R.id.tvCorreo)).setText(email);
+    }
 }
