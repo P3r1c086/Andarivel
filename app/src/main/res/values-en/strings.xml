@@ -95,4 +95,11 @@
     <string name="telefono_no_valido">The phone is invalid</string>
     <string name="requerido">Required</string>
     <string name="error_subir_imagen">Error uploading image</string>
+    <string name="debes_completar_campos">You must complete the fields</string>
+    <string name="autenticar_fallo">Authentication failed.</string>
+    <string name="debes_introducir_email">You must enter an email address</string>
+    <string name="debes_introducir_email_valido">You must enter a valid email address</string>
+    <string name="debes_introducir_contrasena">You must enter a password</string>
+    <string name="contrasena_debil">Password is too weak</string>
+    <string name="email_ya_registrado">This email is already registered.</string>
 </resources>

@@ -7,7 +7,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -30,19 +29,11 @@ import androidx.navigation.Navigation;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.signature.ObjectKey;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.storage.UploadTask;
+import com.google.firebase.storage.StorageReference;
 import com.pedroaguilar.andarivel.GlideApp;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentPerfilBinding;
 import com.pedroaguilar.andarivel.presentacion.ui.login.LoginActivity;
-import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
-import com.pedroaguilar.andarivel.servicios.ServicioFirebaseStorage;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -50,20 +41,19 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class PerfilFragment extends Fragment {
+public class PerfilFragment extends Fragment implements PerfilView {
 
-    private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
-    private final ServicioFirebaseStorage storage = new ServicioFirebaseStorage();
+    private final PerfilPresenter presenter = new PerfilPresenter();
+
+    private FragmentPerfilBinding binding;
 
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 10;
-    private FragmentPerfilBinding binding;
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    FirebaseUser user = firebaseAuth.getCurrentUser();
 
     private String nombre ="";
     private String apellidos ="";
     private String direccion ="";
     private String telefono ="";
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -80,131 +70,40 @@ public class PerfilFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //obtengo el hijo de usuarios con este id
-        //si quiero solo una foto o momento, es decir, que no me llegue tod el rato llamo a get()
-        database.getInfoUser(firebaseAuth.getUid(), new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-                    //obtengo los datos de firebase
-                    //String uid = "" + snapshot.child("id").getValue(); si quiero sacar el id
-                    nombre = "" + task.getResult().child("nombre").getValue();
-                    apellidos = "" + task.getResult().child("apellidos").getValue();
-                    direccion = "" + task.getResult().child("direccion").getValue();
-                    telefono = "" + task.getResult().child("telefono").getValue();
-                    String email = "" + task.getResult().child("email").getValue();
-
-                    //seteo los datos en los textView e imageView
-                    binding.tvNombreCompletoPerfilDato.setText(nombre.concat(" " + apellidos));
-                    binding.tvDireccionPerfilDato.setText(direccion);
-                    binding.tvTelefonoPerfilDato.setText(telefono);
-                    binding.tvEmailPerfilDato.setText(email);
-
-                    CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(requireContext());
-                    //Determinamos el ancho del trazo
-                    circularProgressDrawable.setStrokeWidth(5f);
-                    //Longitud del radio
-                    circularProgressDrawable.setCenterRadius(30f);
-                    circularProgressDrawable.start();
-
-
-                    //para obtener la imagen usamos la libreria de Glide
-                    GlideApp.with(requireContext())
-                            //Cargar la URL del perfil pasandole el id del usuario
-                            .load(storage.getUserPerfilUrl(firebaseAuth.getUid()))
-                            .placeholder(circularProgressDrawable)
-                            .circleCrop()
-                            //Si se produce algun error se carga la imagen por defecto de la app
-                            .error(R.mipmap.ic_launcher)
-                            //Le proporcionamos un id random a la cache de Glide para que al actualizarla luego vuelva a llamar a
-                            // la url se de cuenta de que es diferente y no la coja de su cache.
-                            .signature(new ObjectKey(UUID.randomUUID().toString()))
-                            .into(binding.imgPerfil);
-
-                }
+        presenter.initialize(this);
+        setListeners();
+        presenter.getInfoUser();
+    }
+    private void setListeners(){
+        binding.botonEditarPerfil.setOnClickListener(v -> {
+            //Creamos un bundle para llevar los datos de este fragmento al de editar perfil
+            Bundle bundle = new Bundle();
+            bundle.putString("nombre", nombre);
+            bundle.putString("apellidos", apellidos);
+            bundle.putString("direccion", direccion);
+            bundle.putString("telefono", telefono);
+            Navigation.findNavController(v).navigate(R.id.action_perfil_dest_to_editarPerfil_fragment, bundle);
+        });
+        binding.imgPerfil.setOnClickListener(v -> {
+            if (checkAndRequestPermissions(getActivity())){
+                chooseImage(getActivity());
             }
         });
-        binding.botonEditarPerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Creamos un bundle para llevar los datos de este fragmento al de editar perfil
-                Bundle bundle = new Bundle();
-                bundle.putString("nombre", nombre);
-                bundle.putString("apellidos", apellidos);
-                bundle.putString("direccion", direccion);
-                bundle.putString("telefono", telefono);
-                Navigation.findNavController(v).navigate(R.id.action_perfil_dest_to_editarPerfil_fragment, bundle);
-            }
-        });
-        binding.imgPerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkAndRequestPermissions(getActivity())){
-                    chooseImage(getActivity());
-                }
-            }
-        });
-        binding.botonBorrarPerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Colocamos una ventana emergente para confirmar que se quiere borrar el usuario
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setIcon(R.drawable.ic_baseline_exit_to_app_24);
-                builder.setTitle(R.string.titulo_borrado);
-                builder.setMessage(getString(R.string.aleta_borrado));
-                        builder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //Borramos la foto de perfil del Storage de Firebaswe
-                                storage.borrarFotoPerfil(firebaseAuth.getUid());
-                                database.borrarUsuario(firebaseAuth.getUid(), new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        //Por ultimo borramos el usuario del autenticador
-                                        firebaseAuth.getCurrentUser().delete();
-                                        Intent intent = new Intent(requireActivity(), LoginActivity.class);
-                                        //Lanzamos la activity login
-                                        startActivity(intent);
-                                        //Finalizamos esta actividad
-                                        requireActivity().finish();
-                                    }
-                                });
-                            }
-                        })
-                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
+        binding.botonBorrarPerfil.setOnClickListener(v -> {
+            //Colocamos una ventana emergente para confirmar que se quiere borrar el usuario
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setIcon(R.drawable.ic_baseline_exit_to_app_24);
+            builder.setTitle(R.string.titulo_borrado);
+            builder.setMessage(getString(R.string.aleta_borrado));
+            builder.setPositiveButton(R.string.si, (dialog, which) -> {
+                presenter.borrarFotoPerfil();
+                presenter.borrarUsuario();
+            })
+                    .setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss());
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         });
     }
-
-    // Metodo para comprobar los permisos de escritura en el dispositivo y el acceso a la camara.
-    public static boolean checkAndRequestPermissions(final Activity context) {
-        int WExtstorePermission = ContextCompat.checkSelfPermission(context,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        int cameraPermission = ContextCompat.checkSelfPermission(context,
-                Manifest.permission.CAMERA);
-        List<String> listPermissionsNeeded = new ArrayList<>();
-        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.CAMERA);
-        }
-        if (WExtstorePermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded
-                    .add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-        if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(context, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),
-                    REQUEST_ID_MULTIPLE_PERMISSIONS);
-            return false;
-        }
-        return true;
-    }
-
     // Metodo para manipular el resultado de los permisos.
     @Override
     public void onRequestPermissionsResult(int requestCode,String[] permissions, int[] grantResults) {
@@ -225,33 +124,6 @@ public class PerfilFragment extends Fragment {
                 }
                 break;
         }
-    }
-
-    // Función que permite al usuario elegir una imagen de la cámara o de la galería.
-    private void chooseImage(Context context){
-        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit" }; // create a menuOption Array
-        // create a dialog for showing the optionsMenu
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        // set the items in builder
-        builder.setItems(optionsMenu, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if(optionsMenu[i].equals("Take Photo")){
-                    // Open the camera and get the photo
-                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePicture, 0);
-                }
-                else if(optionsMenu[i].equals("Choose from Gallery")){
-                    // choose from  external storage
-                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto , 1);
-                }
-                else if (optionsMenu[i].equals("Exit")) {
-                    dialogInterface.dismiss();
-                }
-            }
-        });
-        builder.show();
     }
 
     @Override
@@ -287,39 +159,114 @@ public class PerfilFragment extends Fragment {
         }
     }
 
-    private void guardarYSettearImagen(Bitmap bitmap){
+    // Metodo para comprobar los permisos de escritura en el dispositivo y el acceso a la camara.
+    public static boolean checkAndRequestPermissions(final Activity context) {
+        int WExtstorePermission = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int cameraPermission = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.CAMERA);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA);
+        }
+        if (WExtstorePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded
+                    .add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(context, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
+
+    // Función que permite al usuario elegir una imagen de la cámara o de la galería.
+    public void chooseImage(Context context){
+        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit" }; // create a menuOption Array
+        // create a dialog for showing the optionsMenu
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        // set the items in builder
+        builder.setItems(optionsMenu, (dialogInterface, i) -> {
+            if(optionsMenu[i].equals("Take Photo")){
+                // Open the camera and get the photo
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePicture, 0);
+            }
+            else if(optionsMenu[i].equals("Choose from Gallery")){
+                // choose from  external storage
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , 1);
+            }
+            else if (optionsMenu[i].equals("Exit")) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    public void guardarYSettearImagen(Bitmap bitmap){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
-        storage.guardarImagenDePerfil(FirebaseAuth.getInstance().getUid(), data, new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(requireContext(), R.string.error_subir_imagen, Toast.LENGTH_SHORT).show();
-            }
-        }, new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(requireContext());
-                circularProgressDrawable.setStrokeWidth(5f);
-                circularProgressDrawable.setCenterRadius(30f);
-                circularProgressDrawable.start();
-
-
-                GlideApp.with(requireContext())
-                        .load(storage.getUserPerfilUrl(firebaseAuth.getUid()))
-                        .placeholder(circularProgressDrawable)
-                        .circleCrop()
-                        .error(R.mipmap.ic_launcher)
-                        .signature(new ObjectKey(UUID.randomUUID().toString()))
-                        .into(binding.imgPerfil);
-            }
-        });
+        presenter.guardaImagenPerfil(data);
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        presenter.dispose();
     }
 
+    @Override
+    public void setDatosUsuarioEnUi(String nombre, String apellidos, String direccion, String telefono, String mail, StorageReference url) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        //seteo los datos en los textView e imageView
+        binding.tvNombreCompletoPerfilDato.setText(nombre.concat(" " + apellidos));
+        binding.tvDireccionPerfilDato.setText(direccion);
+        binding.tvTelefonoPerfilDato.setText(telefono);
+        binding.tvEmailPerfilDato.setText(mail);
+        setImagenUsuario(url);
+    }
+
+    @Override
+    public void setImagenUsuario(StorageReference url) {
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(requireContext());
+        //Determinamos el ancho del trazo
+        circularProgressDrawable.setStrokeWidth(5f);
+        //Longitud del radio
+        circularProgressDrawable.setCenterRadius(30f);
+        circularProgressDrawable.start();
+
+
+        //para obtener la imagen usamos la libreria de Glide
+        GlideApp.with(requireContext())
+                //Cargar la URL del perfil pasandole el id del usuario
+                .load(url)
+                .placeholder(circularProgressDrawable)
+                .circleCrop()
+                //Si se produce algun error se carga la imagen por defecto de la app
+                .error(R.mipmap.ic_launcher)
+                //Le proporcionamos un id random a la cache de Glide para que al actualizarla luego vuelva a llamar a
+                // la url se de cuenta de que es diferente y no la coja de su cache.
+                .signature(new ObjectKey(UUID.randomUUID().toString()))
+                .into(binding.imgPerfil);
+    }
+
+    @Override
+    public void navegarAlLogin() {
+        Intent intent = new Intent(requireActivity(), LoginActivity.class);
+        //Lanzamos la activity login
+        startActivity(intent);
+        //Finalizamos esta actividad
+        requireActivity().finish();
+    }
+
+    @Override
+    public void showErrorSubirImagen() {
+        Toast.makeText(requireContext(), R.string.error_subir_imagen, Toast.LENGTH_SHORT).show();
+    }
 }
