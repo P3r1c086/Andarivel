@@ -51,19 +51,17 @@ public class SplashFragment extends Fragment {
          */
         long time = 2000L;//2000 milisegundos = 2 segundos
         final Handler handler = new Handler();
-        Runnable r = new Runnable() {
-            public void run() {
-                /**
-                 * Este objeto Navigation es un singleton, es decir, solo se puede crear una instacia de el.
-                 */
-                //Comprobamos si el usuario ha iniciado sesion, y si es asi lo enviamos directamente al Panel de administrador
-                //sino navegara al login.
-                if (FirebaseAuth.getInstance().getCurrentUser() != null){
-                    startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
-                    getActivity().finish();
-                } else {
-                    Navigation.findNavController(view).navigate(R.id.action_splash_to_login);
-                }
+        Runnable r = () -> {
+            /**
+             * Este objeto Navigation es un singleton, es decir, solo se puede crear una instacia de el.
+             */
+            //Comprobamos si el usuario ha iniciado sesion, y si es asi lo enviamos directamente al Panel de administrador
+            //sino navegara al login.
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                startActivity(new Intent(getContext(), PanelAdministradorActivity.class));
+                getActivity().finish();
+            } else {
+                Navigation.findNavController(view).navigate(R.id.action_splash_to_login);
             }
         };
         /**
