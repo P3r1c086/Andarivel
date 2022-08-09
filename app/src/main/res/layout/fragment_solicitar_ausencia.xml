@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/constraintLayout2"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/color_de_fondo_principal"
-tools:context=".presentacion.ui.panelAdministrador.ausencias.AusenciasFragment">
+    tools:context=".presentacion.ui.panelAdministrador.ausencias.AusenciasFragment">
 
-<TextView
-    android:id="@+id/tvTitulo"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:text="@string/solicitar_ausencia"
-    android:textStyle="bold"
-    android:textColor="@color/verde_andarivel"
-    android:textAlignment="center"
-    android:textSize="30sp"
-    android:fontFamily="@font/mont_heavy"
-    app:layout_constraintBottom_toTopOf="@+id/spMotivoAusencia"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_percent="0.06"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/mont_heavy"
+        android:text="@string/solicitar_ausencia"
+        android:textAlignment="center"
+        android:textColor="@color/verde_andarivel"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/spMotivoAusencia"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-<Spinner
-    android:id="@+id/spMotivoAusencia"
-    android:layout_width="wrap_content"
-    android:layout_height="0dp"
-    android:entries="@array/ausencias"
-    android:minHeight="24dp"
-    android:textAlignment="center"
-    android:fontFamily="@font/arial"
-    app:layout_constraintBottom_toTopOf="@+id/etFechaInicio"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_percent="0.06"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/tvTitulo" />
+    <Spinner
+        android:id="@+id/spMotivoAusencia"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:entries="@array/ausencias"
+        android:fontFamily="@font/arial"
+        android:minHeight="24dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/etFechaInicio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitulo" />
 
 
     <EditText
@@ -46,27 +46,27 @@ tools:context=".presentacion.ui.panelAdministrador.ausencias.AusenciasFragment">
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="false"
+        android:fontFamily="@font/arial"
         android:gravity="center_horizontal"
         android:hint="@string/fecha_inicio"
-        android:textColorHint="@color/verde_inputs"
         android:inputType="date"
         android:minHeight="48dp"
-        android:fontFamily="@font/arial"
-        app:layout_constraintBottom_toTopOf="@+id/tvDescripcion"
+        android:textColorHint="@color/verde_inputs"
+        app:layout_constraintBottom_toBottomOf="@id/etFechaFin"
         app:layout_constraintEnd_toStartOf="@+id/etFechaFin"
         app:layout_constraintHeight_percent="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spMotivoAusencia" />
+        app:layout_constraintTop_toTopOf="@id/etFechaFin" />
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="-"
-    android:fontFamily="@font/arial"
-    app:layout_constraintStart_toEndOf="@id/etFechaInicio"
-    app:layout_constraintEnd_toStartOf="@id/etFechaFin"
-    app:layout_constraintTop_toTopOf="@id/etFechaInicio"
-    app:layout_constraintBottom_toBottomOf="@id/etFechaInicio"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/arial"
+        android:text="-"
+        app:layout_constraintBottom_toBottomOf="@id/etFechaInicio"
+        app:layout_constraintEnd_toStartOf="@id/etFechaFin"
+        app:layout_constraintStart_toEndOf="@id/etFechaInicio"
+        app:layout_constraintTop_toTopOf="@id/etFechaInicio" />
 
     <EditText
         android:id="@+id/etFechaFin"
@@ -74,69 +74,71 @@ tools:context=".presentacion.ui.panelAdministrador.ausencias.AusenciasFragment">
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="false"
+        android:fontFamily="@font/arial"
         android:gravity="center_horizontal"
         android:hint="@string/fecha_fin"
-        android:textColorHint="@color/verde_inputs"
         android:inputType="date"
         android:minHeight="48dp"
-        android:fontFamily="@font/arial"
-        app:layout_constraintBottom_toTopOf="@+id/tvDescripcion"
+        android:textColorHint="@color/verde_inputs"
+        app:layout_constraintBottom_toTopOf="@+id/etDescripcion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/etFechaInicio"
         app:layout_constraintTop_toBottomOf="@+id/spMotivoAusencia" />
 
-<TextView
-    android:id="@+id/tvDescripcion"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:text="@string/descripci_n"
-    android:textAlignment="textStart"
-    android:textColor="@color/verde_inputs"
-    android:textSize="18dp"
-    android:fontFamily="@font/arial"
-    android:layout_marginHorizontal="30dp"
-    app:layout_constraintHeight_percent="0.04"
-    app:layout_constraintBottom_toTopOf="@id/etDescripcion"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/etFechaInicio" />
+    <EditText
+        android:id="@+id/etDescripcion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:fontFamily="@font/arial"
+        android:gravity="start|top"
+        android:hint="@string/escribe_aqu"
+        android:inputType="textMultiLine"
+        android:minHeight="48dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/btAdjuntarDoc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etFechaFin" />
 
-<EditText
-    android:id="@+id/etDescripcion"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="20dp"
-    android:layout_weight="1"
-    android:ems="10"
-    android:hint="@string/escribe_aqu"
-    android:textColor="@color/black"
-    android:gravity="start|top"
-    android:inputType="textMultiLine"
-    android:minHeight="48dp"
-    android:fontFamily="@font/arial"
-    app:layout_constraintBottom_toTopOf="@+id/btSolicitar"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_percent="0.08"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/tvDescripcion" />
+    <Button
+        android:id="@+id/btAdjuntarDoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/verde_botones"
+        android:fontFamily="@font/arial"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="@string/adjuntar"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:cornerRadius='30sp'
+        app:layout_constraintBottom_toTopOf="@id/btSolicitar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etDescripcion" />
 
-<Button
-    android:id="@+id/btSolicitar"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:backgroundTint="@color/verde_botones"
-    android:gravity="center"
-    android:padding="20dp"
-    android:textColor="@color/black"
-    android:text="@string/solicitar"
-    android:fontFamily="@font/arial"
-    android:textStyle="bold"
-    app:cornerRadius='30sp'
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_percent="0.1"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/etDescripcion" />
+    <Button
+        android:id="@+id/btSolicitar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/verde_botones"
+        android:fontFamily="@font/arial"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="@string/solicitar"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:cornerRadius='30sp'
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btAdjuntarDoc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
