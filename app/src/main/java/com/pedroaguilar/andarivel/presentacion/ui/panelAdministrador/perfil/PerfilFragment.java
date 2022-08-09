@@ -160,7 +160,7 @@ public class PerfilFragment extends Fragment implements PerfilView {
     }
 
     // Metodo para comprobar los permisos de escritura en el dispositivo y el acceso a la camara.
-    public static boolean checkAndRequestPermissions(final Activity context) {
+    private boolean checkAndRequestPermissions(final Activity context) {
         int WExtstorePermission = ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int cameraPermission = ContextCompat.checkSelfPermission(context,
@@ -182,13 +182,13 @@ public class PerfilFragment extends Fragment implements PerfilView {
     }
 
     // Función que permite al usuario elegir una imagen de la cámara o de la galería.
-    public void chooseImage(Context context){
-        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit" }; // create a menuOption Array
+    private void chooseImage(Context context) {
+        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit"}; // create a menuOption Array
         // create a dialog for showing the optionsMenu
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         // set the items in builder
         builder.setItems(optionsMenu, (dialogInterface, i) -> {
-            if(optionsMenu[i].equals("Take Photo")){
+            if (optionsMenu[i].equals("Take Photo")) {
                 // Open the camera and get the photo
                 Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(takePicture, 0);
