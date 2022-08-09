@@ -14,17 +14,22 @@ public class ServicioFirebaseStorage {
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private final StorageReference storageReference = storage.getReference();
 
-    public void guardarImagenDePerfil(String userID, byte[] data, OnFailureListener failureListener, OnCompleteListener<UploadTask.TaskSnapshot> onCompleteListener){
-        UploadTask uploadTask = storageReference.child("imagenesPerfil/" + userID +".jpg").putBytes(data);
+    public void guardarImagenDePerfil(String userID, byte[] data, OnFailureListener failureListener, OnCompleteListener<UploadTask.TaskSnapshot> onCompleteListener) {
+        UploadTask uploadTask = storageReference.child("imagenesPerfil/" + userID + ".jpg").putBytes(data);
         uploadTask.addOnFailureListener(failureListener).addOnCompleteListener(onCompleteListener);
     }
 
-    public StorageReference getUserPerfilUrl(String userID){
-        return storage.getReferenceFromUrl("gs://andarivel-ficha.appspot.com/imagenesPerfil/" + userID +".jpg");
+    public void guardarDocumentoAusencia(String userID, byte[] data, String nombreAusencia, OnFailureListener failureListener, OnCompleteListener<UploadTask.TaskSnapshot> onCompleteListener) {
+        UploadTask uploadTask = storageReference.child("documentosAusencias/" + userID + "/" + nombreAusencia + ".jpg").putBytes(data);
+        uploadTask.addOnFailureListener(failureListener).addOnCompleteListener(onCompleteListener);
     }
 
-    public void borrarFotoPerfil(String userID){
-        storageReference.child("imagenesPerfil/" + userID +".jpg").delete();
+    public StorageReference getUserPerfilUrl(String userID) {
+        return storage.getReferenceFromUrl("gs://andarivel-ficha.appspot.com/imagenesPerfil/" + userID + ".jpg");
+    }
+
+    public void borrarFotoPerfil(String userID) {
+        storageReference.child("imagenesPerfil/" + userID + ".jpg").delete();
     }
 
 }
