@@ -59,7 +59,8 @@
     <string name="notificar_ausencia_tab_title">Notifications</string>
     <string name="solicitar_ausencia_tab_title">Requesting absence</string>
     <string name="conceder_ausencia_tab_title">Granting Absence</string>
-    <string name="escribe_aqu">Write here</string>
+    <string name="escribe_aqu">Write here a description</string>
+    <string name="adjuntar">Attacht a Document</string>
     <string name="fecha_inicio">Start date</string>
     <string name="fecha_fin">End date</string>
     <string name="datos_usuario">User data</string>

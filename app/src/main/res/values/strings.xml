@@ -49,6 +49,7 @@
     <string name="ausencia">Ausencia</string>
     <string name="solicitar_ausencia">Solicitar ausencia</string>
     <string name="solicitar">Solicitar</string>
+    <string name="adjuntar">Adjunta un documento</string>
     <string name="descripci_n">Descripción</string>
     <string name="informes">Informes</string>
     <string name="volver">Volver</string>
@@ -61,7 +62,7 @@
     <string name="solicitar_ausencia_tab_title">Solicitar Ausencia</string>
     <string name="conceder_ausencia_tab_title">Conceder Ausencia</string>
     <string name="notificar_ausencia_tab_title">Notificaciones</string>
-    <string name="escribe_aqu">Escribe aquí</string>
+    <string name="escribe_aqu">Escribe aquí una descripción</string>
     <string name="fecha_inicio">Fecha Inicio</string>
     <string name="fecha_fin">Fecha Fin</string>
     <string name="datos_usuario">Datos Usuario</string>
