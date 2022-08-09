@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,45 +60,40 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
             holder.aceptar.setVisibility(View.VISIBLE);
             holder.denegar.setVisibility(View.VISIBLE);
         }
-        holder.aceptar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Map<String, Object> childUpdates = new HashMap<>();
-                childUpdates.put("/"+ listaAusencia.get(position).getIdAusencia() + "/estado", "Aceptada");
-                database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            listaAusencia.get(position).setEstado("Aceptada");
-                            //Notificamos que uno de los item ha cambiado
-                            notifyItemChanged(position);
-                            Toast.makeText(context, "Ausencia Aceptada", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-                        }
+        holder.aceptar.setOnClickListener(v -> {
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/" + listaAusencia.get(position).getIdAusencia() + "/estado", "Aceptada");
+            database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        listaAusencia.get(position).setEstado("Aceptada");
+                        //Notificamos que uno de los item ha cambiado
+                        notifyItemChanged(position);
+                        Toast.makeText(context, "Ausencia Aceptada", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
                     }
-                });
-            }
-
+                }
+            });
         });
-        holder.denegar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Map<String, Object> childUpdates = new HashMap<>();
-                childUpdates.put("/"+ listaAusencia.get(position).getIdAusencia() + "/estado", "Denegada");
-                database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            listaAusencia.get(position).setEstado("Denegada");
-                            notifyItemChanged(position);
-                            Toast.makeText(context, R.string.ausencia_denegada, Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-                        }
+        holder.denegar.setOnClickListener(v -> {
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/" + listaAusencia.get(position).getIdAusencia() + "/estado", "Denegada");
+            database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        listaAusencia.get(position).setEstado("Denegada");
+                        notifyItemChanged(position);
+                        Toast.makeText(context, R.string.ausencia_denegada, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
                     }
-                });
-            }
+                }
+            });
+        });
+        holder.adjuntar.setOnClickListener(v -> {
 
         });
     }
@@ -116,6 +112,7 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
 
         TextView motivo, nombreUsuario, fechaI, fechaF, descripcion , estado;
         Button aceptar, denegar;
+        ImageView adjuntar;
 
         public UsuarioViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -127,6 +124,7 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
             estado = itemView.findViewById(R.id.tvEstadoAusencia);
             aceptar = itemView.findViewById(R.id.btAceptarAusencia);
             denegar = itemView.findViewById(R.id.btDenegarAusencia);
+            adjuntar = itemView.findViewById(R.id.imgAdjuntarDoc);
         }
     }
 }
