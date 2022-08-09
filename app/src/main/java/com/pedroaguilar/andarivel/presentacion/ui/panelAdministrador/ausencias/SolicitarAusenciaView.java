@@ -12,4 +12,6 @@ public interface SolicitarAusenciaView extends BaseView {
     void showErrorFechaIncio();
 
     void showErrorFechaFin();
+
+    void showErrorSubirImagen();
 }
