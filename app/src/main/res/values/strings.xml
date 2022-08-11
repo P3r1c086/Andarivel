@@ -108,4 +108,5 @@
     <string name="trabajadores">Trabajadores</string>
     <string name="estado_trabajadores_label">Estado Trabajadores</string>
     <string name="tablon_anuncios">Tablón Anuncios</string>
+    <string name="imagen_lista_para_subir">Imagen lista para subir</string>
 </resources>

@@ -249,6 +249,8 @@ public class SolicitarAusenciaFragment extends Fragment implements SolicitarAuse
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
         presenter.guardaImagenPerfil(data);
+        binding.tvEstadoDoc.setText(getString(R.string.imagen_lista_para_subir));
+        binding.tvEstadoDoc.setVisibility(View.VISIBLE);
     }
 
     @Override

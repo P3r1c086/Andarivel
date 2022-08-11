@@ -17,6 +17,8 @@ public class SolicitarAusenciaPresenter extends BasePresenter<SolicitarAusenciaV
     private final ServicioFirebaseStorage storage = new ServicioFirebaseStorage();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
+    private byte[] imagen = null;
+
     public void botonSolicitarClickado(String descripcion, Usuario usuario) {
         if (validarDatosSolicitarAunsecia(usuario)) {
             //La descripcion no esta contemplada como obligatoria. En caso de no poner nada se le asigna un
@@ -102,12 +104,17 @@ public class SolicitarAusenciaPresenter extends BasePresenter<SolicitarAusenciaV
      */
     public void crearNodoAusencia(String nNodo, Usuario usuario) {
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Ausencia" + nNodo + "/motivoAusencia", usuario.getMotivoAusencia());
-        childUpdates.put("/Ausencia" + nNodo + "/fechaInicio", usuario.getFechaInicioAusencia());
-        childUpdates.put("/Ausencia" + nNodo + "/fechaFin", usuario.getFechaFinAusencia());
-        childUpdates.put("/Ausencia" + nNodo + "/descripcion", usuario.getDescripcionAusencia());
-        childUpdates.put("/Ausencia" + nNodo + "/usuario", usuario.getID());
-        childUpdates.put("/Ausencia" + nNodo + "/estado", "Pendiente");
+        String nombreAusencia = "Ausencia" + nNodo;
+        childUpdates.put("/" + nombreAusencia + "/motivoAusencia", usuario.getMotivoAusencia());
+        childUpdates.put("/" + nombreAusencia + "/fechaInicio", usuario.getFechaInicioAusencia());
+        childUpdates.put("/" + nombreAusencia + "/fechaFin", usuario.getFechaFinAusencia());
+        childUpdates.put("/" + nombreAusencia + "/descripcion", usuario.getDescripcionAusencia());
+        childUpdates.put("/" + nombreAusencia + "/usuario", usuario.getID());
+        if (imagen != null) {
+            childUpdates.put("/" + nombreAusencia + "/adjunto", nombreAusencia + ".jpg");
+            guardarImagenEnStorage(nombreAusencia);
+        }
+        childUpdates.put("/" + nombreAusencia + "/estado", "Pendiente");
         database.actualizarAusencia(childUpdates, task -> {
             //Se crea un nodo ausencia n con valor true en los datos del usuario que la ha cerado para relacionar
             //la ausencia creada con el usuario que la ha creado.
@@ -119,10 +126,13 @@ public class SolicitarAusenciaPresenter extends BasePresenter<SolicitarAusenciaV
     }
 
     public void guardaImagenPerfil(byte[] data) {
-        storage.guardarDocumentoAusencia(FirebaseAuth.getInstance().getUid(), data, "",
+        imagen = data;
+    }
+
+    private void guardarImagenEnStorage(String nombreAusencia) {
+        storage.guardarDocumentoAusencia(FirebaseAuth.getInstance().getUid(), imagen, nombreAusencia,
                 e -> view.showErrorSubirImagen(),
                 task -> {
-
                 });
     }
 }

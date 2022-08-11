@@ -136,7 +136,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btAdjuntarDoc"
-        tools:text="imagen.png"
+        tools:text="@string/imagen_lista_para_subir"
+        tools:visibility="visible"
         android:drawablePadding="12dp"
         app:drawableStartCompat="@drawable/ic_check" />
 
