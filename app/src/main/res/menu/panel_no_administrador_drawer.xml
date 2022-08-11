@@ -20,5 +20,9 @@
             android:id="@+id/ausencias_dest"
             android:icon="@drawable/ic_baseline_health_and_safety_24"
             android:title="@string/ausencia" />
+        <item
+            android:id="@+id/tablonAnuncios_dest"
+            android:icon="@drawable/ic_baseline_health_and_safety_24"
+            android:title="@string/tablon_anuncios" />
     </group>
 </menu>

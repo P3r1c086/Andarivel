@@ -105,4 +105,7 @@
     <string name="debes_introducir_contrasena">Debes introducir una contraseña</string>
     <string name="contrasena_debil">La contraseña es demasiado débil</string>
     <string name="email_ya_registrado">Este email ya está registrado.</string>
+    <string name="trabajadores">Trabajadores</string>
+    <string name="estado_trabajadores_label">Estado Trabajadores</string>
+    <string name="tablon_anuncios">Tablón Anuncios</string>
 </resources>

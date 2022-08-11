@@ -103,4 +103,7 @@
     <string name="debes_introducir_contrasena">You must enter a password</string>
     <string name="contrasena_debil">Password is too weak</string>
     <string name="email_ya_registrado">This email is already registered.</string>
+    <string name="trabajadores">Workers</string>
+    <string name="estado_trabajadores_label">Workers Status</string>
+    <string name="tablon_anuncios">Bulletin Board</string>
 </resources>

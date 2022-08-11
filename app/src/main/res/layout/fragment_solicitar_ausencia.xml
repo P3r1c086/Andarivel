@@ -122,6 +122,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etDescripcion" />
 
+    <TextView
+        android:id="@+id/tvEstadoDoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/mont_heavy"
+        android:textAlignment="center"
+        android:textColor="@color/verde_andarivel"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btSolicitar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btAdjuntarDoc"
+        tools:text="imagen.png"
+        android:drawablePadding="12dp"
+        app:drawableStartCompat="@drawable/ic_check" />
+
     <Button
         android:id="@+id/btSolicitar"
         android:layout_width="wrap_content"
