@@ -54,6 +54,10 @@ public class SolicitarAusenciaPresenter extends BasePresenter<SolicitarAusenciaV
                                 view.showAusenciaPendiente();
                             }
                         }
+                    } else {
+                        //Caso de lista de Ausencias vacia -> Creamos la primera ausencia
+                        usuario.setID(mAuth.getCurrentUser().getUid());
+                        almacenarDatosAusencia(usuario);
                     }
                 }
             });
@@ -116,7 +120,7 @@ public class SolicitarAusenciaPresenter extends BasePresenter<SolicitarAusenciaV
         }
         childUpdates.put("/" + nombreAusencia + "/estado", "Pendiente");
         database.actualizarAusencia(childUpdates, task -> {
-            //Se crea un nodo ausencia n con valor true en los datos del usuario que la ha cerado para relacionar
+            //Se crea un nodo ausencia n con valor true en los datos del usuario que la ha creado para relacionar
             //la ausencia creada con el usuario que la ha creado.
             childUpdates.clear();
             childUpdates.put("/Ausencias/Ausencia" + nNodo, true);
