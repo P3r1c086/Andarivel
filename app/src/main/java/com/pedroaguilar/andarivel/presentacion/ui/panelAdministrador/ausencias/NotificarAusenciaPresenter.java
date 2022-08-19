@@ -37,7 +37,7 @@ public class NotificarAusenciaPresenter extends BasePresenter<NotificarAusenciaV
                                 ausencia.setMotivoAusencia(mapAusencia.get("motivoAusencia"));
                                 ausencia.setDescripcionAusencia(mapAusencia.get("descripcion"));
                                 ausencia.setEstado(mapAusencia.get("estado"));
-
+                                ausencia.setAdjunto(mapAusencia.get("adjunto"));
                                 view.showAusencia(ausencia);
                                 find = true;
                             }

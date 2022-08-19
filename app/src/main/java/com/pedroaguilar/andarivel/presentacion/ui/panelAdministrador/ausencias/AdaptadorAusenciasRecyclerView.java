@@ -60,6 +60,11 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
             holder.aceptar.setVisibility(View.VISIBLE);
             holder.denegar.setVisibility(View.VISIBLE);
         }
+        if (listaAusencia.get(position).getAdjunto() != null) {
+            holder.adjuntar.setVisibility(View.VISIBLE);
+        } else {
+            holder.adjuntar.setVisibility(View.GONE);
+        }
         holder.aceptar.setOnClickListener(v -> {
             Map<String, Object> childUpdates = new HashMap<>();
             childUpdates.put("/" + listaAusencia.get(position).getIdAusencia() + "/estado", "Aceptada");

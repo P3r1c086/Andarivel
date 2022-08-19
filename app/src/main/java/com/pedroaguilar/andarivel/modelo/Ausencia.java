@@ -10,6 +10,16 @@ public class Ausencia {
     private String fechaFinAusencia;
     private String estado;
 
+    public String getAdjunto() {
+        return adjunto;
+    }
+
+    public void setAdjunto(String adjunto) {
+        this.adjunto = adjunto;
+    }
+
+    private String adjunto;
+
     public Ausencia() {
     }
 

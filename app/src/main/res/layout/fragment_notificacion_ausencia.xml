@@ -19,6 +19,16 @@
         android:layout_height="match_parent"
         android:background="@drawable/color_de_fondo_principal">
 
+        <ImageView
+            android:id="@+id/imgAdjuntarDoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_adjuntar_doc"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
         <TextView
             android:id="@+id/tvMotivoAusencia"
             android:layout_width="wrap_content"

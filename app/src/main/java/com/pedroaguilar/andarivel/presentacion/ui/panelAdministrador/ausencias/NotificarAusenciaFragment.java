@@ -51,6 +51,11 @@ public class NotificarAusenciaFragment extends Fragment implements NotificarAuse
         binding.tvFechaFinAusencia.setText(ausencia.getFechaFinAusencia());
         binding.tvDescripcionAusenciaDato.setText(ausencia.getDescripcionAusencia());
         binding.tvEstado.setText(ausencia.getEstado());
+        if (ausencia.getAdjunto() != null) {
+            binding.imgAdjuntarDoc.setVisibility(View.VISIBLE);
+        } else {
+            binding.imgAdjuntarDoc.setVisibility(View.GONE);
+        }
     }
 
     @Override

@@ -30,6 +30,7 @@ public class ConcederAusenciaPresenter extends BasePresenter<ConcederAusenciaVie
                         ausencia.setMotivoAusencia(mapAusencia.get("motivoAusencia"));
                         ausencia.setDescripcionAusencia(mapAusencia.get("descripcion"));
                         ausencia.setEstado(mapAusencia.get("estado"));
+                        ausencia.setAdjunto(mapAusencia.get("adjunto"));
                         listaAusencias.add(ausencia);
                     }
                     //Accedemos a la informacion de todos los usuarios.
