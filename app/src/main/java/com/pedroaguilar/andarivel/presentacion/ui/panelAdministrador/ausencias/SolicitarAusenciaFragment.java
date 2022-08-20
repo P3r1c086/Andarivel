@@ -14,6 +14,7 @@ import com.pedroaguilar.andarivel.databinding.FragmentSolicitarAusenciaBinding;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 import com.pedroaguilar.andarivel.presentacion.ui.comunUi.CamaraYpermisosFragment;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
 public class SolicitarAusenciaFragment extends CamaraYpermisosFragment implements SolicitarAusenciaView {
@@ -128,7 +129,10 @@ public class SolicitarAusenciaFragment extends CamaraYpermisosFragment implement
 
     @Override
     public void guardarYSettearImagen(Bitmap bitmap) {
-        super.guardarYSettearImagen(bitmap);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        presenter.guardaImagenPerfil(data);
         binding.tvEstadoDoc.setText(getString(R.string.imagen_lista_para_subir));
         binding.tvEstadoDoc.setVisibility(View.VISIBLE);
     }

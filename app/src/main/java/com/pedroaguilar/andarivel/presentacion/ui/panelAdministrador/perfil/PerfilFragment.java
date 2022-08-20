@@ -21,6 +21,7 @@ import com.pedroaguilar.andarivel.databinding.FragmentPerfilBinding;
 import com.pedroaguilar.andarivel.presentacion.ui.comunUi.CamaraYpermisosFragment;
 import com.pedroaguilar.andarivel.presentacion.ui.login.LoginActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 
@@ -141,7 +142,10 @@ public class PerfilFragment extends CamaraYpermisosFragment implements PerfilVie
 
     @Override
     public void guardarYSettearImagen(Bitmap bitmap) {
-        super.guardarYSettearImagen(bitmap);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        presenter.guardaImagenPerfil(data);
         presenter.guardarImagenPerfil(task -> presenter.setImagenUser());
     }
 }

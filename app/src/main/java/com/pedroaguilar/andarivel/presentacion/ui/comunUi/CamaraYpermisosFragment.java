@@ -130,12 +130,7 @@ public abstract class CamaraYpermisosFragment extends Fragment implements Camara
         }
     }
 
-    public void guardarYSettearImagen(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-        presenter.guardaImagenPerfil(data);
-    }
+    public abstract void guardarYSettearImagen(Bitmap bitmap);
 
     @Override
     public void showErrorSubirImagen() {

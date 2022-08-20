@@ -11,7 +11,7 @@ public class CamaraYpermisosPresenter<T extends CamaraYpermisosView> extends Bas
     protected final ServicioFirebaseStorage storage = new ServicioFirebaseStorage();
     protected byte[] imagen = null;
 
-    protected void guardaImagenPerfil(byte[] data) {
+    public void guardaImagenPerfil(byte[] data) {
         imagen = data;
     }
 
