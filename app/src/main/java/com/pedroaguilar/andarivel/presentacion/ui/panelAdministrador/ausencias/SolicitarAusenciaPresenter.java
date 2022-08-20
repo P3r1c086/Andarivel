@@ -2,22 +2,17 @@ package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.pedroaguilar.andarivel.modelo.Usuario;
-import com.pedroaguilar.andarivel.presentacion.comun.presenter.BasePresenter;
+import com.pedroaguilar.andarivel.presentacion.ui.comunUi.CamaraYpermisosPresenter;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
-import com.pedroaguilar.andarivel.servicios.ServicioFirebaseStorage;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class SolicitarAusenciaPresenter extends BasePresenter<SolicitarAusenciaView> {
+public class SolicitarAusenciaPresenter extends CamaraYpermisosPresenter<SolicitarAusenciaView> {
 
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
-    private final ServicioFirebaseStorage storage = new ServicioFirebaseStorage();
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-    private byte[] imagen = null;
 
     public void botonSolicitarClickado(String descripcion, Usuario usuario) {
         if (validarDatosSolicitarAunsecia(usuario)) {
@@ -116,7 +111,7 @@ public class SolicitarAusenciaPresenter extends BasePresenter<SolicitarAusenciaV
         childUpdates.put("/" + nombreAusencia + "/usuario", usuario.getID());
         if (imagen != null) {
             childUpdates.put("/" + nombreAusencia + "/adjunto", nombreAusencia + ".jpg");
-            guardarImagenEnStorage(nombreAusencia);
+            guardarDocumentoAusenciaEnStorage(nombreAusencia);
         }
         childUpdates.put("/" + nombreAusencia + "/estado", "Pendiente");
         database.actualizarAusencia(childUpdates, task -> {
@@ -127,16 +122,5 @@ public class SolicitarAusenciaPresenter extends BasePresenter<SolicitarAusenciaV
             database.actualizarDatosUsuario(mAuth.getUid(), childUpdates, task1 -> view.showAusenciaCreadaConExito());
         });
 
-    }
-
-    public void guardaImagenPerfil(byte[] data) {
-        imagen = data;
-    }
-
-    private void guardarImagenEnStorage(String nombreAusencia) {
-        storage.guardarDocumentoAusencia(FirebaseAuth.getInstance().getUid(), imagen, nombreAusencia,
-                e -> view.showErrorSubirImagen(),
-                task -> {
-                });
     }
 }

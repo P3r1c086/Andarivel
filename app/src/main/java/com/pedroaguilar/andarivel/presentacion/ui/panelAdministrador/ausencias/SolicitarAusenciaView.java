@@ -1,8 +1,8 @@
 package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias;
 
-import com.pedroaguilar.andarivel.presentacion.comun.view.BaseView;
+import com.pedroaguilar.andarivel.presentacion.ui.comunUi.CamaraYpermisosView;
 
-public interface SolicitarAusenciaView extends BaseView {
+public interface SolicitarAusenciaView extends CamaraYpermisosView {
     void showAusenciaPendiente();
 
     void showAusenciaCreadaConExito();
@@ -12,6 +12,4 @@ public interface SolicitarAusenciaView extends BaseView {
     void showErrorFechaIncio();
 
     void showErrorFechaFin();
-
-    void showErrorSubirImagen();
 }
