@@ -1,16 +1,27 @@
 package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.pedroaguilar.andarivel.databinding.FragmentNotificacionAusenciaBinding;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class NotificarAusenciaFragment extends Fragment implements NotificarAusenciaView {
 
@@ -53,9 +64,22 @@ public class NotificarAusenciaFragment extends Fragment implements NotificarAuse
         binding.tvEstado.setText(ausencia.getEstado());
         if (ausencia.getAdjunto() != null) {
             binding.imgAdjuntarDoc.setVisibility(View.VISIBLE);
+            binding.imgAdjuntarDoc.setOnClickListener(view -> {
+                presenter.onClickBotonAdjunto(createTempFile(), taskSnapshot -> {
+                    viewDoc(presenter.localDoc);
+                });
+            });
         } else {
             binding.imgAdjuntarDoc.setVisibility(View.GONE);
         }
+    }
+
+    private File createTempFile(){
+        File file = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File dir = new File(file.getAbsolutePath() + "/ImagenesDeAndarivel");
+        dir.mkdirs();
+        String filename = String.format("%d.png", System.currentTimeMillis());
+        return new File(dir, filename);
     }
 
     @Override
@@ -73,4 +97,13 @@ public class NotificarAusenciaFragment extends Fragment implements NotificarAuse
         binding.tvEstado.setText(binding.tvEstado.getText() + "No hay ausencias Pendientes de aprobar");
     }
 
+    @Override
+    public void viewDoc(File file) {
+        Uri photoURI = FileProvider.getUriForFile(requireContext(), requireContext().getApplicationContext().getPackageName() + ".provider",file);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(photoURI, "image/*");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(intent);
+    }
 }

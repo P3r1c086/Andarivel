@@ -1,10 +1,17 @@
 package com.pedroaguilar.andarivel.servicios;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Esta clase externaliza la conexion al Storage de Firebase
@@ -30,6 +37,15 @@ public class ServicioFirebaseStorage {
 
     public void borrarFotoPerfil(String userID) {
         storageReference.child("imagenesPerfil/" + userID + ".jpg").delete();
+    }
+
+    public StorageReference getDocumentoAdjuntoAAusenciaUrl(String userID, String ausenciaId) {
+        return storage.getReferenceFromUrl("gs://andarivel-ficha.appspot.com/documentosAusencias/" + userID + "/" + ausenciaId + ".jpg");
+    }
+
+    public void descargarYVerDocumentoAdjunto(File fileTemp,String userID, String ausenciaId, OnSuccessListener<FileDownloadTask.TaskSnapshot> onSuccessListener){
+        StorageReference docRef = storageReference.child("documentosAusencias/" + userID + "/" + ausenciaId);
+        docRef.getFile(fileTemp).addOnSuccessListener(onSuccessListener);
     }
 
 }
