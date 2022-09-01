@@ -13,15 +13,10 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.pedroaguilar.andarivel.databinding.FragmentNotificacionAusenciaBinding;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class NotificarAusenciaFragment extends Fragment implements NotificarAusenciaView {
 
@@ -78,8 +73,7 @@ public class NotificarAusenciaFragment extends Fragment implements NotificarAuse
         File file = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File dir = new File(file.getAbsolutePath() + "/ImagenesDeAndarivel");
         dir.mkdirs();
-        String filename = String.format("%d.png", System.currentTimeMillis());
-        return new File(dir, filename);
+        return new File(dir, presenter.ausenciaMostrada.getAdjunto());
     }
 
     @Override
@@ -97,9 +91,8 @@ public class NotificarAusenciaFragment extends Fragment implements NotificarAuse
         binding.tvEstado.setText(binding.tvEstado.getText() + "No hay ausencias Pendientes de aprobar");
     }
 
-    @Override
-    public void viewDoc(File file) {
-        Uri photoURI = FileProvider.getUriForFile(requireContext(), requireContext().getApplicationContext().getPackageName() + ".provider",file);
+    private void viewDoc(File file) {
+        Uri photoURI = FileProvider.getUriForFile(requireContext(), requireContext().getApplicationContext().getPackageName() + ".provider", file);
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.setDataAndType(photoURI, "image/*");

@@ -1,15 +1,24 @@
 package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FileDownloadTask;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
 import com.pedroaguilar.andarivel.presentacion.comun.presenter.BasePresenter;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
+import com.pedroaguilar.andarivel.servicios.ServicioFirebaseStorage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
 public class ConcederAusenciaPresenter extends BasePresenter<ConcederAusenciaView> {
 
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private final ServicioFirebaseStorage storage = new ServicioFirebaseStorage();
     private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
+    File localDoc = null;
+    Ausencia ausenciaMostrada = null;
 
     public void leerTodosUsuariosDatabase() {
         //Accedemos a todas las ausencias
@@ -30,7 +39,9 @@ public class ConcederAusenciaPresenter extends BasePresenter<ConcederAusenciaVie
                         ausencia.setMotivoAusencia(mapAusencia.get("motivoAusencia"));
                         ausencia.setDescripcionAusencia(mapAusencia.get("descripcion"));
                         ausencia.setEstado(mapAusencia.get("estado"));
-                        ausencia.setAdjunto(mapAusencia.get("adjunto"));
+                        if (mapAusencia.get("adjunto") != null) {
+                            ausencia.setAdjunto(mapAusencia.get("adjunto"));
+                        }
                         listaAusencias.add(ausencia);
                     }
                     //Accedemos a la informacion de todos los usuarios.
@@ -72,5 +83,10 @@ public class ConcederAusenciaPresenter extends BasePresenter<ConcederAusenciaVie
             }
         }
         return null;
+    }
+
+    public void onClickBotonAdjunto(File fileTemp, OnSuccessListener<FileDownloadTask.TaskSnapshot> onSuccessListener) {
+        localDoc = fileTemp;
+        storage.descargarYVerDocumentoAdjunto(fileTemp, firebaseAuth.getUid(), ausenciaMostrada.getAdjunto(), onSuccessListener);
     }
 }

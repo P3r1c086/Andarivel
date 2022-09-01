@@ -1,6 +1,9 @@
 package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,6 +22,7 @@ import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +31,7 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
 
     private final ArrayList<Ausencia> listaAusencia;
     private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
+    private final ConcederAusenciaPresenter presenter = new ConcederAusenciaPresenter();
 
     public AdaptadorAusenciasRecyclerView(ArrayList<Ausencia> lista) {
         this.listaAusencia = lista;
@@ -60,11 +66,19 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
             holder.aceptar.setVisibility(View.VISIBLE);
             holder.denegar.setVisibility(View.VISIBLE);
         }
+
+        //////////// NO SE SI ESTO ESTA BIEN AQUI
         if (listaAusencia.get(position).getAdjunto() != null) {
             holder.adjuntar.setVisibility(View.VISIBLE);
+            holder.adjuntar.setOnClickListener(view -> {
+                presenter.onClickBotonAdjunto(createTempFile(), taskSnapshot -> {
+                    viewDoc(presenter.localDoc);
+                });
+            });
         } else {
             holder.adjuntar.setVisibility(View.GONE);
         }
+        /////////////
         holder.aceptar.setOnClickListener(v -> {
             Map<String, Object> childUpdates = new HashMap<>();
             childUpdates.put("/" + listaAusencia.get(position).getIdAusencia() + "/estado", "Aceptada");
@@ -99,7 +113,6 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
             });
         });
         holder.adjuntar.setOnClickListener(v -> {
-
         });
     }
     /**
@@ -131,5 +144,21 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
             denegar = itemView.findViewById(R.id.btDenegarAusencia);
             adjuntar = itemView.findViewById(R.id.imgAdjuntarDoc);
         }
+    }
+
+    private File createTempFile() {
+        File file = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File dir = new File(file.getAbsolutePath() + "/ImagenesDeAndarivel");
+        dir.mkdirs();
+        return new File(dir, presenter.ausenciaMostrada.getAdjunto());
+    }
+
+    private void viewDoc(File file) {
+        Uri photoURI = FileProvider.getUriForFile(requireContext(), requireContext().getApplicationContext().getPackageName() + ".provider", file);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(photoURI, "image/*");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(intent);
     }
 }

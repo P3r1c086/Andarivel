@@ -62,4 +62,6 @@ public class ConcederAusenciaFragment extends Fragment implements ConcederAusenc
     public void mostrarFalloLecturaBaseDeDatos() {
         Toast.makeText(getContext(), R.string.fallo, Toast.LENGTH_SHORT).show();
     }
+
+
 }

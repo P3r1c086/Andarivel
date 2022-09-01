@@ -24,7 +24,7 @@ public class NotificarAusenciaPresenter extends BasePresenter<NotificarAusenciaV
     private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
     private final ServicioFirebaseStorage storage = new ServicioFirebaseStorage();
 
-    private Ausencia ausenciaMostrada = null;
+    Ausencia ausenciaMostrada = null;
     File localDoc = null;
 
     public void obtenerAusencias() {
