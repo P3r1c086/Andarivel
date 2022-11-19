@@ -7,9 +7,7 @@
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/drawable/color_de_fondo_principal.xml" value="0.196" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/drawable/color_fondo_principal.xml" value="0.3675" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/drawable/home-48px.xml" value="0.3205" />
-        <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/drawable/ic_adjuntar_doc.xml" value="0.367" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.3665" />
-        <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/drawable/ic_check.xml" value="0.347" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3635" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.3635" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.3535" />
@@ -31,7 +29,7 @@
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_conceder_ausencia.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_contenedor_tabs.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_editar_perfil.xml" value="0.24166666666666667" />
-        <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_estado_trabajadores.xml" value="0.24166666666666667" />
+        <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_estado_trabajadores.xml" value="0.1" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_gallery.xml" value="0.25" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_informes.xml" value="0.18" />
@@ -45,7 +43,7 @@
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_solicitar.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_solicitar_ausencia.xml" value="0.24305555555555555" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_splash.xml" value="0.24166666666666667" />
-        <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_tablon_anuncios.xml" value="0.21994535519125682" />
+        <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/fragment_tablon_anuncios.xml" value="0.1" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/informe_item.xml" value="0.22" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/item_list.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/pajar/AndroidStudioProjects/Andarivel/app/src/main/res/layout/nav_header_main.xml" value="0.3625" />
