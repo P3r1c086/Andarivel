@@ -1,5 +1,6 @@
 package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -32,6 +33,7 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
     private final ArrayList<Ausencia> listaAusencia;
     private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
     private final ConcederAusenciaPresenter presenter = new ConcederAusenciaPresenter();
+    private Context context;
 
     public AdaptadorAusenciasRecyclerView(ArrayList<Ausencia> lista) {
         this.listaAusencia = lista;
@@ -47,7 +49,7 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorAusenciasRecyclerView.UsuarioViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdaptadorAusenciasRecyclerView.UsuarioViewHolder holder, @SuppressLint("RecyclerView") int position) {
         // asiganacion de los elementos del componente antes tienen que estar dados de alta como elementos de UsuarioViewHolder de abajo
         //son los metodos de la entidad Usuario
         Context context = holder.itemView.getContext();
@@ -147,18 +149,18 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
     }
 
     private File createTempFile() {
-        File file = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File file = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File dir = new File(file.getAbsolutePath() + "/ImagenesDeAndarivel");
         dir.mkdirs();
         return new File(dir, presenter.ausenciaMostrada.getAdjunto());
     }
 
     private void viewDoc(File file) {
-        Uri photoURI = FileProvider.getUriForFile(requireContext(), requireContext().getApplicationContext().getPackageName() + ".provider", file);
+        Uri photoURI = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", file);
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.setDataAndType(photoURI, "image/*");
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivity(intent);
+        context.startActivity(intent);
     }
 }
