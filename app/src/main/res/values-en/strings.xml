@@ -107,4 +107,5 @@
     <string name="estado_trabajadores_label">Workers Status</string>
     <string name="tablon_anuncios">Bulletin Board</string>
     <string name="imagen_lista_para_subir">Image ready to upload</string>
+    <string name="Settings">Settings</string>
 </resources>
