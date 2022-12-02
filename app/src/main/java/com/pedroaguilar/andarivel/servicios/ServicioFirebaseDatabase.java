@@ -42,14 +42,22 @@ public class ServicioFirebaseDatabase {
                 .addOnCompleteListener(listener);
     }
 
-    public void getInfoUser(String firebaseAuthUsuarioId, OnCompleteListener<DataSnapshot> listener){
+    public void getInfoUser(String firebaseAuthUsuarioId, OnCompleteListener<DataSnapshot> listener) {
         databaseReferenceUsuarios
                 .child(firebaseAuthUsuarioId)
                 .get()
                 .addOnCompleteListener(listener);
     }
 
-    public void borrarUsuario(String firebaseAuthUsuarioId, OnCompleteListener<Void> listener){
+    public void getFichajesUser(String firebaseAuthUsuarioId, OnCompleteListener<DataSnapshot> listener) {
+        databaseReferenceUsuarios
+                .child(firebaseAuthUsuarioId)
+                .child("Fichajes")
+                .get()
+                .addOnCompleteListener(listener);
+    }
+
+    public void borrarUsuario(String firebaseAuthUsuarioId, OnCompleteListener<Void> listener) {
         getInfoUser(firebaseAuthUsuarioId, task -> {
             if (task.isSuccessful()) {
                 //Accedemos al mapa fichajes del nodo del usuario
