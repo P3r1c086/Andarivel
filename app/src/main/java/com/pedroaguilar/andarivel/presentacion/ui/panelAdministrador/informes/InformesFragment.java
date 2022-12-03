@@ -13,6 +13,7 @@ import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentInformesBinding;
 import com.pedroaguilar.andarivel.modelo.Fichaje;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -21,12 +22,15 @@ public class InformesFragment extends Fragment implements InformesView{
     private FragmentInformesBinding binding;
     private final InformesPresenter presenter = new InformesPresenter();
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentInformesBinding.inflate(inflater, container, false);
         return binding.getRoot();
+
+
     }
 
 
@@ -38,7 +42,10 @@ public class InformesFragment extends Fragment implements InformesView{
         //así como de determinar la política sobre cuándo reciclar las vistas de elementos que ya no son visibles para el usuario.
         binding.listaUsuarios.setLayoutManager(new LinearLayoutManager(getContext()));
         presenter.leerTodosUsuariosDatabase();
+
+
     }
+
 
     @Override
     public void agnadirListaUsuariosCompleta(ArrayList<Fichaje> list) {
@@ -57,7 +64,20 @@ public class InformesFragment extends Fragment implements InformesView{
     }
 
     @Override
-    public void mostrarFalloFirebase(){
+    public void mostrarFalloFirebase() {
         Toast.makeText(getContext(), R.string.fallo, Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void loadDataExcel(ArrayList<Fichaje> list) {
+        binding.btnDownloadExcel.setOnClickListener(view2 -> {
+            try {
+//                presenter.downloadExcel(list);
+                presenter.downloadExcel(list);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

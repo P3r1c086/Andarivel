@@ -9,4 +9,6 @@ public interface InformesView extends BaseView {
     void agnadirListaUsuariosCompleta(ArrayList<Fichaje> list);
     void mostrarListaVacia();
     void mostrarFalloFirebase();
+
+    void loadDataExcel(ArrayList<Fichaje> list);
 }

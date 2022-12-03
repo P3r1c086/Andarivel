@@ -70,6 +70,10 @@ dependencies {
     //Spiner de carga
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
+    //excel 
+    implementation 'org.apache.poi:poi:4.0.0'
+    implementation 'com.opencsv:opencsv:4.3'
+
     // FirebaseUI - Para el manejo del firebase cloud storage
     implementation 'com.firebaseui:firebase-ui-storage:7.2.0'
 }
