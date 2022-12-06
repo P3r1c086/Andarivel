@@ -65,5 +65,8 @@ public class AdaptadorInformes extends RecyclerView.Adapter<AdaptadorInformes.Us
             horaEntrada = itemView.findViewById(R.id.tvHoraEntrada);
             horaSalida = itemView.findViewById(R.id.tvHoraSalida);
         }
+
+        //todo: complemetar metodo proveniente del servicio firebase database para borrar informe(en nodo Fichaje y Usuarios) con
+        //un onLongClick(). Poner dialog para confirmar
     }
 }

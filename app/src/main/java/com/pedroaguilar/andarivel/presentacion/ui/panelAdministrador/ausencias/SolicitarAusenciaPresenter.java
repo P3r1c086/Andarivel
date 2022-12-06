@@ -14,6 +14,7 @@ public class SolicitarAusenciaPresenter extends CamaraYpermisosPresenter<Solicit
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
 
+
     public void botonSolicitarClickado(String descripcion, Usuario usuario) {
         if (validarDatosSolicitarAunsecia(usuario)) {
             //La descripcion no esta contemplada como obligatoria. En caso de no poner nada se le asigna un
@@ -78,7 +79,7 @@ public class SolicitarAusenciaPresenter extends CamaraYpermisosPresenter<Solicit
         }
         return resultado;
     }
-
+   // ArrayList<String> listaGlobalAusencias = new ArrayList<>();
     /**
      * Metodo para comprobar si hay ausencias creadas. Si no las hay, numera la primera con un uno
      * y si ya hay alguna las cuenta y suma un al resultado.
@@ -121,6 +122,9 @@ public class SolicitarAusenciaPresenter extends CamaraYpermisosPresenter<Solicit
             childUpdates.put("/Ausencias/Ausencia" + nNodo, true);
             database.actualizarDatosUsuario(mAuth.getUid(), childUpdates, task1 -> view.showAusenciaCreadaConExito());
         });
-
+        //listaGlobalAusencias.add(nombreAusencia);
     }
+//    public ArrayList<String> backListAusencias(){
+//        return listaGlobalAusencias;
+//    }
 }

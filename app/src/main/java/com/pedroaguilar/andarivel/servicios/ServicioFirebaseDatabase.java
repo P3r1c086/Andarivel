@@ -22,8 +22,8 @@ public class ServicioFirebaseDatabase {
     private final FirebaseDatabase firebaseDataBase =  FirebaseDatabase.getInstance();
     private final DatabaseReference databaseReferenceUsuarios = FirebaseDatabase.getInstance().getReference(Constantes.NODO_USUARIOS);
     private final DatabaseReference databaseReferenceFichaje = FirebaseDatabase.getInstance().getReference(Constantes.NODO_FICHAJE);
-
     private final DatabaseReference databaseReferenceAusencia = FirebaseDatabase.getInstance().getReference(Constantes.NODO_AUSENCIAS);
+
 
     //Zona Usuario
     public void crearUsuario(String firebaseAuthUsuarioId, Usuario user){
@@ -83,10 +83,54 @@ public class ServicioFirebaseDatabase {
                 }
             }
         });
-
-
     }
 
+    //todo
+    public void borrarAusencia(/*long position,*/ OnCompleteListener<Void> listener) {
+        //Log.i("////////////",valueOf(position));
+//        getInfoUsers(task -> {
+//            if (task.isSuccessful()){
+//                HashMap<String, Object> users = (HashMap<String, Object>) task.getResult().getValue();
+//                if (users != null){
+//                    for (String key : users.keySet()) {
+//                        users.put(key, null);
+//                    }
+//                }
+//                Set<String> keyUsers = users.keySet();
+//                ArrayList<String> listOfKeys = new ArrayList<String>(keyUsers);
+//
+//
+//                    for (int i = 0; i < users.size(); i++) {
+//                        int finalI = i;
+//                        databaseReferenceUsuarios.child(listOfKeys.get(i)).child("Ausencias").get().addOnCompleteListener(task1 -> {
+//                           if (task1 != null){
+//                               Map<String, Object> ausenciasDentroUsers = (Map<String, Object>) task1.getResult().getValue();
+//                               //todo buscar la ausencia de las variables globales que coincida y eliminarla
+//                               getAusencias(task2 -> {
+//                                   if (task2.isSuccessful()){
+//                                       HashMap<String, Object> ausenciasGlobales = (HashMap<String, Object>) task2.getResult().getValue();
+//                                       if (ausenciasGlobales != null){
+//                                           for (String key : ausenciasGlobales.keySet()) {
+//                                               ausenciasGlobales.put(key, null);
+//                                           }
+//                                       }
+//                                       Set<String> keyAus = ausenciasGlobales.keySet();
+//                                       ArrayList<String> listOfKeysAus = new ArrayList<String>(keyAus);
+//                                       if (listOfKeysAus.contains(ausenciasDentroUsers)){
+//                                           databaseReferenceUsuarios.child(listOfKeys.get(finalI)).child("Ausencias").removeValue();
+//                                           databaseReferenceAusencia.child("Ausencias").child(listOfKeysAus.get(finalI)).removeValue();
+//                                       }
+//                                   }
+//                               });
+//                           }
+//                        });
+//                    }
+//            }
+//        });
+        // databaseReferenceAusencia.get().addOnCompleteListener(listener);/*child("Ausencia12").removeValue()*/
+        //Log.i("////////////////////", pathAusencia);
+        //pathAusencia.addOnCompleteListener(listener);
+    }
     //Fin Zona Usuario
 
     //Zona Fichaje
@@ -95,15 +139,19 @@ public class ServicioFirebaseDatabase {
         firebaseDataBase.getReference(Constantes.NODO_FICHAJE).get().addOnCompleteListener(listener);
     }
 
-    public void actualizarFichaje(Map<String, Object> childUpdates){
+    public void actualizarFichaje(Map<String, Object> childUpdates) {
         databaseReferenceFichaje
                 .updateChildren(childUpdates);
     }
 
-    public void getFichajes(OnCompleteListener<DataSnapshot> listener){
+    public void getFichajes(OnCompleteListener<DataSnapshot> listener) {
         databaseReferenceFichaje
                 .get()
                 .addOnCompleteListener(listener);
+    }
+
+    //todo
+    public void borrarFichaje() {
     }
 
     //Fin Zona Fichaje
@@ -113,18 +161,25 @@ public class ServicioFirebaseDatabase {
     public void cuentaAusencia(OnCompleteListener<DataSnapshot> listener) {
         firebaseDataBase.getReference(Constantes.NODO_AUSENCIAS).get().addOnCompleteListener(listener);
     }
-    public void actualizarAusencia(Map<String, Object> childUpdates, OnCompleteListener<Void> listener){
+
+    public void actualizarAusencia(Map<String, Object> childUpdates, OnCompleteListener<Void> listener) {
         databaseReferenceAusencia
                 .updateChildren(childUpdates)
-        .addOnCompleteListener(listener);
+                .addOnCompleteListener(listener);
     }
-    public void getAusencias(OnCompleteListener<DataSnapshot> listener){
+
+    public void getAusencias(OnCompleteListener<DataSnapshot> listener) {
         databaseReferenceAusencia
                 .get()
                 .addOnCompleteListener(listener);
     }
 
-    public void getAusencias(ValueEventListener listener){
+    /**
+     * Obtiene los cambios producidos en una ausencia
+     *
+     * @param listener
+     */
+    public void getAusencias(ValueEventListener listener) {
         databaseReferenceAusencia
                 .addValueEventListener(listener);
     }

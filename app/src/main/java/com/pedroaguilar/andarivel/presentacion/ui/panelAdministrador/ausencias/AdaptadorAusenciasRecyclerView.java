@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
@@ -33,6 +35,7 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
     private final ArrayList<Ausencia> listaAusencia;
     private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
     private final ConcederAusenciaPresenter presenter = new ConcederAusenciaPresenter();
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private Context context;
 
     public AdaptadorAusenciasRecyclerView(ArrayList<Ausencia> lista) {
@@ -68,11 +71,10 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
             holder.aceptar.setVisibility(View.VISIBLE);
             holder.denegar.setVisibility(View.VISIBLE);
         }
-
-        //////////// NO SE SI ESTO ESTA BIEN AQUI
+        ////////////TODO: NO SE SI ESTO ESTA BIEN AQUI, no me reconoce el listener
         if (listaAusencia.get(position).getAdjunto() != null) {
             holder.adjuntar.setVisibility(View.VISIBLE);
-            holder.adjuntar.setOnClickListener(view -> {
+            holder.adjuntar.setOnClickListener(v -> {
                 presenter.onClickBotonAdjunto(createTempFile(), taskSnapshot -> {
                     viewDoc(presenter.localDoc);
                 });
@@ -115,7 +117,24 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
             });
         });
         holder.adjuntar.setOnClickListener(v -> {
+//            if (listaAusencia.get(position).getAdjunto() != null) {
+//                presenter.onClickBotonAdjunto(createTempFile(), taskSnapshot -> {
+//                    viewDoc(presenter.localDoc);
+//                });
+//            }else{
+//                Toast.makeText(context, "No hay documento asociado", Toast.LENGTH_SHORT).show();
+//            }
         });
+        holder.delete.setOnClickListener(v -> {
+
+            database.borrarAusencia(/*position*//*getItemId(position)*/ task -> {
+
+                //getItemId(position) me devuelve -1
+                //position me devuelve la posicion en el recyclerView. 0, 1, ....
+                notifyItemRemoved(position);
+            });
+        });
+
     }
     /**
      * Returns the total number of items in the data set held by the adapter.
@@ -133,6 +152,7 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
         TextView motivo, nombreUsuario, fechaI, fechaF, descripcion , estado;
         Button aceptar, denegar;
         ImageView adjuntar;
+        ImageButton delete;
 
         public UsuarioViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -145,8 +165,10 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
             aceptar = itemView.findViewById(R.id.btAceptarAusencia);
             denegar = itemView.findViewById(R.id.btDenegarAusencia);
             adjuntar = itemView.findViewById(R.id.imgAdjuntarDoc);
+            delete = itemView.findViewById(R.id.imgDelete);
         }
     }
+
 
     private File createTempFile() {
         File file = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -163,4 +185,7 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         context.startActivity(intent);
     }
+
+    //todo: complemetar metodo proveniente del servicio firebase database para borrar ausencia(en nodo Ausercias y nodo Usuarios) con
+    //un onLongClick().Borrar tb posible imagen del storage. Poner dialog para confirmar
 }
