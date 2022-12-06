@@ -1,7 +1,5 @@
 package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.perfil;
 
-import android.app.AlertDialog;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,7 +17,6 @@ import com.pedroaguilar.andarivel.GlideApp;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentPerfilBinding;
 import com.pedroaguilar.andarivel.presentacion.ui.comunUi.CamaraYpermisosFragment;
-import com.pedroaguilar.andarivel.presentacion.ui.login.LoginActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.util.UUID;
@@ -70,20 +67,6 @@ public class PerfilFragment extends CamaraYpermisosFragment implements PerfilVie
                 chooseImage(getActivity());
             }
         });
-        binding.botonBorrarPerfil.setOnClickListener(v -> {
-            //Colocamos una ventana emergente para confirmar que se quiere borrar el usuario
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setIcon(R.drawable.ic_baseline_exit_to_app_24);
-            builder.setTitle(R.string.titulo_borrado);
-            builder.setMessage(getString(R.string.aleta_borrado));
-            builder.setPositiveButton(R.string.si, (dialog, which) -> {
-                presenter.borrarFotoPerfil();
-                presenter.borrarUsuario();
-            })
-                    .setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss());
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-        });
     }
 
     @Override
@@ -129,15 +112,6 @@ public class PerfilFragment extends CamaraYpermisosFragment implements PerfilVie
                 // la url se de cuenta de que es diferente y no la coja de su cache.
                 .signature(new ObjectKey(UUID.randomUUID().toString()))
                 .into(binding.imgPerfil);
-    }
-
-    @Override
-    public void navegarAlLogin() {
-        Intent intent = new Intent(requireActivity(), LoginActivity.class);
-        //Lanzamos la activity login
-        startActivity(intent);
-        //Finalizamos esta actividad
-        requireActivity().finish();
     }
 
     @Override

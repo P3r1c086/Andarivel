@@ -33,19 +33,6 @@ public class PerfilPresenter extends CamaraYpermisosPresenter<PerfilView> {
         });
     }
 
-    public void borrarFotoPerfil(){
-        //Borramos la foto de perfil del Storage de Firebaswe
-        storage.borrarFotoPerfil(firebaseAuth.getUid());
-    }
-
-    public void borrarUsuario() {
-        database.borrarUsuario(firebaseAuth.getUid(), task -> {
-            //Por ultimo borramos el usuario del autenticador
-            firebaseAuth.getCurrentUser().delete();
-            view.navegarAlLogin();
-        });
-    }
-
     public void setImagenUser() {
         view.setImagenUsuario(storage.getUserPerfilUrl(firebaseAuth.getUid()));
     }
