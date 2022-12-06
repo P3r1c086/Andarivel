@@ -28,11 +28,6 @@ public class PanelAdministradorPresenter extends BasePresenter<PanelAdministrado
         }
     }
 
-    public void logout() {
-        FirebaseAuth.getInstance().signOut();
-        view.navegarAlLogin();
-    }
-
     public void loadHeaderInfoUser() {
         view.setImageHeaderDrawer(storage.getUserPerfilUrl(firebaseAuth.getUid()));
         database.getInfoUser(firebaseAuth.getUid(), task -> {

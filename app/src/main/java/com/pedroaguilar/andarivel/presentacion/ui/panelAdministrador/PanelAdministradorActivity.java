@@ -64,7 +64,6 @@ public class PanelAdministradorActivity extends AppCompatActivity implements Pan
         NavigationView navView = findViewById(R.id.nav_view);
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        TextView logout = findViewById(R.id.logout);
 
         // Pasar cada ID de menú como un conjunto de Ids porque cada menú debe ser considerado como destinos de primer nivel.
 
@@ -101,10 +100,6 @@ public class PanelAdministradorActivity extends AppCompatActivity implements Pan
             //Cuando clicamos siempre cierra el drawer
             drawerLayout.closeDrawers();
             return NavigationUI.onNavDestinationSelected(item, navController);
-        });
-        //Cerramos la sesion.
-        logout.setOnClickListener(v -> {
-            presenter.logout();
         });
         View header = navView.getHeaderView(0);
         //Al pulsar en la cabecera, cerramos el Drawer y navegamos al fragmento del perfil.
