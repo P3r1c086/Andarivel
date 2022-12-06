@@ -11,216 +11,167 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="0dp"
     android:fillViewport="true"><!-- IMPORTANTE -->
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/constraintLayout"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:background="@drawable/color_de_fondo_principal"
-    tools:context=".presentacion.ui.login.NuevoUsuarioFragment">
 
+    <LinearLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="30dp"
+        tools:context=".presentacion.ui.login.NuevoUsuarioFragment">
 
-    <TextView
-        android:id="@+id/texoBienvenida"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="@string/crear_nuevo_usuario"
-        android:textAlignment="center"
-        android:textColor="@color/verde_andarivel"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/mont_heavy"
-        app:layout_constraintBottom_toTopOf="@id/tiNombreReal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.06"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiNombreReal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textAlignment="center"
-        android:textColorHint="@color/verde_inputs"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginHorizontal="50dp"
-        android:hint="@string/nombre"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:startIconDrawable="@drawable/ic_baseline_account_box_24"
-        app:layout_constraintHeight_percent="0.09"
-        app:layout_constraintBottom_toTopOf="@+id/tiApellidos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/texoBienvenida">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etNombreReal"
+        <TextView
+            android:id="@+id/texoBienvenida"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/arial"
-            android:inputType="textEmailAddress" />
+            android:gravity="center"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:text="@string/crear_nuevo_usuario"
+            android:textColor="@color/verde_andarivel"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/mont_heavy" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiApellidos"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textAlignment="center"
-        android:textColorHint="@color/verde_inputs"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginHorizontal="50dp"
-        android:hint="@string/apellidos"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:startIconDrawable="@drawable/ic_baseline_account_box_24"
-        app:layout_constraintHeight_percent="0.09"
-        app:layout_constraintBottom_toTopOf="@+id/tiDireccion"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiNombreReal">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etApellidos"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiNombreReal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/arial"
-            android:inputType="textEmailAddress"/>
+            android:textColorHint="@color/verde_inputs"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:hint="@string/nombre"
+            android:layout_marginTop="@dimen/common_padding_default"
+            app:helperText="@string/help_required"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:startIconDrawable="@drawable/ic_baseline_account_box_24">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNombreReal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial"
+                android:inputType="textPersonName|textCapWords" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiDireccion"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textAlignment="center"
-        android:textColorHint="@color/verde_inputs"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginHorizontal="50dp"
-        android:hint="@string/direcci_n"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:startIconDrawable="@drawable/ic_baseline_home_24"
-        app:layout_constraintHeight_percent="0.09"
-        app:layout_constraintBottom_toTopOf="@+id/tiEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiApellidos">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etDireccion"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiApellidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/arial"
-            android:inputType="textEmailAddress"/>
+            android:textColorHint="@color/verde_inputs"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:hint="@string/apellidos"
+            app:helperText="@string/help_required"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:startIconDrawable="@drawable/ic_baseline_account_box_24">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etApellidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial"
+                android:inputType="textPersonName|textCapWords" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiEmail"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textAlignment="center"
-        android:textColorHint="@color/verde_inputs"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginHorizontal="50dp"
-        android:hint="@string/email"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:startIconDrawable="@drawable/ic_email"
-        app:layout_constraintHeight_percent="0.09"
-        app:layout_constraintBottom_toTopOf="@+id/tiTelefono"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiDireccion">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etEmail"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/arial"
-            android:inputType="textEmailAddress"/>
+            android:textColorHint="@color/verde_inputs"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:hint="@string/direcci_n"
+            app:helperText="@string/help_required"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:startIconDrawable="@drawable/ic_baseline_home_24">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDireccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial"
+                android:inputType="textPersonName|textCapWords" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiTelefono"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textAlignment="center"
-        android:textColorHint="@color/verde_inputs"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginHorizontal="50dp"
-        android:hint="@string/tel_fono"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:startIconDrawable="@drawable/ic_baseline_phone_enabled_24"
-        app:layout_constraintHeight_percent="0.09"
-        app:layout_constraintBottom_toTopOf="@+id/tiPass"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiEmail">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etTelefono"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/arial"
-            android:inputType="phone"/>
+            android:textColorHint="@color/verde_inputs"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:hint="@string/email"
+            app:helperText="@string/help_required"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:startIconDrawable="@drawable/ic_email">
 
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiPass"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:hint="@string/introduce_tu_pass"
-        android:inputType="textPassword"
-        android:textColorHint="@color/verde_inputs"
-        android:textSize="20sp"
-        android:gravity="center"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:startIconDrawable="@drawable/ic_candado"
-        app:endIconMode="password_toggle"
-        android:layout_marginHorizontal="50dp"
-        app:layout_constraintHeight_percent="0.09"
-        app:layout_constraintBottom_toTopOf="@+id/btAceptar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiTelefono">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial"
+                android:inputType="textEmailAddress" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPass"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiTelefono"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/arial"
-            android:inputType="textPassword"/>
+            android:textColorHint="@color/verde_inputs"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:hint="@string/tel_fono"
+            app:helperText="@string/help_required"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:startIconDrawable="@drawable/ic_baseline_phone_enabled_24">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTelefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial"
+                android:inputType="phone" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/introduce_tu_pass"
+            android:textColorHint="@color/verde_inputs"
+            android:textSize="20sp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:startIconDrawable="@drawable/ic_candado"
+            app:endIconMode="password_toggle"
+            app:helperText="@string/help_required">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btAceptar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="130dp"
         android:textColor="@color/black"
+        android:layout_marginVertical="@dimen/common_padding_min"
         android:backgroundTint="@color/verde_botones"
         android:padding="18dp"
         android:text="@string/aceptar"
         android:fontFamily="@font/arial"
         android:textStyle="bold"
-        app:cornerRadius='30sp'
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.10"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiPass" />
+        android:layout_gravity="center"
+        app:cornerRadius='30sp' />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -173,25 +173,9 @@
         app:cornerRadius='30sp'
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/botonBorrarPerfil"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvEmailPerfil"/>
 
-    <Button
-        android:id="@+id/botonBorrarPerfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/borrar"
-        android:textColor="@color/black"
-        android:backgroundTint="#D34848"
-        android:padding="15dp"
-        android:fontFamily="@font/arial"
-        android:textStyle="bold"
-        app:cornerRadius='30sp'
-        app:layout_constraintHeight_percent="0.1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/botonEditarPerfil"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmailPerfil"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

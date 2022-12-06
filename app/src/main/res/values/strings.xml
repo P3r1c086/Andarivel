@@ -111,4 +111,5 @@
     <string name="imagen_lista_para_subir">Imagen lista para subir</string>
     <string name="Settings">Ajustes</string>
     <string name="txt_btn_excel_informes">Descargar excel</string>
+    <string name="help_required">Requerido</string>
 </resources>

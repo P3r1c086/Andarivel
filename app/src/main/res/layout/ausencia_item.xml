@@ -32,7 +32,7 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         android:fontFamily="@font/arial"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:text="@string/nombr_"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -40,7 +40,7 @@
         android:id="@+id/tvNombreUsuarioAusenciaDato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:fontFamily="@font/arial"
         app:layout_constraintStart_toEndOf="@+id/tvNombreUsuarioAusencia"
@@ -52,7 +52,7 @@
         android:textColor="@color/black"
         android:fontFamily="@font/arial"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:text="@string/motivo_ausencia"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNombreUsuarioAusencia"/>
@@ -62,14 +62,14 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/arial"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/tvMotivoAusencia"
         app:layout_constraintTop_toBottomOf="@+id/tvNombreUsuarioAusencia"/>
     <TextView
         android:id="@+id/tvFechaInicioAusencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textColor="@color/verde_andarivel"
         android:fontFamily="@font/arial"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:fontFamily="@font/arial"
         android:textStyle="bold"
         android:text=" / "
@@ -90,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#C62020"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:fontFamily="@font/arial"
         app:layout_constraintStart_toEndOf="@+id/tvFechaguion"
         app:layout_constraintTop_toBottomOf="@+id/tvMotivoAusencia"/>
@@ -101,7 +101,7 @@
         android:fontFamily="@font/arial"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:text="@string/descripcion"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvFechaInicioAusencia"/>
@@ -110,7 +110,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/arial"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tvDescripcionAusencia"
         app:layout_constraintTop_toBottomOf="@+id/tvFechaInicioAusencia"/>
@@ -148,11 +148,23 @@
         android:fontFamily="@font/arial"
         android:layout_marginTop="10dp"
         android:textStyle="bold"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:cornerRadius='30sp'
-        tools:text = "Pendiente"
+        tools:text="Pendiente"
         android:layout_marginStart="10dp"
         app:layout_constraintStart_toEndOf="@+id/btDenegarAusencia"
-        app:layout_constraintTop_toBottomOf="@+id/tvDescripcionAusenciaDato"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvDescripcionAusenciaDato" />
+
+    <ImageButton
+        android:id="@+id/imgDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_delete"
+        android:layout_margin="8dp"
+        android:background="@null"
+        app:layout_constraintTop_toBottomOf="@id/tvEstadoAusencia"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="ContentDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
