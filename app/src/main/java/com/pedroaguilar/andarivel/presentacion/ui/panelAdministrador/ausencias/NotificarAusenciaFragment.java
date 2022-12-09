@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,8 +61,12 @@ public class NotificarAusenciaFragment extends Fragment implements NotificarAuse
         if (ausencia.getAdjunto() != null) {
             binding.imgAdjuntarDoc.setVisibility(View.VISIBLE);
             binding.imgAdjuntarDoc.setOnClickListener(view -> {
-                presenter.onClickBotonAdjunto(createTempFile(), taskSnapshot -> {
-                    viewDoc(presenter.localDoc);
+                presenter.onClickBotonAdjunto(createTempFile(), task -> {
+                    if (task.isSuccessful()){
+                        viewDoc(presenter.localDoc);
+                    } else {
+                        Toast.makeText(getContext(), "Error al descargar el adjunto", Toast.LENGTH_LONG).show();
+                    }
                 });
             });
         } else {

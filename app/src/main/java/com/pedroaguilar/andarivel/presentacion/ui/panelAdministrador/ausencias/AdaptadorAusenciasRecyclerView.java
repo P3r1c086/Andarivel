@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FileDownloadTask;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
@@ -35,12 +36,9 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
     private final ArrayList<Ausencia> listaAusencia;
     private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
     private final ConcederAusenciaPresenter presenter = new ConcederAusenciaPresenter();
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private Context context;
 
     public AdaptadorAusenciasRecyclerView(ArrayList<Ausencia> lista) {
         this.listaAusencia = lista;
-
     }
 
     @NonNull
@@ -56,12 +54,13 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
         // asiganacion de los elementos del componente antes tienen que estar dados de alta como elementos de UsuarioViewHolder de abajo
         //son los metodos de la entidad Usuario
         Context context = holder.itemView.getContext();
-        holder.motivo.setText(" " + listaAusencia.get(position).getMotivoAusencia());
-        holder.nombreUsuario.setText(" " + listaAusencia.get(position).getNombreUsuario());
-        holder.fechaI.setText(listaAusencia.get(position).getFechaInicioAusencia());
-        holder.fechaF.setText(listaAusencia.get(position).getFechaFinAusencia());
-        holder.descripcion.setText(" " + listaAusencia.get(position).getDescripcionAusencia());
-        String estado = listaAusencia.get(position).getEstado();
+        Ausencia ausencia = listaAusencia.get(position);
+        holder.motivo.setText(" " + ausencia.getMotivoAusencia());
+        holder.nombreUsuario.setText(" " + ausencia.getNombreUsuario());
+        holder.fechaI.setText(ausencia.getFechaInicioAusencia());
+        holder.fechaF.setText(ausencia.getFechaFinAusencia());
+        holder.descripcion.setText(" " + ausencia.getDescripcionAusencia());
+        String estado = ausencia.getEstado();
         holder.estado.setText(estado);
         //Escondemos o visibilizamos los botones en funcion de si el estado de la solicitud es pendiente.
         if (!estado.equals("Pendiente")) {
@@ -71,26 +70,28 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
             holder.aceptar.setVisibility(View.VISIBLE);
             holder.denegar.setVisibility(View.VISIBLE);
         }
-        ////////////TODO: NO SE SI ESTO ESTA BIEN AQUI, no me reconoce el listener
-        if (listaAusencia.get(position).getAdjunto() != null) {
+        if (ausencia.getAdjunto() != null) {
             holder.adjuntar.setVisibility(View.VISIBLE);
             holder.adjuntar.setOnClickListener(v -> {
-                presenter.onClickBotonAdjunto(createTempFile(), taskSnapshot -> {
-                    viewDoc(presenter.localDoc);
+                presenter.onClickBotonAdjunto(createTempFile(v.getContext(), ausencia), ausencia, task -> {
+                    if (task.isSuccessful()){
+                        viewDoc(presenter.localDoc, v.getContext());
+                    } else {
+                        Toast.makeText(context, "Error al descargar el adjunto", Toast.LENGTH_LONG).show();
+                    }
                 });
             });
         } else {
             holder.adjuntar.setVisibility(View.GONE);
         }
-        /////////////
         holder.aceptar.setOnClickListener(v -> {
             Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put("/" + listaAusencia.get(position).getIdAusencia() + "/estado", "Aceptada");
+            childUpdates.put("/" + ausencia.getIdAusencia() + "/estado", "Aceptada");
             database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        listaAusencia.get(position).setEstado("Aceptada");
+                        ausencia.setEstado("Aceptada");
                         //Notificamos que uno de los item ha cambiado
                         notifyItemChanged(position);
                         Toast.makeText(context, "Ausencia Aceptada", Toast.LENGTH_SHORT).show();
@@ -102,12 +103,12 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
         });
         holder.denegar.setOnClickListener(v -> {
             Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put("/" + listaAusencia.get(position).getIdAusencia() + "/estado", "Denegada");
+            childUpdates.put("/" + ausencia.getIdAusencia() + "/estado", "Denegada");
             database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        listaAusencia.get(position).setEstado("Denegada");
+                        ausencia.setEstado("Denegada");
                         notifyItemChanged(position);
                         Toast.makeText(context, R.string.ausencia_denegada, Toast.LENGTH_SHORT).show();
                     } else {
@@ -115,15 +116,6 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
                     }
                 }
             });
-        });
-        holder.adjuntar.setOnClickListener(v -> {
-//            if (listaAusencia.get(position).getAdjunto() != null) {
-//                presenter.onClickBotonAdjunto(createTempFile(), taskSnapshot -> {
-//                    viewDoc(presenter.localDoc);
-//                });
-//            }else{
-//                Toast.makeText(context, "No hay documento asociado", Toast.LENGTH_SHORT).show();
-//            }
         });
         holder.delete.setOnClickListener(v -> {
 
@@ -170,14 +162,14 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
     }
 
 
-    private File createTempFile() {
+    private File createTempFile(Context context, Ausencia ausencia) {
         File file = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File dir = new File(file.getAbsolutePath() + "/ImagenesDeAndarivel");
         dir.mkdirs();
-        return new File(dir, presenter.ausenciaMostrada.getAdjunto());
+        return new File(dir, ausencia.getAdjunto());
     }
 
-    private void viewDoc(File file) {
+    private void viewDoc(File file, Context context) {
         Uri photoURI = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", file);
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);

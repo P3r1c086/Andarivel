@@ -2,6 +2,7 @@ package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -80,9 +81,9 @@ public class NotificarAusenciaPresenter extends BasePresenter<NotificarAusenciaV
         });
     }
 
-    public void onClickBotonAdjunto(File fileTemp, OnSuccessListener<FileDownloadTask.TaskSnapshot> onSuccessListener){
+    public void onClickBotonAdjunto(File fileTemp, OnCompleteListener<FileDownloadTask.TaskSnapshot> onCompleteListener){
         localDoc = fileTemp;
-        storage.descargarYVerDocumentoAdjunto(fileTemp, firebaseAuth.getUid(), ausenciaMostrada.getAdjunto(), onSuccessListener);
+        storage.descargarYVerDocumentoAdjunto(fileTemp, firebaseAuth.getUid(), ausenciaMostrada.getAdjunto(), onCompleteListener);
     }
 
 

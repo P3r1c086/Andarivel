@@ -43,9 +43,9 @@ public class ServicioFirebaseStorage {
         return storage.getReferenceFromUrl("gs://andarivel-ficha.appspot.com/documentosAusencias/" + userID + "/" + ausenciaId + ".jpg");
     }
 
-    public void descargarYVerDocumentoAdjunto(File fileTemp,String userID, String ausenciaId, OnSuccessListener<FileDownloadTask.TaskSnapshot> onSuccessListener){
+    public void descargarYVerDocumentoAdjunto(File fileTemp,String userID, String ausenciaId, OnCompleteListener<FileDownloadTask.TaskSnapshot> onCompleteListener){
         StorageReference docRef = storageReference.child("documentosAusencias/" + userID + "/" + ausenciaId);
-        docRef.getFile(fileTemp).addOnSuccessListener(onSuccessListener);
+        docRef.getFile(fileTemp).addOnCompleteListener(onCompleteListener);
     }
 
 }

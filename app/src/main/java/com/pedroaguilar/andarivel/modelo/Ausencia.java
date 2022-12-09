@@ -4,6 +4,7 @@ public class Ausencia {
 
     private String idAusencia;
     private String nombreUsuario;
+    private String idUsuario;
     private String motivoAusencia;
     private String descripcionAusencia;
     private String fechaInicioAusencia;
@@ -77,5 +78,13 @@ public class Ausencia {
 
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

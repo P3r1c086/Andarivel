@@ -11,7 +11,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Esta clase externaliza las conexiones a la base de datos y al autenticador de Firebase
@@ -87,46 +90,43 @@ public class ServicioFirebaseDatabase {
 
     //todo
     public void borrarAusencia(/*long position,*/ OnCompleteListener<Void> listener) {
-        //Log.i("////////////",valueOf(position));
-//        getInfoUsers(task -> {
-//            if (task.isSuccessful()){
-//                HashMap<String, Object> users = (HashMap<String, Object>) task.getResult().getValue();
-//                if (users != null){
-//                    for (String key : users.keySet()) {
-//                        users.put(key, null);
-//                    }
-//                }
-//                Set<String> keyUsers = users.keySet();
-//                ArrayList<String> listOfKeys = new ArrayList<String>(keyUsers);
-//
-//
-//                    for (int i = 0; i < users.size(); i++) {
-//                        int finalI = i;
-//                        databaseReferenceUsuarios.child(listOfKeys.get(i)).child("Ausencias").get().addOnCompleteListener(task1 -> {
-//                           if (task1 != null){
-//                               Map<String, Object> ausenciasDentroUsers = (Map<String, Object>) task1.getResult().getValue();
-//                               //todo buscar la ausencia de las variables globales que coincida y eliminarla
-//                               getAusencias(task2 -> {
-//                                   if (task2.isSuccessful()){
-//                                       HashMap<String, Object> ausenciasGlobales = (HashMap<String, Object>) task2.getResult().getValue();
-//                                       if (ausenciasGlobales != null){
-//                                           for (String key : ausenciasGlobales.keySet()) {
-//                                               ausenciasGlobales.put(key, null);
-//                                           }
-//                                       }
-//                                       Set<String> keyAus = ausenciasGlobales.keySet();
-//                                       ArrayList<String> listOfKeysAus = new ArrayList<String>(keyAus);
-//                                       if (listOfKeysAus.contains(ausenciasDentroUsers)){
-//                                           databaseReferenceUsuarios.child(listOfKeys.get(finalI)).child("Ausencias").removeValue();
-//                                           databaseReferenceAusencia.child("Ausencias").child(listOfKeysAus.get(finalI)).removeValue();
-//                                       }
-//                                   }
-//                               });
-//                           }
-//                        });
-//                    }
-//            }
-//        });
+        getInfoUsers(task -> {
+            if (task.isSuccessful()){
+                HashMap<String, Object> users = (HashMap<String, Object>) task.getResult().getValue();
+                if (users != null){
+                    for (String key : users.keySet()) {
+                        users.put(key, null);
+                    }
+                }
+                Set<String> keyUsers = users.keySet();
+                ArrayList<String> listOfKeys = new ArrayList<String>(keyUsers);
+                    for (int i = 0; i < users.size(); i++) {
+                        int finalI = i;
+                        databaseReferenceUsuarios.child(listOfKeys.get(i)).child("Ausencias").get().addOnCompleteListener(task1 -> {
+                           if (task1.isSuccessful()){
+                               Map<String, Object> ausenciasDentroUsers = (Map<String, Object>) task1.getResult().getValue();
+                               //todo buscar la ausencia de las variables globales que coincida y eliminarla
+                               getAusencias(task2 -> {
+                                   if (task2.isSuccessful()){
+                                       HashMap<String, Object> ausenciasGlobales = (HashMap<String, Object>) task2.getResult().getValue();
+                                       if (ausenciasGlobales != null){
+                                           for (String key : ausenciasGlobales.keySet()) {
+                                               ausenciasGlobales.put(key, null);
+                                           }
+                                       }
+                                       Set<String> keyAus = ausenciasGlobales.keySet();
+                                       ArrayList<String> listOfKeysAus = new ArrayList<String>(keyAus);
+                                       if (listOfKeysAus.contains(ausenciasDentroUsers)){
+                                           databaseReferenceUsuarios.child(listOfKeys.get(finalI)).child("Ausencias").removeValue();
+                                           databaseReferenceAusencia.child("Ausencias").child(listOfKeysAus.get(finalI)).removeValue();
+                                       }
+                                   }
+                               });
+                           }
+                        });
+                    }
+            }
+        });
         // databaseReferenceAusencia.get().addOnCompleteListener(listener);/*child("Ausencia12").removeValue()*/
         //Log.i("////////////////////", pathAusencia);
         //pathAusencia.addOnCompleteListener(listener);

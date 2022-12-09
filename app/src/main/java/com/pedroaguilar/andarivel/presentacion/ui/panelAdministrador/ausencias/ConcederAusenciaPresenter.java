@@ -1,5 +1,6 @@
 package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FileDownloadTask;
@@ -10,6 +11,7 @@ import com.pedroaguilar.andarivel.servicios.ServicioFirebaseStorage;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ConcederAusenciaPresenter extends BasePresenter<ConcederAusenciaView> {
@@ -18,13 +20,13 @@ public class ConcederAusenciaPresenter extends BasePresenter<ConcederAusenciaVie
     private final ServicioFirebaseStorage storage = new ServicioFirebaseStorage();
     private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
     File localDoc = null;
-    Ausencia ausenciaMostrada = null;
+    ArrayList<Ausencia> listaAusencias = new ArrayList<>();
 
     public void leerTodosUsuariosDatabase() {
         //Accedemos a todas las ausencias
         database.getAusencias(task -> {
             if (task.isSuccessful()) {
-                ArrayList<Ausencia> listaAusencias = new ArrayList<Ausencia>();
+                listaAusencias = new ArrayList<>();
                 //Este mapa nos devuelve el nodo ausencia y todos los ausencia n que contenga.
                 Map<String, Object> mapRaiz = (Map<String, Object>) task.getResult().getValue();
                 if (mapRaiz != null && !mapRaiz.isEmpty()) {
@@ -34,6 +36,7 @@ public class ConcederAusenciaPresenter extends BasePresenter<ConcederAusenciaVie
                         Ausencia ausencia = new Ausencia();
                         ausencia.setIdAusencia(entry.getKey());
                         ausencia.setNombreUsuario(mapAusencia.get("usuario"));
+                        ausencia.setIdUsuario(mapAusencia.get("usuario"));
                         ausencia.setFechaInicioAusencia(mapAusencia.get("fechaInicio"));
                         ausencia.setFechaFinAusencia(mapAusencia.get("fechaFin"));
                         ausencia.setMotivoAusencia(mapAusencia.get("motivoAusencia"));
@@ -85,8 +88,8 @@ public class ConcederAusenciaPresenter extends BasePresenter<ConcederAusenciaVie
         return null;
     }
 
-    public void onClickBotonAdjunto(File fileTemp, OnSuccessListener<FileDownloadTask.TaskSnapshot> onSuccessListener) {
+    public void onClickBotonAdjunto(File fileTemp, Ausencia ausencia, OnCompleteListener<FileDownloadTask.TaskSnapshot> onCompleteListener) {
         localDoc = fileTemp;
-        storage.descargarYVerDocumentoAdjunto(fileTemp, firebaseAuth.getUid(), ausenciaMostrada.getAdjunto(), onSuccessListener);
+        storage.descargarYVerDocumentoAdjunto(fileTemp, ausencia.getIdUsuario(), ausencia.getAdjunto(), onCompleteListener);
     }
 }
