@@ -89,11 +89,11 @@ public class ServicioFirebaseDatabase {
     }
 
     //todo
-    public void borrarAusencia(/*long position,*/ OnCompleteListener<Void> listener) {
+    public void borrarAusencia(OnCompleteListener<Void> listener) {
         getInfoUsers(task -> {
-            if (task.isSuccessful()){
+            if (task.isSuccessful()) {
                 HashMap<String, Object> users = (HashMap<String, Object>) task.getResult().getValue();
-                if (users != null){
+                if (users != null) {
                     for (String key : users.keySet()) {
                         users.put(key, null);
                     }

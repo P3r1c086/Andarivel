@@ -132,6 +132,7 @@ public class InformesPresenter extends BasePresenter<InformesView> {
         try {
             if (filePath.exists()) {
                 filePath.createNewFile();
+                view.mostrarExitoExcel();
             }
             FileOutputStream fileOutputStream = new FileOutputStream(filePath);
             workbook.write(fileOutputStream);
@@ -142,6 +143,7 @@ public class InformesPresenter extends BasePresenter<InformesView> {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            view.mostrarFalloFirebase();
         }
     }
 }

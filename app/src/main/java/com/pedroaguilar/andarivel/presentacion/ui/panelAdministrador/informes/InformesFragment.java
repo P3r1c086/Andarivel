@@ -70,6 +70,11 @@ public class InformesFragment extends Fragment implements InformesView{
 
 
     @Override
+    public void mostrarExitoExcel() {
+        Toast.makeText(getContext(), R.string.exito_descarga_excel, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void loadDataExcel(ArrayList<Fichaje> list) {
         binding.btnDownloadExcel.setOnClickListener(view2 -> {
             try {

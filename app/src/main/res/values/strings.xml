@@ -112,4 +112,6 @@
     <string name="Settings">Ajustes</string>
     <string name="txt_btn_excel_informes">Descargar excel</string>
     <string name="help_required">Requerido</string>
+    <string name="titulo_cerrar_sesion">Cerrar sesión</string>
+    <string name="exito_descarga_excel">El archivo se ha descargado correctamente.</string>
 </resources>

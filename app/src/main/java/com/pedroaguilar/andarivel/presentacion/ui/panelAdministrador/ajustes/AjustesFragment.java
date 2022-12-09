@@ -52,7 +52,18 @@ public class AjustesFragment extends Fragment implements AjustesView {
         });
         //Cerramos la sesion.
         binding.tvLogout.setOnClickListener(v -> {
-            presenter.logout();
+            //Colocamos una ventana emergente para confirmar que se quiere borrar el usuario
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setIcon(R.drawable.ic_logout);
+            builder.setTitle(R.string.titulo_cerrar_sesion);
+            builder.setMessage(getString(R.string.aleta_borrado));
+            builder.setPositiveButton(R.string.si, (dialog, which) -> {
+                        presenter.logout();
+                    })
+                    .setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss());
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
         });
     }
 

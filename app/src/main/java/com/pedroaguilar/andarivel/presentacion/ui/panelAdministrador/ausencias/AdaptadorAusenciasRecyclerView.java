@@ -20,8 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.storage.FileDownloadTask;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseDatabase;
@@ -37,9 +35,11 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
     private final ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
     private final ConcederAusenciaPresenter presenter = new ConcederAusenciaPresenter();
 
+
     public AdaptadorAusenciasRecyclerView(ArrayList<Ausencia> lista) {
         this.listaAusencia = lista;
     }
+
 
     @NonNull
     @Override
@@ -139,15 +139,17 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
         return listaAusencia.size();
     }
 
+
     public static class UsuarioViewHolder extends RecyclerView.ViewHolder {
 
-        TextView motivo, nombreUsuario, fechaI, fechaF, descripcion , estado;
+        TextView motivo, nombreUsuario, fechaI, fechaF, descripcion, estado;
         Button aceptar, denegar;
         ImageView adjuntar;
         ImageButton delete;
 
         public UsuarioViewHolder(@NonNull View itemView) {
             super(itemView);
+
             motivo = itemView.findViewById(R.id.tvMotivoAusenciaDato);
             nombreUsuario = itemView.findViewById(R.id.tvNombreUsuarioAusenciaDato);
             fechaI = itemView.findViewById(R.id.tvFechaInicioAusencia);
@@ -158,7 +160,10 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
             denegar = itemView.findViewById(R.id.btDenegarAusencia);
             adjuntar = itemView.findViewById(R.id.imgAdjuntarDoc);
             delete = itemView.findViewById(R.id.imgDelete);
+
+
         }
+
     }
 
 

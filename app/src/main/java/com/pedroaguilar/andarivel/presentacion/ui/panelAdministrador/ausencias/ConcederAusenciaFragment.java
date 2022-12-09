@@ -25,7 +25,6 @@ public class ConcederAusenciaFragment extends Fragment implements ConcederAusenc
     private FragmentConcederAusenciaBinding binding;
     private final ConcederAusenciaPresenter presenter = new ConcederAusenciaPresenter();
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,7 +41,6 @@ public class ConcederAusenciaFragment extends Fragment implements ConcederAusenc
         binding.listaAusencias.setLayoutManager(new LinearLayoutManager(getContext()));
         presenter.leerTodosUsuariosDatabase();
     }
-
 
     @Override
     public void mostrarInfoNoPeticionesAusencia() {
@@ -62,6 +60,5 @@ public class ConcederAusenciaFragment extends Fragment implements ConcederAusenc
     public void mostrarFalloLecturaBaseDeDatos() {
         Toast.makeText(getContext(), R.string.fallo, Toast.LENGTH_SHORT).show();
     }
-
 
 }

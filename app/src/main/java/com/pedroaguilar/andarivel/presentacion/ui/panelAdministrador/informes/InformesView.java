@@ -10,5 +10,7 @@ public interface InformesView extends BaseView {
     void mostrarListaVacia();
     void mostrarFalloFirebase();
 
+    void mostrarExitoExcel();
+
     void loadDataExcel(ArrayList<Fichaje> list);
 }
