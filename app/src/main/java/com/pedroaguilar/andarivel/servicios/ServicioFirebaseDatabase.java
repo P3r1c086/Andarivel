@@ -8,6 +8,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pedroaguilar.andarivel.modelo.Ausencia;
 import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 
@@ -88,48 +89,43 @@ public class ServicioFirebaseDatabase {
         });
     }
 
-    //todo
-    public void borrarAusencia(OnCompleteListener<Void> listener) {
-        getInfoUsers(task -> {
-            if (task.isSuccessful()) {
-                HashMap<String, Object> users = (HashMap<String, Object>) task.getResult().getValue();
-                if (users != null) {
-                    for (String key : users.keySet()) {
-                        users.put(key, null);
+    public void borrarAusencia(Ausencia ausencia, OnCompleteListener<Void> listener) {
+        getInfoUser(ausencia.getIdUsuario(), task -> {
+            if (task.isSuccessful()){
+                //Accedemos al mapa ausencias del nodo del usuario
+                Map<String, Object> ausencias = (Map<String, Object>) ((Map<String, Object>) task.getResult().getValue()).get("Ausencias");
+                Map<String, Object> ausenciasUpdate = new HashMap<>();
+                if (ausencias != null) {
+                    //Nos guardamos las referencias de los ausencias del usuario
+                    for (Map.Entry<String, Object> entry : ausencias.entrySet()) {
+                        if (!ausencia.getIdAusencia().equals(entry.getKey())) {
+                            ausenciasUpdate.put(entry.getKey(), entry.getValue());
+                        }
                     }
-                }
-                Set<String> keyUsers = users.keySet();
-                ArrayList<String> listOfKeys = new ArrayList<String>(keyUsers);
-                    for (int i = 0; i < users.size(); i++) {
-                        int finalI = i;
-                        databaseReferenceUsuarios.child(listOfKeys.get(i)).child("Ausencias").get().addOnCompleteListener(task1 -> {
-                           if (task1.isSuccessful()){
-                               Map<String, Object> ausenciasDentroUsers = (Map<String, Object>) task1.getResult().getValue();
-                               //todo buscar la ausencia de las variables globales que coincida y eliminarla
-                               getAusencias(task2 -> {
-                                   if (task2.isSuccessful()){
-                                       HashMap<String, Object> ausenciasGlobales = (HashMap<String, Object>) task2.getResult().getValue();
-                                       if (ausenciasGlobales != null){
-                                           for (String key : ausenciasGlobales.keySet()) {
-                                               ausenciasGlobales.put(key, null);
-                                           }
-                                       }
-                                       Set<String> keyAus = ausenciasGlobales.keySet();
-                                       ArrayList<String> listOfKeysAus = new ArrayList<String>(keyAus);
-                                       if (listOfKeysAus.contains(ausenciasDentroUsers)){
-                                           databaseReferenceUsuarios.child(listOfKeys.get(finalI)).child("Ausencias").removeValue();
-                                           databaseReferenceAusencia.child("Ausencias").child(listOfKeysAus.get(finalI)).removeValue();
-                                       }
-                                   }
-                               });
-                           }
+                    if (!ausencias.isEmpty()) {
+                        databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").updateChildren(ausenciasUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        databaseReferenceAusencia.child(ausencia.getIdAusencia()).removeValue().addOnCompleteListener(listener);
+                                    }
+                                });
+                            }
                         });
                     }
+                    else{
+                        databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                databaseReferenceAusencia.child(ausencia.getIdAusencia()).removeValue().addOnCompleteListener(listener);
+                            }
+                        });
+                    }
+                }
             }
         });
-        // databaseReferenceAusencia.get().addOnCompleteListener(listener);/*child("Ausencia12").removeValue()*/
-        //Log.i("////////////////////", pathAusencia);
-        //pathAusencia.addOnCompleteListener(listener);
     }
     //Fin Zona Usuario
 

@@ -50,84 +50,90 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorAusenciasRecyclerView.UsuarioViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull UsuarioViewHolder holder, int position) {
         // asiganacion de los elementos del componente antes tienen que estar dados de alta como elementos de UsuarioViewHolder de abajo
         //son los metodos de la entidad Usuario
         Context context = holder.itemView.getContext();
-        Ausencia ausencia = listaAusencia.get(position);
-        holder.motivo.setText(" " + ausencia.getMotivoAusencia());
-        holder.nombreUsuario.setText(" " + ausencia.getNombreUsuario());
-        holder.fechaI.setText(ausencia.getFechaInicioAusencia());
-        holder.fechaF.setText(ausencia.getFechaFinAusencia());
-        holder.descripcion.setText(" " + ausencia.getDescripcionAusencia());
-        String estado = ausencia.getEstado();
-        holder.estado.setText(estado);
-        //Escondemos o visibilizamos los botones en funcion de si el estado de la solicitud es pendiente.
-        if (!estado.equals("Pendiente")) {
-            holder.aceptar.setVisibility(View.INVISIBLE);
-            holder.denegar.setVisibility(View.INVISIBLE);
-        } else {
-            holder.aceptar.setVisibility(View.VISIBLE);
-            holder.denegar.setVisibility(View.VISIBLE);
-        }
-        if (ausencia.getAdjunto() != null) {
-            holder.adjuntar.setVisibility(View.VISIBLE);
-            holder.adjuntar.setOnClickListener(v -> {
-                presenter.onClickBotonAdjunto(createTempFile(v.getContext(), ausencia), ausencia, task -> {
-                    if (task.isSuccessful()){
-                        viewDoc(presenter.localDoc, v.getContext());
-                    } else {
-                        Toast.makeText(context, "Error al descargar el adjunto", Toast.LENGTH_LONG).show();
+        Ausencia ausencia = listaAusencia.get(holder.getBindingAdapterPosition());
+        if (!ausencia.getNombreUsuario().equals(context.getString(R.string.no_peticiones_ausencia))) {
+            holder.motivo.setText(" " + ausencia.getMotivoAusencia());
+            holder.nombreUsuario.setText(" "+ausencia.getNombreUsuario());
+            holder.fechaI.setText(ausencia.getFechaInicioAusencia());
+            holder.fechaF.setText(ausencia.getFechaFinAusencia());
+            holder.descripcion.setText(" " + ausencia.getDescripcionAusencia());
+            String estado = ausencia.getEstado();
+            holder.estado.setText(estado);
+            //Escondemos o visibilizamos los botones en funcion de si el estado de la solicitud es pendiente.
+            if (!estado.equals("Pendiente")) {
+                holder.aceptar.setVisibility(View.INVISIBLE);
+                holder.denegar.setVisibility(View.INVISIBLE);
+            } else {
+                holder.aceptar.setVisibility(View.VISIBLE);
+                holder.denegar.setVisibility(View.VISIBLE);
+            }
+            if (ausencia.getAdjunto() != null) {
+                holder.adjuntar.setVisibility(View.VISIBLE);
+                holder.adjuntar.setOnClickListener(v -> {
+                    presenter.onClickBotonAdjunto(createTempFile(v.getContext(), ausencia), ausencia, task -> {
+                        if (task.isSuccessful()) {
+                            viewDoc(presenter.localDoc, v.getContext());
+                        } else {
+                            Toast.makeText(context, "Error al descargar el adjunto", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                });
+            } else {
+                holder.adjuntar.setVisibility(View.GONE);
+            }
+            holder.aceptar.setOnClickListener(v -> {
+                Map<String, Object> childUpdates = new HashMap<>();
+                childUpdates.put("/" + ausencia.getIdAusencia() + "/estado", "Aceptada");
+                database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            ausencia.setEstado("Aceptada");
+                            //Notificamos que uno de los item ha cambiado
+                            notifyItemChanged(holder.getBindingAdapterPosition());
+                            Toast.makeText(context, "Ausencia Aceptada", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             });
+            holder.denegar.setOnClickListener(v -> {
+                Map<String, Object> childUpdates = new HashMap<>();
+                childUpdates.put("/" + ausencia.getIdAusencia() + "/estado", "Denegada");
+                database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            ausencia.setEstado("Denegada");
+                            notifyItemChanged(holder.getBindingAdapterPosition());
+                            Toast.makeText(context, R.string.ausencia_denegada, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            });
+            holder.delete.setOnClickListener(v -> {
+                database.borrarAusencia(ausencia, task -> {
+                    listaAusencia.remove(ausencia);
+                    notifyItemRemoved(holder.getBindingAdapterPosition());
+                });
+            });
         } else {
+            holder.nombreUsuario.setText(" "+ausencia.getNombreUsuario());
+            holder.aceptar.setVisibility(View.GONE);
+            holder.delete.setVisibility(View.GONE);
             holder.adjuntar.setVisibility(View.GONE);
+            holder.denegar.setVisibility(View.GONE);
+            holder.descripcion.setVisibility(View.GONE);
         }
-        holder.aceptar.setOnClickListener(v -> {
-            Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put("/" + ausencia.getIdAusencia() + "/estado", "Aceptada");
-            database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        ausencia.setEstado("Aceptada");
-                        //Notificamos que uno de los item ha cambiado
-                        notifyItemChanged(position);
-                        Toast.makeText(context, "Ausencia Aceptada", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        });
-        holder.denegar.setOnClickListener(v -> {
-            Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put("/" + ausencia.getIdAusencia() + "/estado", "Denegada");
-            database.actualizarAusencia(childUpdates, new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        ausencia.setEstado("Denegada");
-                        notifyItemChanged(position);
-                        Toast.makeText(context, R.string.ausencia_denegada, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        });
-        holder.delete.setOnClickListener(v -> {
-
-            database.borrarAusencia(/*position*//*getItemId(position)*/ task -> {
-
-                //getItemId(position) me devuelve -1
-                //position me devuelve la posicion en el recyclerView. 0, 1, ....
-                notifyItemRemoved(position);
-            });
-        });
-
     }
+
     /**
      * Returns the total number of items in the data set held by the adapter.
      *
