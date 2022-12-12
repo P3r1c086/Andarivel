@@ -5,6 +5,5 @@ import com.pedroaguilar.andarivel.presentacion.comun.view.BaseView;
 
 public interface NotificarAusenciaView extends BaseView {
     void showAusencia(Ausencia ausencia);
-
     void showNoHayAusencias();
 }

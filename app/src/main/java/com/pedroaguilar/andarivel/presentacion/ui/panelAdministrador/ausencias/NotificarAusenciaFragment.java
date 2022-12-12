@@ -18,6 +18,7 @@ import com.pedroaguilar.andarivel.databinding.FragmentNotificacionAusenciaBindin
 import com.pedroaguilar.andarivel.modelo.Ausencia;
 
 import java.io.File;
+import java.util.Objects;
 
 public class NotificarAusenciaFragment extends Fragment implements NotificarAusenciaView {
 
@@ -58,11 +59,23 @@ public class NotificarAusenciaFragment extends Fragment implements NotificarAuse
         binding.tvFechaFinAusencia.setText(ausencia.getFechaFinAusencia());
         binding.tvDescripcionAusenciaDato.setText(ausencia.getDescripcionAusencia());
         binding.tvEstado.setText(ausencia.getEstado());
+        if (Objects.equals(ausencia.getEstado(), "Pendiente")) {
+            binding.btnBorrarAusencia.setVisibility(View.VISIBLE);
+            binding.btnBorrarAusencia.setOnClickListener(v -> {
+                presenter.deleteAusencia(ausencia);
+            });
+
+        }
+//        else{
+//            binding.btnEdit.setVisibility(View.INVISIBLE);
+//            binding.btnBorrarAusencia.setVisibility(View.INVISIBLE);
+//            binding.imgAdjuntarDoc.setVisibility(View.INVISIBLE);
+//        }
         if (ausencia.getAdjunto() != null) {
             binding.imgAdjuntarDoc.setVisibility(View.VISIBLE);
             binding.imgAdjuntarDoc.setOnClickListener(view -> {
                 presenter.onClickBotonAdjunto(createTempFile(), task -> {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         viewDoc(presenter.localDoc);
                     } else {
                         Toast.makeText(getContext(), "Error al descargar el adjunto", Toast.LENGTH_LONG).show();
@@ -93,7 +106,9 @@ public class NotificarAusenciaFragment extends Fragment implements NotificarAuse
         binding.tvFechaFinAusencia.setVisibility(View.GONE);
         binding.tvFechaguion.setVisibility(View.GONE);
         binding.tvFechaInicioAusencia.setVisibility(View.GONE);
-        binding.tvEstado.setText(binding.tvEstado.getText() + "No hay ausencias Pendientes de aprobar");
+        binding.btnBorrarAusencia.setVisibility(View.INVISIBLE);
+        binding.imgAdjuntarDoc.setVisibility(View.INVISIBLE);
+        binding.tvEstado.setText("No hay ausencias Pendientes de aprobar");
     }
 
     private void viewDoc(File file) {

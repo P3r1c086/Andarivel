@@ -12,10 +12,8 @@ import com.pedroaguilar.andarivel.modelo.Ausencia;
 import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Esta clase externaliza las conexiones a la base de datos y al autenticador de Firebase
@@ -89,44 +87,6 @@ public class ServicioFirebaseDatabase {
         });
     }
 
-    public void borrarAusencia(Ausencia ausencia, OnCompleteListener<Void> listener) {
-        getInfoUser(ausencia.getIdUsuario(), task -> {
-            if (task.isSuccessful()){
-                //Accedemos al mapa ausencias del nodo del usuario
-                Map<String, Object> ausencias = (Map<String, Object>) ((Map<String, Object>) task.getResult().getValue()).get("Ausencias");
-                Map<String, Object> ausenciasUpdate = new HashMap<>();
-                if (ausencias != null) {
-                    //Nos guardamos las referencias de los ausencias del usuario
-                    for (Map.Entry<String, Object> entry : ausencias.entrySet()) {
-                        if (!ausencia.getIdAusencia().equals(entry.getKey())) {
-                            ausenciasUpdate.put(entry.getKey(), entry.getValue());
-                        }
-                    }
-                    if (!ausencias.isEmpty()) {
-                        databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").updateChildren(ausenciasUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        databaseReferenceAusencia.child(ausencia.getIdAusencia()).removeValue().addOnCompleteListener(listener);
-                                    }
-                                });
-                            }
-                        });
-                    }
-                    else{
-                        databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                databaseReferenceAusencia.child(ausencia.getIdAusencia()).removeValue().addOnCompleteListener(listener);
-                            }
-                        });
-                    }
-                }
-            }
-        });
-    }
     //Fin Zona Usuario
 
     //Zona Fichaje
@@ -144,10 +104,6 @@ public class ServicioFirebaseDatabase {
         databaseReferenceFichaje
                 .get()
                 .addOnCompleteListener(listener);
-    }
-
-    //todo
-    public void borrarFichaje() {
     }
 
     //Fin Zona Fichaje
@@ -178,6 +134,70 @@ public class ServicioFirebaseDatabase {
     public void getAusencias(ValueEventListener listener) {
         databaseReferenceAusencia
                 .addValueEventListener(listener);
+    }
+
+    public void borrarAusencia(Ausencia ausencia, OnCompleteListener<Void> listener) {
+        getInfoUser(ausencia.getIdUsuario(), task -> {
+            if (task.isSuccessful()) {
+                //Accedemos al mapa ausencias del nodo del usuario
+                Map<String, Object> ausencias = (Map<String, Object>) ((Map<String, Object>) task.getResult().getValue()).get("Ausencias");
+                Map<String, Object> ausenciasUpdate = new HashMap<>();
+                if (ausencias != null) {
+                    //Nos guardamos las referencias de los ausencias del usuario
+                    for (Map.Entry<String, Object> entry : ausencias.entrySet()) {
+                        if (!ausencia.getIdAusencia().equals(entry.getKey())) {
+                            ausenciasUpdate.put(entry.getKey(), entry.getValue());
+                        }
+                    }
+                    if (!ausencias.isEmpty()) {
+                        databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").removeValue().addOnCompleteListener(task1 ->
+                                databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").updateChildren(ausenciasUpdate).addOnCompleteListener(task11 ->
+                                        databaseReferenceAusencia.child(ausencia.getIdAusencia()).removeValue().addOnCompleteListener(listener)));
+                    } else {
+                        databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                databaseReferenceAusencia.child(ausencia.getIdAusencia()).removeValue().addOnCompleteListener(listener);
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    public void borrarAusenciaNotificaciones(Ausencia ausencia, OnCompleteListener<Void> listener) {
+        getInfoUser(ausencia.getIdUsuario(), task -> {
+            if (task.isSuccessful()) {
+                //Accedemos al mapa ausencias del nodo del usuario
+                Map<String, Object> ausencias = (Map<String, Object>) ((Map<String, Object>) task.getResult().getValue()).get("Ausencias");
+                Map<String, Object> ausenciasUpdate = new HashMap<>();
+                if (ausencias != null) {
+                    //Nos guardamos las referencias de los ausencias del usuario
+                    String ausenciaParaBorrar = null;
+                    for (Map.Entry<String, Object> entry : ausencias.entrySet()) {
+                        if (!ausencia.getIdAusencia().equals(entry.getKey())) {
+                            ausenciasUpdate.put(entry.getKey(), entry.getValue());
+                            ausenciaParaBorrar = entry.getKey();
+                        }
+                    }
+                    if (!ausencias.isEmpty()) {
+                        String finalAusenciaParaBorrar = ausenciaParaBorrar;
+                        databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").removeValue().addOnCompleteListener(task1 ->
+                                databaseReferenceAusencia.child(finalAusenciaParaBorrar).removeValue().addOnCompleteListener(listener));
+                        //databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").updateChildren(ausenciasUpdate).addOnCompleteListener(task11 ->
+//                                        databaseReferenceAusencia.child(ausencia.getIdAusencia()).removeValue().addOnCompleteListener(listener)));
+                    } else {
+                        databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                databaseReferenceAusencia.child(ausencia.getIdAusencia()).removeValue().addOnCompleteListener(listener);
+                            }
+                        });
+                    }
+                }
+            }
+        });
     }
 
     //Fin Zona Ausencia

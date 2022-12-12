@@ -3,7 +3,6 @@ package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -73,18 +72,21 @@ public class NotificarAusenciaPresenter extends BasePresenter<NotificarAusenciaV
                     view.showNoHayAusencias();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
 
-    public void onClickBotonAdjunto(File fileTemp, OnCompleteListener<FileDownloadTask.TaskSnapshot> onCompleteListener){
+    public void onClickBotonAdjunto(File fileTemp, OnCompleteListener<FileDownloadTask.TaskSnapshot> onCompleteListener) {
         localDoc = fileTemp;
         storage.descargarYVerDocumentoAdjunto(fileTemp, firebaseAuth.getUid(), ausenciaMostrada.getAdjunto(), onCompleteListener);
     }
 
-
+    public void deleteAusencia(Ausencia ausencia) {
+        ausencia.setIdUsuario(ausencia.getIdAusencia());
+        database.borrarAusenciaNotificaciones(ausencia, task -> {
+            view.showNoHayAusencias();
+        });
+    }
 }
