@@ -115,4 +115,10 @@
     <string name="titulo_cerrar_sesion">Cerrar sesión</string>
     <string name="exito_descarga_excel">El archivo se ha descargado correctamente.</string>
     <string name="title_trabajadores">Fichajes diarios</string>
+    <string name="contacto_title">Contacto</string>
+    <string name="hint_email">Correo electrónico</string>
+    <string name="hint_location">Ubicación</string>
+    <string name="main_show_map">Ver en el mapa</string>
+    <string name="btn_editar">Editar</string>
+    <string name="btn_eliminar">Eliminar</string>
 </resources>

@@ -110,6 +110,13 @@
     <string name="Settings">Settings</string>
     <string name="txt_btn_excel_informes">Download excel</string>
     <string name="help_required">Required</string>
-    <string name="titulo_cerrar_sesion">Cerrar sesión</string>
-    <string name="title_trabajadores">Fichajes diarios</string>
+    <string name="titulo_cerrar_sesion">Sign off</string>
+    <string name="title_trabajadores">Daily check in</string>
+    <string name="hint_email">Email</string>
+    <string name="main_show_map">See on the map</string>
+    <string name="btn_editar">Edit</string>
+    <string name="btn_eliminar">Delete</string>
+    <string name="exito_descarga_excel">The file has been downloaded successfully.</string>
+    <string name="contacto_title">Contact</string>
+    <string name="hint_location">Location</string>
 </resources>
