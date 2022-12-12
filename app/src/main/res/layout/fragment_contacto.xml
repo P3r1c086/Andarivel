@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/color_de_fondo_principal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentacion.ui.panelAdministrador.contacto.ContactoFragment">
+
+    <ImageView
+        android:id="@+id/imgLogoEmpresa"
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        android:src="@drawable/andarivel_logo"
+        android:layout_marginTop="@dimen/common_padding_max"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_padding_max"
+        android:text="@string/hint_email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgLogoEmpresa" />
+
+    <TextView
+        android:id="@+id/tvEmailDato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/profile_text_size_middle"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        android:autoLink="email"
+        android:textColorLink="@color/black"
+        android:linksClickable="false"
+        android:text="pajaros33@gmail.com"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEmail" />
+
+    <TextView
+        android:id="@+id/tvPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_padding_max"
+        android:text="@string/tel_fono"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEmailDato" />
+
+    <TextView
+        android:id="@+id/tvPhoneDato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/profile_text_size_middle"
+        android:textColor="@color/black"
+        android:text="+34 678 66 94 67"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPhone" />
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_padding_max"
+        android:text="@string/hint_location"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPhoneDato" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLocationDato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/profile_text_size_middle"
+        android:textColor="@color/black"
+        android:text="@string/main_show_map"
+        android:textStyle="bold"
+        android:drawableEnd="@drawable/ic_map"
+        app:drawableTint="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLocation" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

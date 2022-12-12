@@ -90,6 +90,8 @@ public class PanelAdministradorActivity extends AppCompatActivity implements Pan
                 navView.getMenu().getItem(4).setChecked(true);
             else if (routeId == R.id.settings_dest)
                 navView.getMenu().getItem(5).setChecked(true);
+            else if (routeId == R.id.contacto_dest)
+                navView.getMenu().getItem(6).setChecked(true);
         });
         AppBarConfiguration mAppBarConfiguration = new AppBarConfiguration.Builder(
                 navController.getGraph())

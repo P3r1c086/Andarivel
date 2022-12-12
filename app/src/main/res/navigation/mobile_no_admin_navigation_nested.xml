@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation_nested"
+    android:label="Contacto"
     app:startDestination="@id/home_dest">
     <fragment
         android:id="@+id/calendario_dest"
@@ -31,7 +31,7 @@
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        tools:layout="@layout/fragment_perfil" >
+        tools:layout="@layout/fragment_perfil">
         <action
             android:id="@+id/action_perfil_dest_to_editarPerfil_fragment"
             app:destination="@id/editarPerfil_dest" />
@@ -40,7 +40,7 @@
         android:id="@+id/panelAdministradorActivity"
         android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.PanelAdministradorActivity"
         android:label="PanelAdministradorActivity"
-        tools:layout="@layout/activity_panel_administrador"/>
+        tools:layout="@layout/activity_panel_administrador" />
     <fragment
         android:id="@+id/ausencias_dest"
         android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias.AusenciasFragment"
@@ -78,4 +78,13 @@
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
         tools:layout="@layout/fragment_ajustes" />
+    <fragment
+        android:id="@+id/contacto_dest"
+        android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.contacto.ContactoFragment"
+        android:label="@string/contacto_title"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        tools:layout="@layout/fragment_contacto" />
 </navigation>

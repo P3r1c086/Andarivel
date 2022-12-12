@@ -28,5 +28,9 @@
             android:id="@+id/settings_dest"
             android:icon="@drawable/ic_settings"
             android:title="@string/Settings" />
+        <item
+            android:id="@+id/contacto_dest"
+            android:icon="@drawable/ic_contact_page"
+            android:title="@string/contacto_title" />
     </group>
 </menu>
