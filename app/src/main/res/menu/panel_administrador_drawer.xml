@@ -29,6 +29,10 @@
             android:icon="@drawable/ic_baseline_article_24"
             android:title="@string/trabajadores" />
         <item
+            android:id="@+id/tablon_anuncios_admin_dest"
+            android:icon="@drawable/ic_baseline_article_24"
+            android:title="@string/tablon_anuncios" />
+        <item
             android:id="@+id/settings_dest"
             android:icon="@drawable/ic_settings"
             android:title="@string/Settings" />

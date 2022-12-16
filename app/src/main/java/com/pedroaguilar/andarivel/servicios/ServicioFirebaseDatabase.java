@@ -8,6 +8,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pedroaguilar.andarivel.modelo.Anuncio;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
 import com.pedroaguilar.andarivel.modelo.Constantes;
 import com.pedroaguilar.andarivel.modelo.Usuario;
@@ -25,6 +26,7 @@ public class ServicioFirebaseDatabase {
     private final DatabaseReference databaseReferenceUsuarios = FirebaseDatabase.getInstance().getReference(Constantes.NODO_USUARIOS);
     private final DatabaseReference databaseReferenceFichaje = FirebaseDatabase.getInstance().getReference(Constantes.NODO_FICHAJE);
     private final DatabaseReference databaseReferenceAusencia = FirebaseDatabase.getInstance().getReference(Constantes.NODO_AUSENCIAS);
+    private final DatabaseReference databaseReferenceAnuncio = FirebaseDatabase.getInstance().getReference(Constantes.NODO_ANUNCIO);
 
 
     //Zona Usuario
@@ -199,7 +201,17 @@ public class ServicioFirebaseDatabase {
             }
         });
     }
-
     //Fin Zona Ausencia
 
+    //Inicio zona Anuncio
+    public void saveAnuncio(String idRandom, Anuncio anuncio) {
+        databaseReferenceAnuncio.child(idRandom).setValue(anuncio);
+    }
+
+    public void getInfoAnuncios(OnCompleteListener<DataSnapshot> listener) {
+        databaseReferenceAnuncio
+                .get()
+                .addOnCompleteListener(listener);
+    }
+    //Fin zona Anuncio
 }

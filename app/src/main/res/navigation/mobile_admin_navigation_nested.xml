@@ -87,4 +87,13 @@
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
         tools:layout="@layout/fragment_ajustes" />
+    <fragment
+        android:id="@+id/tablon_anuncios_admin_dest"
+        android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.tablonAnuncios.administrador.TablonAnunciosAdminFragment"
+        android:label="@string/tablon_anuncios"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        tools:layout="@layout/fragment_tablon_anuncios_admin" />
 </navigation>

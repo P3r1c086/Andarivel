@@ -61,15 +61,6 @@
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
         tools:layout="@layout/fragment_editar_perfil"></fragment>
     <fragment
-        android:id="@+id/tablonAnuncios_dest"
-        android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.tablonAnuncios.TablonAnunciosFragment"
-        android:label="@string/tablon_anuncios"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim"
-        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        tools:layout="@layout/fragment_tablon_anuncios"></fragment>
-    <fragment
         android:id="@+id/settings_dest"
         android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ajustes.AjustesFragment"
         android:label="@string/Settings"
@@ -87,4 +78,13 @@
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
         tools:layout="@layout/fragment_contacto" />
+    <fragment
+        android:id="@+id/tablonAnunciosEmpl_dest"
+        android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.tablonAnuncios.empleados.TablonAnunciosEmplFragment"
+        android:label="@string/tablon_anuncios"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        tools:layout="@layout/fragment_tablon_anuncios_empl" />
 </navigation>
