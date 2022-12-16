@@ -22,7 +22,6 @@ import androidx.fragment.app.Fragment;
 
 import com.pedroaguilar.andarivel.R;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,4 +135,5 @@ public abstract class CamaraYpermisosFragment extends Fragment implements Camara
     public void showErrorSubirImagen() {
         Toast.makeText(requireContext(), R.string.error_subir_imagen, Toast.LENGTH_SHORT).show();
     }
+
 }

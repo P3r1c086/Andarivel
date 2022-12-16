@@ -1,6 +1,5 @@
 package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -188,7 +187,4 @@ public class AdaptadorAusenciasRecyclerView extends RecyclerView.Adapter<Adaptad
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         context.startActivity(intent);
     }
-
-    //todo: complemetar metodo proveniente del servicio firebase database para borrar ausencia(en nodo Ausercias y nodo Usuarios) con
-    //un onLongClick().Borrar tb posible imagen del storage. Poner dialog para confirmar
 }
