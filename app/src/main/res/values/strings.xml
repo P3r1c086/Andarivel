@@ -121,4 +121,8 @@
     <string name="main_show_map">Ver en el mapa</string>
     <string name="btn_editar">Editar</string>
     <string name="btn_eliminar">Eliminar</string>
+    <string name="hint_title">Título para el anuncio</string>
+    <string name="hint_description">Descripción del anuncio</string>
+    <string name="content_description_imagen_anuncio">Adjuntar imagen en anuncio</string>
+    <string name="no_hay_anuncios">No hay anuncios ahora mismo.</string>
 </resources>

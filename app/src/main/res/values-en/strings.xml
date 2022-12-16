@@ -119,4 +119,8 @@
     <string name="exito_descarga_excel">The file has been downloaded successfully.</string>
     <string name="contacto_title">Contact</string>
     <string name="hint_location">Location</string>
+    <string name="hint_title">Title for the advertisement</string>
+    <string name="hint_description">Advertisement description</string>
+    <string name="content_description_imagen_anuncio">Attach image to advertisement</string>
+    <string name="no_hay_anuncios">There are no advertisements right now.</string>
 </resources>
