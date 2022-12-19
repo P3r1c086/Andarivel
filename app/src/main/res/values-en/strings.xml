@@ -28,6 +28,7 @@
         <item>Own affairs</item>
         <item>Maternity</item>
         <item>Paternity</item>
+        <item>Another...</item>
     </string-array>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -123,4 +124,5 @@
     <string name="hint_description">Advertisement description</string>
     <string name="content_description_imagen_anuncio">Attach image to advertisement</string>
     <string name="no_hay_anuncios">There are no advertisements right now.</string>
+    <string name="tema_oscuro">Tema oscuro</string>
 </resources>

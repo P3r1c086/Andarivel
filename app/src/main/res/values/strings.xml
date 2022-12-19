@@ -29,6 +29,7 @@
         <item>Asuntos propios</item>
         <item>Maternidad</item>
         <item>Paternidad</item>
+        <item>Otro…</item>
     </string-array>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -75,7 +76,7 @@
     <string name="informes_title_appbar">Informes</string>
     <string name="fecha">Fecha: </string>
     <string name="nombre_usuario">Nombre usuario: </string>
-    <string name="cerrar_sesi_n">Cerrar Sesión</string>
+    <string name="cerrar_sesi_n">Cerrar sesión</string>
     <string name="motivo_ausencia">Motivo Ausencia:</string>
     <string name="descripcion">Descripción:</string>
     <string name="denegar">Denegar</string>
@@ -125,4 +126,5 @@
     <string name="hint_description">Descripción del anuncio</string>
     <string name="content_description_imagen_anuncio">Adjuntar imagen en anuncio</string>
     <string name="no_hay_anuncios">No hay anuncios ahora mismo.</string>
+    <string name="tema_oscuro">Tema oscuro</string>
 </resources>
