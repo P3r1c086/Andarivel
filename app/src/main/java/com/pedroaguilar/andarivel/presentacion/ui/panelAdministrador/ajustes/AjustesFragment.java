@@ -20,6 +20,12 @@ public class AjustesFragment extends Fragment implements AjustesView {
     private FragmentAjustesBinding binding;
     private final AjustesPresenter presenter = new AjustesPresenter();
 
+//    final PanelAdministradorActivity pa = (PanelAdministradorActivity) getActivity();
+//    SharedPreferences sp = pa.getSharedPreferences("SP", pa.MODE_PRIVATE);
+//    final SharedPreferences.Editor editor = sp.edit();
+//    int theme = sp.getInt("Theme", 1);
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,13 +39,30 @@ public class AjustesFragment extends Fragment implements AjustesView {
         super.onViewCreated(view, savedInstanceState);
         presenter.initialize(this);
         setListeners();
+
+
     }
 
     private void setListeners() {
+//        if(theme == 1){
+//            binding.switchTema.setChecked(false);
+//        }else{
+//            binding.switchTema.setChecked(true);
+//        }
+//        binding.switchTema.setOnClickListener(v -> {
+//
+//            if (binding.switchTema.isChecked()){
+//                editor.putInt("Theme", 0);
+//            }else{
+//                editor.putInt("Theme", 1);
+//            }
+//            editor.apply();
+//            pa.setDayNight();
+//        });
         binding.tvBorrarPerfil.setOnClickListener(v -> {
             //Colocamos una ventana emergente para confirmar que se quiere borrar el usuario
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setIcon(R.drawable.ic_baseline_exit_to_app_24);
+            builder.setIcon(R.drawable.ic_delete);
             builder.setTitle(R.string.titulo_borrado);
             builder.setMessage(getString(R.string.aleta_borrado));
             builder.setPositiveButton(R.string.si, (dialog, which) -> {
@@ -63,7 +86,6 @@ public class AjustesFragment extends Fragment implements AjustesView {
                     .setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss());
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
-
         });
     }
 

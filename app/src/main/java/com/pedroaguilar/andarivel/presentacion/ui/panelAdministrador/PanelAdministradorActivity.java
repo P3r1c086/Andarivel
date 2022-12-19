@@ -133,6 +133,7 @@ public class PanelAdministradorActivity extends AppCompatActivity implements Pan
 
             }
         });
+//        setDayNight();
     }
 
     @Override
@@ -170,4 +171,18 @@ public class PanelAdministradorActivity extends AppCompatActivity implements Pan
         ((TextView) header.findViewById(R.id.tvNombreCompleto)).setText(nombre + " " + apellidos);
         ((TextView) header.findViewById(R.id.tvCorreo)).setText(email);
     }
+
+//    /**
+//     * Metodo para cambiar el tema de la app
+//     * 0 es modo oscuro 1 es modo claro
+//     */
+//    public void setDayNight() {
+//        SharedPreferences sp = getSharedPreferences("SP", MODE_PRIVATE);
+//        int theme = sp.getInt("Theme", 1);
+//        if (theme == 0){
+//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//        }else {
+//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        }
+//    }
 }

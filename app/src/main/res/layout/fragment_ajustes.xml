@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/color_de_fondo_principal"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentacion.ui.panelAdministrador.ajustes.AjustesFragment">
 
@@ -32,38 +31,58 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitulo" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTema"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/common_padding_default"
+        android:text="@string/tema_oscuro"
+        android:fontFamily="@font/arial"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:drawableStart="@drawable/ic_light_mode"
+        android:layout_marginStart="@dimen/common_padding_default"
+        android:layout_marginVertical="@dimen/common_padding_max"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ViewSeparator" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchTema"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/common_padding_max"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ViewSeparator">
+        app:layout_constraintTop_toTopOf="@id/tvTema"
+        app:layout_constraintBottom_toBottomOf="@id/tvTema" />
 
-        <TextView
-            android:id="@+id/tvLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/arial"
-            android:text="@string/cerrar_sesi_n"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginStart="@dimen/common_padding_default"
-            android:layout_marginVertical="@dimen/common_padding_default" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/arial"
+        android:text="@string/cerrar_sesi_n"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:drawableStart="@drawable/ic_logout"
+        android:layout_marginStart="@dimen/common_padding_default"
+        android:layout_marginVertical="@dimen/common_padding_max"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTema" />
 
-        <TextView
-            android:id="@+id/tvBorrarPerfil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/borrar"
-            android:textColor="@color/black"
-            android:fontFamily="@font/arial"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginStart="@dimen/common_padding_default"
-            android:layout_marginVertical="@dimen/common_padding_default" />
-    </LinearLayout>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvBorrarPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/borrar"
+        android:textColor="@color/black"
+        android:fontFamily="@font/arial"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:drawableStart="@drawable/ic_delete"
+        android:layout_marginStart="@dimen/common_padding_default"
+        android:layout_marginVertical="@dimen/common_padding_max"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLogout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
