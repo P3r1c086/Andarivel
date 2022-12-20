@@ -124,5 +124,7 @@
     <string name="hint_description">Advertisement description</string>
     <string name="content_description_imagen_anuncio">Attach image to advertisement</string>
     <string name="no_hay_anuncios">There are no advertisements right now.</string>
-    <string name="tema_oscuro">Tema oscuro</string>
+    <string name="tema_oscuro">Theme dark</string>
+    <string name="hint_link">Enter a link</string>
+    <string name="msg_error_download_file">Error downloading the attachment.</string>
 </resources>

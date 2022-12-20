@@ -127,4 +127,6 @@
     <string name="content_description_imagen_anuncio">Adjuntar imagen en anuncio</string>
     <string name="no_hay_anuncios">No hay anuncios ahora mismo.</string>
     <string name="tema_oscuro">Tema oscuro</string>
+    <string name="hint_link">Introduce un enlace</string>
+    <string name="msg_error_download_file">Error al descargar el adjunto.</string>
 </resources>
