@@ -16,6 +16,13 @@
             <action android:name="android.intent.action.CALL_PHONE" />
         </intent>
         <intent>
+            <action android:name="android.intent.action.VIEW" />
+
+            <data android:scheme="https" />
+
+            <category android:name="android.intent.category.BROWSABLE" />
+        </intent>
+        <intent>
             <action android:name="android.intent.action.SENDTO" />
 
             <data android:scheme="*" />

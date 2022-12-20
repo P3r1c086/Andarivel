@@ -39,6 +39,7 @@ public class TablonAnunciosEmplPresenter extends BasePresenter<TablonAnunciosEmp
                         anuncio.setTitle(mapAnuncio.get("title"));
                         anuncio.setDescripcion(mapAnuncio.get("descripcion"));
                         anuncio.setImgUrl(mapAnuncio.get("imgUrl"));
+                        anuncio.setLink(mapAnuncio.get("link"));
                         listaAnunciosCompleta.add(anuncio);
                     }
                 }

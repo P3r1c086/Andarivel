@@ -2,13 +2,14 @@ package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.tablonAnun
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.navigation.Navigation;
 
 import com.bumptech.glide.signature.ObjectKey;
 import com.google.android.material.snackbar.Snackbar;
@@ -16,7 +17,6 @@ import com.google.firebase.storage.StorageReference;
 import com.pedroaguilar.andarivel.GlideApp;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentTablonAnunciosAdminBinding;
-import com.pedroaguilar.andarivel.modelo.Anuncio;
 import com.pedroaguilar.andarivel.presentacion.ui.comunUi.CamaraYpermisosFragment;
 import com.pedroaguilar.andarivel.servicios.ServicioFirebaseStorage;
 
@@ -50,17 +50,71 @@ public class TablonAnunciosAdminFragment extends CamaraYpermisosFragment impleme
         setListeners();
     }
 
-    private void setListeners() {
-        binding.btnSubir.setOnClickListener(v -> {
-            Anuncio anuncio = new Anuncio();
-            anuncio.setImgUrl(presenter.id + ".jpg");
-            anuncio.setId(presenter.id);
-            anuncio.setTitle(binding.etTitleAnuncio.getText().toString());
-            anuncio.setDescripcion(binding.etDescriptionAnuncio.getText().toString());
 
-            presenter.guardarDatosAnuncio(anuncio);
-            Snackbar.make(binding.getRoot(), "Anuncio subido correctamente.", Snackbar.LENGTH_SHORT).show();
-            Navigation.findNavController(v).navigate(R.id.home_dest);
+    private void setListeners() {
+        binding.etTitleAnuncio.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() != 0) {
+                    binding.btnSubir.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        binding.btnAdd.setOnClickListener(v -> {
+            binding.cbImagen.setEnabled(true);
+            binding.cbLink.setEnabled(true);
+            binding.cbLocation.setEnabled(true);
+        });
+        binding.cbImagen.setOnClickListener(v -> {
+            if (binding.cbImagen.isChecked()) {
+                binding.imgAnuncio.setVisibility(View.VISIBLE);
+                binding.btnSubir.setVisibility(View.VISIBLE);
+            } else {
+                binding.imgAnuncio.setVisibility(View.INVISIBLE);
+            }
+        });
+        binding.cbLink.setOnClickListener(v -> {
+            if (binding.cbLink.isChecked()) {
+                binding.tiLinkAnuncio.setVisibility(View.VISIBLE);
+                binding.btnSubir.setVisibility(View.VISIBLE);
+            } else {
+                binding.tiLinkAnuncio.setVisibility(View.INVISIBLE);
+            }
+        });
+        binding.cbLocation.setOnClickListener(v -> {
+            if (binding.cbLocation.isChecked()) {
+                binding.tvLocationAnuncio.setVisibility(View.VISIBLE);
+                binding.btnSubir.setVisibility(View.VISIBLE);
+            } else {
+                binding.tvLocationAnuncio.setVisibility(View.INVISIBLE);
+            }
+        });
+        binding.btnSubir.setOnClickListener(v -> {
+//            Anuncio anuncio = new Anuncio();
+//            anuncio.setImgUrl(presenter.id + ".jpg");
+//            anuncio.setId(presenter.id);
+//            anuncio.setTitle(binding.etTitleAnuncio.getText().toString());
+//            anuncio.setDescripcion(binding.etDescriptionAnuncio.getText().toString());
+
+            presenter.botonAceptarClickado(
+                    binding.etTitleAnuncio.getText().toString(),
+                    binding.etDescriptionAnuncio.getText().toString(), presenter.id,
+                    binding.etLinkAnuncio.getText().toString());
+
+//            presenter.botonAceptarClickado(anuncio.getTitle(), anuncio);
+//            presenter.guardarDatosAnuncio(anuncio);
+//            Snackbar.make(binding.getRoot(), "Anuncio subido correctamente.", Snackbar.LENGTH_SHORT).show();
+//            Navigation.findNavController(v).navigate(R.id.home_dest);
         });
         binding.imgAnuncio.setOnClickListener(v -> {
             if (checkAndRequestPermissions(getActivity())) {
@@ -90,5 +144,20 @@ public class TablonAnunciosAdminFragment extends CamaraYpermisosFragment impleme
                 // la url se de cuenta de que es diferente y no la coja de su cache.
                 .signature(new ObjectKey(UUID.randomUUID().toString()))
                 .into(binding.imgAnuncio);
+    }
+
+    @Override
+    public void mostrarErrorRequeridoTitle() {
+        binding.etTitleAnuncio.setError(getString(R.string.requerido));
+    }
+
+    @Override
+    public void mostrarExitoSubidaAnuncio() {
+        Snackbar.make(binding.getRoot(), "Anuncio subido correctamente.", Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void mostrarError() {
+        Snackbar.make(binding.getRoot(), "Se ha producido un error.", Snackbar.LENGTH_SHORT).show();
     }
 }

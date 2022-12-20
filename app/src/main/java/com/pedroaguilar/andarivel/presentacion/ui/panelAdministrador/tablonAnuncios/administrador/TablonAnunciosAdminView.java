@@ -12,4 +12,10 @@ import com.pedroaguilar.andarivel.presentacion.ui.comunUi.CamaraYpermisosView;
  **/
 public interface TablonAnunciosAdminView extends CamaraYpermisosView {
     void setImagenUsuario(StorageReference url);
+
+    void mostrarErrorRequeridoTitle();
+
+    void mostrarExitoSubidaAnuncio();
+
+    void mostrarError();
 }

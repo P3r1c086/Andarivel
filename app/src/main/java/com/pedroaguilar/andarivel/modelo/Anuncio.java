@@ -8,10 +8,19 @@ package com.pedroaguilar.andarivel.modelo;
  * All rights reserved 2022
  **/
 public class Anuncio {
-    private String id = null;
-    private String title = null;
-    private String descripcion = null;
-    private String imgUrl = null;
+    private String id = "";
+    private String title = "";
+    private String descripcion = "";
+    private String imgUrl = "";
+    private String link = "";
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
 
     public String getId() {
         return id;

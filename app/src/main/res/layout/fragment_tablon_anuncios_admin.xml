@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,7 +23,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tiDescriptionAnuncio">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTitleAnuncio"
@@ -47,7 +49,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tiTitleAnuncio">
+        app:layout_constraintTop_toBottomOf="@id/tiTitleAnuncio"
+        app:layout_constraintBottom_toTopOf="@id/btnAdd">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDescriptionAnuncio"
@@ -57,49 +60,122 @@
             android:inputType="textMultiLine" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvInfo1"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pulsa para subir"
-        android:layout_marginTop="65dp"
+        android:text="Adjuntar"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/cbLink"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/imgAnuncio"
-        app:layout_constraintTop_toTopOf="@id/imgAnuncio"
-        app:layout_constraintBottom_toTopOf="@id/tvInfo2" />
+        app:layout_constraintTop_toBottomOf="@id/tiDescriptionAnuncio" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvInfo2"
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbImagen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="una imagen  ->"
+        android:text="Imagen"
+        android:enabled="false"
+        android:layout_marginTop="@dimen/common_padding_default"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/imgAnuncio"
-        app:layout_constraintTop_toBottomOf="@id/tvInfo1" />
+        app:layout_constraintEnd_toStartOf="@id/cbLink"
+        app:layout_constraintTop_toBottomOf="@id/btnAdd"
+        app:layout_constraintBottom_toTopOf="@id/tiLinkAnuncio" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Link"
+        android:enabled="false"
+        android:layout_marginTop="@dimen/common_padding_default"
+        android:layout_marginStart="@dimen/common_padding_max"
+        app:layout_constraintStart_toEndOf="@id/cbImagen"
+        app:layout_constraintEnd_toStartOf="@id/cbLocation"
+        app:layout_constraintTop_toBottomOf="@id/btnAdd" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_padding_max"
+        android:layout_marginTop="@dimen/common_padding_default"
+        android:enabled="false"
+        android:text="Ubicacion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cbLink"
+        app:layout_constraintTop_toBottomOf="@id/btnAdd" />
 
     <ImageButton
         android:id="@+id/imgAnuncio"
-        android:layout_width="128dp"
-        android:layout_height="186dp"
-        android:src="@drawable/ic_image_search"
-        android:background="?selectableItemBackground"
+        android:layout_width="121dp"
+        android:layout_height="133dp"
         android:layout_marginTop="@dimen/common_padding_default"
-        app:layout_constraintStart_toEndOf="@id/tvInfo1"
+        android:layout_marginStart="@dimen/common_padding_default"
+        android:background="?selectableItemBackground"
+        android:contentDescription="@string/content_description_imagen_anuncio"
+        android:src="@drawable/ic_image_search"
+        android:visibility="invisible"
+        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tiDescriptionAnuncio"
-        android:contentDescription="@string/content_description_imagen_anuncio" />
+        app:layout_constraintStart_toEndOf="@id/tiLinkAnuncio"
+        app:layout_constraintTop_toBottomOf="@id/cbLocation" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiLinkAnuncio"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="133dp"
+        android:layout_marginVertical="@dimen/common_padding_default"
+        android:gravity="center"
+        android:hint="@string/hint_link"
+        android:textAlignment="center"
+        android:textColorHint="@color/verde_inputs"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@id/imgAnuncio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cbImagen"
+        app:startIconDrawable="@drawable/ic_link">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etLinkAnuncio"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/arial"
+            android:inputType="textMultiLine" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvLocationAnuncio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ubicación"
+        android:drawableStart="@drawable/ic_map"
+        android:layout_marginTop="@dimen/common_padding_max"
+        android:layout_marginBottom="@dimen/common_padding_max"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tiLinkAnuncio"
+        app:layout_constraintBottom_toTopOf="@id/btnSubir" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSubir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/aceptar"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:textSize="16sp"
         android:layout_marginTop="@dimen/common_padding_default"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgAnuncio" />
+        app:layout_constraintTop_toBottomOf="@id/tvLocationAnuncio" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
