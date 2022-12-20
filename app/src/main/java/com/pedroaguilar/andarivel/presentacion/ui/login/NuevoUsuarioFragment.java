@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentNuevoUsuarioBinding;
 import com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.PanelAdministradorActivity;
@@ -57,7 +57,8 @@ public class NuevoUsuarioFragment extends Fragment implements NuevoUsuarioView {
     }
 
     private void showError(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -117,13 +118,14 @@ public class NuevoUsuarioFragment extends Fragment implements NuevoUsuarioView {
 
     @Override
     public void toastEmailYaRegistrado() {
-        Toast.makeText(getContext(), R.string.email_ya_registrado, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), R.string.email_ya_registrado, Toast.LENGTH_SHORT).show();
+        Snackbar.make(binding.getRoot(), R.string.email_ya_registrado, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void falloAutenticacion() {
-        Toast.makeText(getContext(), R.string.autenticar_fallo,
-                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), R.string.autenticar_fallo, Toast.LENGTH_SHORT).show();
+        Snackbar.make(binding.getRoot(), R.string.autenticar_fallo, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

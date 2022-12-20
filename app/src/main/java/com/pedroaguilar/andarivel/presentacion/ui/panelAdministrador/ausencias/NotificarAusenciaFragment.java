@@ -7,13 +7,14 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentNotificacionAusenciaBinding;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
 
@@ -78,7 +79,8 @@ public class NotificarAusenciaFragment extends Fragment implements NotificarAuse
                     if (task.isSuccessful()) {
                         viewDoc(presenter.localDoc);
                     } else {
-                        Toast.makeText(getContext(), "Error al descargar el adjunto", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getContext(), "Error al descargar el adjunto", Toast.LENGTH_LONG).show();
+                        Snackbar.make(binding.getRoot(), R.string.msg_error_download_file, Snackbar.LENGTH_SHORT).show();
                     }
                 });
             });

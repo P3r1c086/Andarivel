@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentConcederAusenciaBinding;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
@@ -58,7 +58,8 @@ public class ConcederAusenciaFragment extends Fragment implements ConcederAusenc
 
     @Override
     public void mostrarFalloLecturaBaseDeDatos() {
-        Toast.makeText(getContext(), R.string.fallo, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), R.string.fallo, Toast.LENGTH_SHORT).show();
+        Snackbar.make(binding.getRoot(), R.string.fallo, Snackbar.LENGTH_SHORT).show();
     }
 
 }

@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentSolicitarAusenciaBinding;
 import com.pedroaguilar.andarivel.modelo.Usuario;
@@ -104,27 +104,32 @@ public class SolicitarAusenciaFragment extends CamaraYpermisosFragment implement
 
     @Override
     public void showErrorMotivoAusencia() {
-        Toast.makeText(getContext(), getString(R.string.toast_error_tipo_ausencia), Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext(), getString(R.string.toast_error_tipo_ausencia), Toast.LENGTH_LONG).show();
+        Snackbar.make(binding.getRoot(), getString(R.string.toast_error_tipo_ausencia), Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void showErrorFechaIncio() {
-        Toast.makeText(getContext(), getString(R.string.toast_error_fecha_inicio_ausencia), Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext(), getString(R.string.toast_error_fecha_inicio_ausencia), Toast.LENGTH_LONG).show();
+        Snackbar.make(binding.getRoot(), getString(R.string.toast_error_fecha_inicio_ausencia), Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void showErrorFechaFin() {
-        Toast.makeText(getContext(), getString(R.string.toast_error_fecha_fin_ausencia), Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext(), getString(R.string.toast_error_fecha_fin_ausencia), Toast.LENGTH_LONG).show();
+        Snackbar.make(binding.getRoot(), getString(R.string.toast_error_fecha_fin_ausencia), Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void showAusenciaPendiente() {
-        Toast.makeText(requireContext(), R.string.ausencia_pendiente, Toast.LENGTH_LONG).show();
+//        Toast.makeText(requireContext(), R.string.ausencia_pendiente, Toast.LENGTH_LONG).show();
+        Snackbar.make(binding.getRoot(), R.string.ausencia_pendiente, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void showAusenciaCreadaConExito() {
-        Toast.makeText(requireContext(), R.string.solicitar_ausencia_creacion_exito_mensaje, Toast.LENGTH_LONG).show();
+//        Toast.makeText(requireContext(), R.string.solicitar_ausencia_creacion_exito_mensaje, Toast.LENGTH_LONG).show();
+        Snackbar.make(binding.getRoot(), R.string.solicitar_ausencia_creacion_exito_mensaje, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -139,6 +144,7 @@ public class SolicitarAusenciaFragment extends CamaraYpermisosFragment implement
 
     @Override
     public void showErrorSubirImagen() {
-        Toast.makeText(requireContext(), R.string.error_subir_imagen, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(requireContext(), R.string.error_subir_imagen, Toast.LENGTH_SHORT).show();
+        Snackbar.make(binding.getRoot(), R.string.error_subir_imagen, Snackbar.LENGTH_SHORT).show();
     }
 }
