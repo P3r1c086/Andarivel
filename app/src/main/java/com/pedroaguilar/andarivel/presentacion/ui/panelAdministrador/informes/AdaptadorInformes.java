@@ -42,6 +42,7 @@ public class AdaptadorInformes extends RecyclerView.Adapter<AdaptadorInformes.Us
         holder.nombreUsuario.setText(context.getString(R.string.informes_fragment_name_text, listaFichaje.get(position).getNombreUsuario()));
         holder.horaEntrada.setText((listaFichaje.get(position).getHoraEntrada()));
         holder.horaSalida.setText((listaFichaje.get(position).getHoraSalida()));
+        holder.tiempoTrabajado.setText((listaFichaje.get(position).getTiempoTrabajadoDia()));
     }
     /**
      * Returns the total number of items in the data set held by the adapter.
@@ -56,7 +57,7 @@ public class AdaptadorInformes extends RecyclerView.Adapter<AdaptadorInformes.Us
 
     public static class UsuarioViewHolder extends RecyclerView.ViewHolder {
 
-        TextView fecha, nombreUsuario, horaEntrada, horaSalida;
+        TextView fecha, nombreUsuario, horaEntrada, horaSalida, tiempoTrabajado;
 
         public UsuarioViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,6 +65,7 @@ public class AdaptadorInformes extends RecyclerView.Adapter<AdaptadorInformes.Us
             nombreUsuario = itemView.findViewById(R.id.tvNombreUsuarioDato);
             horaEntrada = itemView.findViewById(R.id.tvHoraEntrada);
             horaSalida = itemView.findViewById(R.id.tvHoraSalida);
+            tiempoTrabajado = itemView.findViewById(R.id.tvTiempoTrabajadoDiaDato);
         }
 
         //todo: complemetar metodo proveniente del servicio firebase database para borrar informe(en nodo Fichaje y Usuarios) con

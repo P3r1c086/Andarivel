@@ -6,6 +6,7 @@ public class Fichaje {
     private String nombreUsuario;
     private String horaEntrada;
     private String horaSalida;
+    private String tiempoTrabajadoDia;
 
     public String getFecha() {
         return fecha;
@@ -13,6 +14,14 @@ public class Fichaje {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public String getTiempoTrabajadoDia() {
+        return tiempoTrabajadoDia;
+    }
+
+    public void setTiempoTrabajadoDia(String tiempoTrabajadoDia) {
+        this.tiempoTrabajadoDia = tiempoTrabajadoDia;
     }
 
     public String getNombreUsuario() {

@@ -74,9 +74,9 @@ public class HomePresenter extends BasePresenter<HomeView>{
         database.actualizarDatosUsuario(mAuth.getUid(), childUpdates, task -> { });
     }
 
-    public void almacenarFechaYhoraFinal(String horaSalida) {
+    public void almacenarFechaYhoraFinal(String horaSalida, String tiempoTrabajado) {
         database.getFichajes(task -> {
-            if (task.isSuccessful()){
+            if (task.isSuccessful()) {
                 String nodoFichaje = "";
                 //Mapa completamente desordenado, devuelto por firebase
                 Map<String, Object> fichajes = (Map<String, Object>) task.getResult().getValue();
@@ -94,7 +94,8 @@ public class HomePresenter extends BasePresenter<HomeView>{
                 }
                 //Actualizamos campo horaSalida del nodo encontrado.
                 Map<String, Object> childUpdates = new HashMap<>();
-                childUpdates.put("/"+ nodoFichaje +"/horaSalida", horaSalida);
+                childUpdates.put("/" + nodoFichaje + "/horaSalida", horaSalida);
+                childUpdates.put("/" + nodoFichaje + "/tiempoTrabajado", tiempoTrabajado);
                 database.actualizarFichaje(childUpdates);
             }
         });

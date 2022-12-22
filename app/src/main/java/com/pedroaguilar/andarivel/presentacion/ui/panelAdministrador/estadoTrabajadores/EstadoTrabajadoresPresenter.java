@@ -29,6 +29,7 @@ public class EstadoTrabajadoresPresenter extends BasePresenter<EstadoTrabajadore
                         fichaje.setFecha(mapFichaje.get("fecha"));
                         fichaje.setHoraEntrada(mapFichaje.get("horaEntrada"));
                         fichaje.setHoraSalida(mapFichaje.get("horaSalida"));
+                        fichaje.setTiempoTrabajadoDia(mapFichaje.get("tiempoTrabajado"));
                         listaFichajes.add(fichaje);
                     }
                     database.getInfoUsers(task1 -> {

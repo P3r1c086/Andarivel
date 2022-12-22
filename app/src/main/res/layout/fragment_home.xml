@@ -16,7 +16,6 @@
             android:contentDescription="@string/foto_de_usuario"
             android:src="@drawable/img_fichar"
             android:layout_marginBottom="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/horaEntrada"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,7 +31,6 @@
             android:contentDescription="@string/foto_de_usuario"
             android:src="@drawable/img_trabajando"
             android:layout_marginBottom="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/horaEntrada"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -133,12 +131,20 @@
             app:cornerRadius='30sp'
             android:fontFamily="@font/arial"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btFichar"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTiempoTrabajado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Tiempo trabajado"
+            android:layout_marginTop="@dimen/common_padding_max"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btFinalJornada" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

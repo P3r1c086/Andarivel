@@ -7,12 +7,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.net.ParseException;
 import androidx.fragment.app.Fragment;
 
 import com.pedroaguilar.andarivel.databinding.FragmentHomeBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -24,6 +26,8 @@ public class HomeFragment extends Fragment implements HomeView {
     private final HomePresenter presenter = new HomePresenter();
 
     private FragmentHomeBinding binding;
+    private String start_date = "";
+    private String end_date = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,14 +49,20 @@ public class HomeFragment extends Fragment implements HomeView {
 
     private void setListeners() {
         binding.btFichar.setOnClickListener(v -> {
+            SimpleDateFormat countformat1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+            start_date = countformat1.format(Calendar.getInstance().getTime().getTime());
             setEstadoFinalJornada();
             presenter.almacenarFechaYhoraInicial(
                     binding.fechaEntrada.getText().toString(),
                     binding.horaEntrada.getText().toString());
         });
         binding.btFinalJornada.setOnClickListener(v -> {
+            SimpleDateFormat countformat2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+            end_date = countformat2.format(Calendar.getInstance().getTime().getTime());
             setEstadoInicioJornada();
-            presenter.almacenarFechaYhoraFinal(binding.horaSalida.getText().toString());
+            presenter.almacenarFechaYhoraFinal(binding.horaSalida.getText().toString(), findDifference(start_date, end_date));
+
+            binding.tvTiempoTrabajado.setText(findDifference(start_date, end_date));
         });
     }
 
@@ -81,7 +91,6 @@ public class HomeFragment extends Fragment implements HomeView {
         binding.fechaSalida.setText("");
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -89,5 +98,43 @@ public class HomeFragment extends Fragment implements HomeView {
         presenter.dispose();
     }
 
+    // Function to print difference in time start_date and end_date
+    static String findDifference(String start_date, String end_date) {
+
+        String resultado = null;
+
+        // SimpleDateFormat converts the string format to date object
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+        // Try Block
+        try {
+            // parse method is used to parse the text from a string to produce the date
+            Date d1 = sdf.parse(start_date);
+            Date d2 = sdf.parse(end_date);
+
+            // Calucalte time difference in milliseconds
+            long difference_In_Time = d2.getTime() - d1.getTime();
+
+            // Calucalte time difference in seconds, minutes, hours, years, and days
+            long difference_In_Seconds = (difference_In_Time / 1000) % 60;
+
+            long difference_In_Minutes = (difference_In_Time / (1000 * 60)) % 60;
+
+            long difference_In_Hours = (difference_In_Time / (1000 * 60 * 60)) % 24;
+
+            //long difference_In_Years = (difference_In_Time / (1000l * 60 * 60 * 24 * 365));
+
+            //long difference_In_Days = (difference_In_Time / (1000 * 60 * 60 * 24)) % 365;
+
+            resultado = (/* difference_In_Years + " years, " + difference_In_Days + " days, "
+                    + */difference_In_Hours + " hours, " + difference_In_Minutes + " minutes, "
+                    + difference_In_Seconds + " seconds");
+        }
+        // Catch the Exception
+        catch (ParseException | java.text.ParseException e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
 }
 

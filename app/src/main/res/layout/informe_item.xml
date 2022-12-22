@@ -91,5 +91,30 @@
             app:layout_constraintStart_toEndOf="@+id/tvguion"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvNombreUsuarioDato" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTiempoTrabajadoDia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arial"
+            android:text="Tiempo trabajado: "
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHoraEntrada" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTiempoTrabajadoDiaDato"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arial"
+            tools:text="8 horas, 15 minutos, 31 segundos"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTiempoTrabajadoDia" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

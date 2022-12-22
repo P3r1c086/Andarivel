@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Map;
 
 public class InformesPresenter extends BasePresenter<InformesView> {
@@ -38,6 +39,7 @@ public class InformesPresenter extends BasePresenter<InformesView> {
                         fichaje.setFecha(mapFichaje.get("fecha"));
                         fichaje.setHoraEntrada(mapFichaje.get("horaEntrada"));
                         fichaje.setHoraSalida(mapFichaje.get("horaSalida"));
+                        fichaje.setTiempoTrabajadoDia(mapFichaje.get("tiempoTrabajado"));
                         listaFichajes.add(fichaje);
                     }
                     database.getInfoUsers(task1 -> {
@@ -61,8 +63,11 @@ public class InformesPresenter extends BasePresenter<InformesView> {
                                     listaFichajesCompleta.add(f);
                                     //Volvemos a buscar por si hay mas fichajes de ese usuario.
                                     f = findFichaje(listaFichajes, entry.getKey());
+                                    listaFichajesCompleta.sort(Comparator.comparing(Fichaje::getFecha));
+                                    //todo: Estan ordenados por meses, ahora necesito ordenarlos por dia de mes
                                 }
                             }
+
                             view.agnadirListaUsuariosCompleta(listaFichajesCompleta);
                             view.loadDataExcel(listaFichajesCompleta);
                         }
@@ -100,7 +105,8 @@ public class InformesPresenter extends BasePresenter<InformesView> {
                 "FECHA",
                 "NOMBRE",
                 "HORA ENTRADA",
-                "HORA SALIDA"
+                "HORA SALIDA",
+                "TIEMPO TRABAJADO"
         };
 
 //        CellStyle headerStyle = workbook.createCellStyle();
@@ -127,6 +133,7 @@ public class InformesPresenter extends BasePresenter<InformesView> {
             dataRow.createCell(1).setCellValue(listaFichajes.get(i).getNombreUsuario());
             dataRow.createCell(2).setCellValue(listaFichajes.get(i).getHoraEntrada());
             dataRow.createCell(3).setCellValue(listaFichajes.get(i).getHoraSalida());
+            dataRow.createCell(4).setCellValue(listaFichajes.get(i).getTiempoTrabajadoDia());
         }
 
         try {
