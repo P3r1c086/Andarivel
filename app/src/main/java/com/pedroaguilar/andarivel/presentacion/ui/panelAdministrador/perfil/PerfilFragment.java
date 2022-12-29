@@ -22,7 +22,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 
-public class PerfilFragment extends CamaraYpermisosFragment implements PerfilView {
+public class PerfilFragment extends CamaraYpermisosFragment implements PerfilView, Runnable {
 
     private final PerfilPresenter presenter = new PerfilPresenter();
     private FragmentPerfilBinding binding;
@@ -50,7 +50,10 @@ public class PerfilFragment extends CamaraYpermisosFragment implements PerfilVie
         super.onViewCreated(view, savedInstanceState);
         presenter.initialize(this);
         setListeners();
-        presenter.getInfoUser();
+
+        Thread hilo = new Thread(this);
+        hilo.start();
+//        presenter.getInfoUser();
     }
     private void setListeners(){
         binding.botonEditarPerfil.setOnClickListener(v -> {
@@ -121,5 +124,10 @@ public class PerfilFragment extends CamaraYpermisosFragment implements PerfilVie
         byte[] data = baos.toByteArray();
         presenter.guardaImagenPerfil(data);
         presenter.guardarImagenPerfil(task -> presenter.setImagenUser());
+    }
+
+    @Override
+    public void run() {
+        presenter.getInfoUser();
     }
 }

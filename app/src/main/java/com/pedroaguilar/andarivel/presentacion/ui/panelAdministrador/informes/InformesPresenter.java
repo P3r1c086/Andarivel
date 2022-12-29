@@ -67,7 +67,6 @@ public class InformesPresenter extends BasePresenter<InformesView> {
                                     //todo: Estan ordenados por meses, ahora necesito ordenarlos por dia de mes
                                 }
                             }
-
                             view.agnadirListaUsuariosCompleta(listaFichajesCompleta);
                             view.loadDataExcel(listaFichajesCompleta);
                         }
