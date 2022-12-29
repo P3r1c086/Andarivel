@@ -129,4 +129,8 @@
     <string name="tema_oscuro">Tema oscuro</string>
     <string name="hint_link">Introduce un enlace</string>
     <string name="msg_error_download_file">Error al descargar el adjunto.</string>
+    <string name="crear_evento">Crear evento</string>
+    <string name="titulo_evento">Titulo del evento</string>
+    <string name="descripcion_evento">Descripción del evento</string>
+    <string name="fecha_requerida">Debes seleccionar una fecha.</string>
 </resources>
