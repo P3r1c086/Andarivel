@@ -17,13 +17,13 @@ import java.util.Calendar;
 
 public class CalendarioPresenter extends BasePresenter<CalendarioView> {
 
-    public void botonCrearEvento(String title, String description, Calendar date) {
+    public void botonCrearEvento(String title, String description, Calendar date, String emails) {
         if (validarCampos(title, description, date)) {
-            crearEvento(title, description, date);
+            crearEvento(title, description, date, emails);
         }
     }
 
-    private void crearEvento(String title, String description, Calendar date) {
+    private void crearEvento(String title, String description, Calendar date, String emails) {
         Intent intent = new Intent(Intent.ACTION_INSERT)
                 .setData(CalendarContract.Events.CONTENT_URI)
                 .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, date.getTimeInMillis())
@@ -32,7 +32,7 @@ public class CalendarioPresenter extends BasePresenter<CalendarioView> {
                 .putExtra(CalendarContract.Events.DESCRIPTION, description)
                 .putExtra(CalendarContract.Events.EVENT_LOCATION, "The gym")
                 .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
-                .putExtra(Intent.EXTRA_EMAIL, "pajaros33@gmail.com, mariaasecas@gmail.com");
+                .putExtra(Intent.EXTRA_EMAIL, emails);
         view.lanzarCalendar(intent);
     }
 

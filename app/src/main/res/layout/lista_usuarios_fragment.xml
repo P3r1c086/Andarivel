@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentacion.ui.panelAdministrador.calendario.selectorUsuarios.ListaUsuariosFragment"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:layout_marginVertical="@dimen/common_padding_min">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cbAllUserEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvAllUserEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Todos"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvUsuariosEvento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/usuarios_evento_item" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConfirmarUsuarios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/aceptar"
+        android:fontFamily="@font/arial"
+        app:cornerRadius='30sp'
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/common_padding_default" />
+
+</LinearLayout>

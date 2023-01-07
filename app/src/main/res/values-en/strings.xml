@@ -131,4 +131,5 @@
     <string name="titulo_evento">Event title</string>
     <string name="descripcion_evento">Description of the event</string>
     <string name="fecha_requerida">You must select a date.</string>
+    <string name="enviar_a">Send to…</string>
 </resources>

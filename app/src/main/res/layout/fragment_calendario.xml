@@ -65,13 +65,33 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddUsers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enviar_a"
+            android:backgroundTint="@color/verde_botones"
+            android:textColor="@color/black"
+            android:fontFamily="@font/arial"
+            app:cornerRadius='30sp'
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/common_padding_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnEvent"
+            app:layout_constraintTop_toBottomOf="@id/tilDescriptionEvent" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/crear_evento"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            android:fontFamily="@font/arial"
+            app:cornerRadius='30sp'
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/btnAddUsers"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilDescriptionEvent" />
+            app:layout_constraintTop_toTopOf="@id/btnAddUsers"
+            app:layout_constraintBottom_toBottomOf="@id/btnAddUsers" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
