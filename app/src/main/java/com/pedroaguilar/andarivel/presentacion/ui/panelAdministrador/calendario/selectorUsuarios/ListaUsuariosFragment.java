@@ -28,7 +28,7 @@ public class ListaUsuariosFragment extends Fragment implements ListaUsuariosView
     private final ListaUsuariosPresenter presenter = new ListaUsuariosPresenter();
     String titleSave = "";
     String descriptionSave = "";
-    ArrayList<String> listaEmailSeleccionados = new ArrayList<>();
+    private ListaUsuariosAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,23 +51,14 @@ public class ListaUsuariosFragment extends Fragment implements ListaUsuariosView
 
     @Override
     public void agnadirListaEmail(ArrayList<String> list) {
-        binding.rvUsuariosEvento.setAdapter(new ListaUsuariosAdapter(list));
-    }
-
-    @Override
-    public ArrayList<String> agnadirListaEmailSeleccionados(ArrayList<String> list) {
-        if (list != null) {
-            for (int i = 0; i <= list.size(); i++) {
-                listaEmailSeleccionados.add(list.get(i));
-            }
-        }
-        return listaEmailSeleccionados;
+        adapter = new ListaUsuariosAdapter(list);
+        binding.rvUsuariosEvento.setAdapter(adapter);
     }
 
     private void setListeners() {
         binding.btnConfirmarUsuarios.setOnClickListener(v -> {
             Bundle result = new Bundle();
-            result.putString("bundleKey", /*presenter.agregarEmailsEvento(listaEmailSeleccionados).toString()*/agnadirListaEmailSeleccionados(listaEmailSeleccionados).toString());
+            result.putString("bundleKey", adapter.getListaEmailsChecked().toString());
             result.putString("title", titleSave);
             result.putString("description", descriptionSave);
             getParentFragmentManager().setFragmentResult("requestKey", result);

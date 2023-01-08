@@ -35,14 +35,4 @@ public class ListaUsuariosPresenter extends BasePresenter<ListaUsuariosView> {
             }
         });
     }
-
-    public void agregarEmailsEvento(ArrayList<String> listaEmailSeleccionados) {
-        //todo: la view me da null
-        view.agnadirListaEmailSeleccionados(listaEmailSeleccionados);
-//        ArrayList<String> list = new ArrayList<>();
-//        for (int i = 0; i < listaEmailSeleccionados.size(); i++){
-//            list.add(listaEmailSeleccionados.get(i));
-//        }
-//        return list;
-    }
 }

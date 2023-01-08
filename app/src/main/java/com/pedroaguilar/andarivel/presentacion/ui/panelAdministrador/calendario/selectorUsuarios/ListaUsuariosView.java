@@ -13,6 +13,4 @@ import java.util.ArrayList;
  **/
 public interface ListaUsuariosView extends BaseView {
     void agnadirListaEmail(ArrayList<String> list);
-
-    ArrayList<String> agnadirListaEmailSeleccionados(ArrayList<String> list);
 }

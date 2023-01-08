@@ -24,7 +24,6 @@ public class ListaUsuariosAdapter extends RecyclerView.Adapter<ListaUsuariosAdap
 
     private ArrayList<String> listEmails;
     private ArrayList<String> listaEmailsChecked = new ArrayList<>();
-    private ListaUsuariosPresenter presenter = new ListaUsuariosPresenter();
 
     public ListaUsuariosAdapter(ArrayList<String> list) {
         this.listEmails = list;
@@ -43,25 +42,17 @@ public class ListaUsuariosAdapter extends RecyclerView.Adapter<ListaUsuariosAdap
 
         holder.email.setText(listEmails.get(position));
 
-        holder.checkBox.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (((CheckBox) v).isChecked()) {
-                    listaEmailsChecked.add(holder.email.getText().toString());
-                } else {
-                    listaEmailsChecked.remove(holder.email.getText().toString());
-                }
-                presenter.agregarEmailsEvento(listaEmailsChecked);
-
-//                if (holder.checkBox.isChecked()){
-//                    listaEmailsChecked.add(holder.email.getText().toString());
-//                }else {
-//                    listaEmailsChecked.remove(holder.email.getText().toString());
-//                }
-//                presenter.agregarEmailsEvento(listaEmailsChecked);
+        holder.checkBox.setOnClickListener(v -> {
+            if (((CheckBox) v).isChecked()) {
+                listaEmailsChecked.add(holder.email.getText().toString());
+            } else {
+                listaEmailsChecked.remove(holder.email.getText().toString());
             }
         });
+    }
+
+    public ArrayList<String> getListaEmailsChecked(){
+        return listaEmailsChecked;
     }
 
     @Override
