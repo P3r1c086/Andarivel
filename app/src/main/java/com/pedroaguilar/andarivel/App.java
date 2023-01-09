@@ -1,10 +1,16 @@
 package com.pedroaguilar.andarivel;
 
+import static com.pedroaguilar.andarivel.presentacion.comun.Constantes.NIGHT_MODE;
+
 import android.app.Application;
 import android.content.ContentProvider;
 import android.os.Build;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.google.firebase.FirebaseApp;
+import com.pedroaguilar.andarivel.presentacion.comun.Constantes;
+import com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ajustes.AjustesFragment;
 
 /**
  * Clase que extiende del contexto padre de la aplicacion, se usa normalmente para
@@ -35,5 +41,11 @@ public class App extends Application {
         super.onCreate();
         //Incializamos servicios de Firebase
         FirebaseApp.initializeApp(this);
+        boolean isNightMode = getSharedPreferences(Constantes.SHARED_PREFERENCES_ID, MODE_PRIVATE).getBoolean(NIGHT_MODE, false);
+        if (isNightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }

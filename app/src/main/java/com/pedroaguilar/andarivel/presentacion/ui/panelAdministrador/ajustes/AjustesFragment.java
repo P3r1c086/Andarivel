@@ -1,29 +1,33 @@
 package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ajustes;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import static com.pedroaguilar.andarivel.presentacion.comun.Constantes.NIGHT_MODE;
+
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentAjustesBinding;
+import com.pedroaguilar.andarivel.presentacion.comun.Constantes;
 import com.pedroaguilar.andarivel.presentacion.ui.login.LoginActivity;
 
 public class AjustesFragment extends Fragment implements AjustesView {
 
     private FragmentAjustesBinding binding;
     private final AjustesPresenter presenter = new AjustesPresenter();
-
-//    final PanelAdministradorActivity pa = (PanelAdministradorActivity) getActivity();
-//    SharedPreferences sp = pa.getSharedPreferences("SP", pa.MODE_PRIVATE);
-//    final SharedPreferences.Editor editor = sp.edit();
-//    int theme = sp.getInt("Theme", 1);
+    private SharedPreferences preferences;
 
 
     @Override
@@ -38,27 +42,24 @@ public class AjustesFragment extends Fragment implements AjustesView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         presenter.initialize(this);
+        preferences = requireActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_ID, MODE_PRIVATE);
         setListeners();
-
-
     }
 
     private void setListeners() {
-//        if(theme == 1){
-//            binding.switchTema.setChecked(false);
-//        }else{
-//            binding.switchTema.setChecked(true);
-//        }
-//        binding.switchTema.setOnClickListener(v -> {
-//
-//            if (binding.switchTema.isChecked()){
-//                editor.putInt("Theme", 0);
-//            }else{
-//                editor.putInt("Theme", 1);
-//            }
-//            editor.apply();
-//            pa.setDayNight();
-//        });
+        binding.switchTema.setChecked(preferences.getBoolean(NIGHT_MODE, false));
+        binding.switchTema.setOnCheckedChangeListener((compoundButton, checked) -> {
+            SharedPreferences.Editor editor = preferences.edit();
+            if (checked){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                editor.putBoolean(NIGHT_MODE, true);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                editor.putBoolean(NIGHT_MODE, false);
+            }
+            editor.apply();
+        });
+
         binding.tvBorrarPerfil.setOnClickListener(v -> {
             //Colocamos una ventana emergente para confirmar que se quiere borrar el usuario
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
