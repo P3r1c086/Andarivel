@@ -8,16 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <CalendarView
-            android:id="@+id/calendario"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_padding_max"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilTitleEvent"
@@ -25,13 +16,14 @@
             android:layout_height="wrap_content"
             android:textColorHint="@color/verde_inputs"
             android:layout_marginHorizontal="@dimen/common_padding_default"
+            android:layout_marginTop="@dimen/common_padding_max"
             android:hint="@string/titulo_evento"
             app:helperText="@string/help_required"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:startIconDrawable="@drawable/ic_edit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/calendario">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etTitleEven"
@@ -55,7 +47,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilTitleEvent">
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etDescriptionEvent"
                 android:layout_width="match_parent"
@@ -68,30 +59,38 @@
             android:id="@+id/btnAddUsers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/enviar_a"
-            android:backgroundTint="@color/verde_botones"
-            android:textColor="@color/black"
-            android:fontFamily="@font/arial"
-            app:cornerRadius='30sp'
-            android:textStyle="bold"
             android:layout_marginTop="@dimen/common_padding_default"
+            android:backgroundTint="@color/verde_botones"
+            android:fontFamily="@font/arial"
+            android:text="@string/enviar_a"
+            android:textStyle="bold"
+            app:cornerRadius='30sp'
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnEvent"
             app:layout_constraintTop_toBottomOf="@id/tilDescriptionEvent" />
+
+        <CalendarView
+            android:id="@+id/calendario"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_padding_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnAddUsers" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/crear_evento"
-            android:textColor="@color/black"
+            android:layout_marginVertical="@dimen/common_padding_max"
             android:fontFamily="@font/arial"
-            app:cornerRadius='30sp'
+            android:text="@string/crear_evento"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/btnAddUsers"
+            app:cornerRadius='30sp'
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btnAddUsers"
-            app:layout_constraintBottom_toBottomOf="@id/btnAddUsers" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calendario" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

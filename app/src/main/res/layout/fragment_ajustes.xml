@@ -6,30 +6,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentacion.ui.panelAdministrador.ajustes.AjustesFragment">
 
-    <TextView
-        android:id="@+id/tvTitulo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/mont_heavy"
-        android:padding="30sp"
-        android:text="@string/Settings"
-        android:textAlignment="center"
-        android:textColor="@color/verde_andarivel"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/tvTitulo"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:fontFamily="@font/mont_heavy"-->
+    <!--        android:padding="30sp"-->
+    <!--        android:text="@string/Settings"-->
+    <!--        android:textAlignment="center"-->
+    <!--        android:textColor="@color/verde_andarivel"-->
+    <!--        android:textSize="30sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <View
-        android:id="@+id/ViewSeparator"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black"
-        android:layout_marginHorizontal="@dimen/common_padding_default"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitulo" />
+    <!--    <View-->
+    <!--        android:id="@+id/ViewSeparator"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="1dp"-->
+    <!--        android:background="@color/colorOnSecondary"-->
+    <!--        android:layout_marginHorizontal="@dimen/common_padding_default"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/tvTitulo" />-->
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvTema"
@@ -39,11 +39,12 @@
         android:fontFamily="@font/arial"
         android:textStyle="bold"
         android:textSize="16sp"
+        android:gravity="center"
         android:drawableStart="@drawable/ic_light_mode"
         android:layout_marginStart="@dimen/common_padding_default"
         android:layout_marginVertical="@dimen/common_padding_max"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ViewSeparator" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/switchTema"
@@ -62,6 +63,7 @@
         android:text="@string/cerrar_sesi_n"
         android:textStyle="bold"
         android:textSize="16sp"
+        android:gravity="center"
         android:drawableStart="@drawable/ic_logout"
         android:layout_marginStart="@dimen/common_padding_default"
         android:layout_marginVertical="@dimen/common_padding_max"
@@ -76,6 +78,7 @@
         android:fontFamily="@font/arial"
         android:textStyle="bold"
         android:textSize="16sp"
+        android:gravity="center"
         android:drawableStart="@drawable/ic_delete"
         android:layout_marginStart="@dimen/common_padding_default"
         android:layout_marginVertical="@dimen/common_padding_max"

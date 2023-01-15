@@ -127,7 +127,6 @@
             android:layout_height="wrap_content"
             android:text="@string/aceptar"
             android:backgroundTint="@color/verde_botones"
-            android:textColor="@color/black"
             android:padding="20dp"
             android:fontFamily="@font/arial"
             android:textStyle="bold"

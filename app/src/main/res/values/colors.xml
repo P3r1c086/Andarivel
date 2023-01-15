@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#151F58</color>
+
     <color name="light_green_300">#aed581</color>
     <color name="light_green_500">#8bc34a</color>
     <color name="light_green_800">#255d00</color>
@@ -8,6 +11,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="verde_andarivel">#699D3D</color>
-    <color name="verde_botones">#E0EF20</color>
+    <color name="verde_botones">#8bc34a</color>
     <color name="verde_inputs">#466829</color>
+    <color name="blue_700">#0288D1</color>
 </resources>
