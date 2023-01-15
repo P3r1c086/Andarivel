@@ -81,7 +81,7 @@ public class CalendarioFragment extends Fragment implements CalendarioView {
     }
 
     private String obtenerDatosListaUsuariosFragment() {
-        getParentFragmentManager().setFragmentResultListener("key", this, new FragmentResultListener() {
+        getParentFragmentManager().setFragmentResultListener("requestKey", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
                 // We use a String here, but any type that can be put in a Bundle is supported
