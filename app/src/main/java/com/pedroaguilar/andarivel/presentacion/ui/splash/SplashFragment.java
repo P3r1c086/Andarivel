@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,8 +51,10 @@ public class SplashFragment extends Fragment {
          * en este caso lanza el proceso action_splash_to_login, el cual navega desde el splash hacia el login despues de un tiempo de 2 segundos.
          */
         long time = 2000L;//2000 milisegundos = 2 segundos
+
         final Handler handler = new Handler();
         Runnable r = () -> {
+
             /**
              * Este objeto Navigation es un singleton, es decir, solo se puede crear una instacia de el.
              */
@@ -68,5 +71,13 @@ public class SplashFragment extends Fragment {
          * El método postDelayed, hace que Runnable r se agregue a la cola de mensajes, para que se ejecute después de que transcurra la cantidad de tiempo especificada.
          */
         handler.postDelayed(r, time);
+
+        /**
+         * Animacion para logo
+         */
+        ImageView imgSplash = new ImageView(this.getContext());
+        imgSplash.findViewById(R.id.imgAndarivelSplash);
+        imgSplash.setAlpha(0f);
+        imgSplash.animate().setDuration(1000).alpha(1f).withEndAction(r);
     }
 }
