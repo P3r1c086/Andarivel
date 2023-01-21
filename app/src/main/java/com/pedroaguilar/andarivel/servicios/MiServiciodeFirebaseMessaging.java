@@ -21,7 +21,12 @@ import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.modelo.TipoNotificacion;
 import com.pedroaguilar.andarivel.presentacion.ui.login.LoginActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class MiServiciodeFirebaseMessaging extends FirebaseMessagingService {
 
@@ -37,34 +42,35 @@ public class MiServiciodeFirebaseMessaging extends FirebaseMessagingService {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-            if (remoteMessage.getData().get("TipoNotificacion") != null && remoteMessage.getData().get("TipoNotificacion").equals(TipoNotificacion.RECORDATORIO.name())) {
-                //Todo Consulta a los datos del usuario para ver si tiene un nodo fichaje correspondiente al día actual
-                database.getFichajesUser(firebaseAuth.getUid(), task -> {
+            if (remoteMessage.getData().get("TipoNotificacion") != null &&
+                    remoteMessage.getData().get("TipoNotificacion").equals(TipoNotificacion.RECORDATORIO.name())) {
+                //Consulta a los datos del usuario para ver si tiene un nodo fichaje correspondiente al día actual
+                database.getFichajes(task -> {
                     if (task.isSuccessful()) {
+                        Boolean notificar = true;
                         //Accedemos al mapa fichajes del nodo del usuario
-                        Map<String, Object> fichajes = (Map<String, Object>) ((Map<String, Object>) task.getResult().getValue()).get("Fichajes");
+                        Map<String, Object> fichajes = (Map<String, Object>) task.getResult().getValue();
                         if (fichajes != null) {
-                            //Nos guardamos las referencias de los fichajes del usuario
-                            for (String key : fichajes.keySet()) {
-                                fichajes.put(key, null);
+                            for (Map.Entry<String, Object> entry : fichajes.entrySet()) {
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE dd 'de' MMMM 'de' YYYY", Locale.getDefault());
+                                String now = dateFormat.format(Calendar.getInstance().getTime().getTime()).trim();
+                                Object fechaFichaje = ((Map<String, Object>) entry.getValue()).get("fecha");
+                                Object usuario = ((Map<String, Object>) entry.getValue()).get("usuario");
+                                if (fechaFichaje!= null && fechaFichaje.toString().equals(now) &&
+                                        usuario != null && usuario.equals(firebaseAuth.getUid())){
+                                    notificar = false;
+                                    break;
+                                }
                             }
-                            //todo: ahora que tengo una lista de fichajes del usuario, hay que comprobar si el fichaje pertenece al día actual
-                            Log.i("fichajes", fichajes.toString());
-                        } else {
-                            Toast.makeText(this, "Este usuario no tiene fichajes", Toast.LENGTH_SHORT).show();
+                        }
+                        if (notificar){
+                            sendNotification(
+                                    remoteMessage.getData().get("Title"),
+                                    remoteMessage.getData().get("message")
+                            );
                         }
                     }
                 });
-                //Todo Si no tiene el nodo; creamos la notificacion, si sí lo tiene; nada
-                sendNotification(
-                        remoteMessage.getData().get("Title"),
-                        remoteMessage.getData().get("message")
-                );
-            } else {
-                sendNotification(
-                        remoteMessage.getData().get("Title"),
-                        remoteMessage.getData().get("message")
-                );
             }
         }
 
@@ -97,7 +103,7 @@ public class MiServiciodeFirebaseMessaging extends FirebaseMessagingService {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT
+                PendingIntent.FLAG_IMMUTABLE
         );
 
         //Construimos la notificacion con su sonido, titulo, message en el body...
