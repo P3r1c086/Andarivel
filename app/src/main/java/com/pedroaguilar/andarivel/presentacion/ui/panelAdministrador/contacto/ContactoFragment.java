@@ -18,8 +18,8 @@ public class ContactoFragment extends Fragment implements ContactoView {
     private FragmentContactoBinding binding;
     private final ContactoPresenter presenter = new ContactoPresenter();
 
-    private Double lat = 0.0;
-    private Double lon = 0.0;
+    private final Double lat = 0.0;
+    private final Double lon = 0.0;
 
     private String nombre = "";
     private String apellidos = "";

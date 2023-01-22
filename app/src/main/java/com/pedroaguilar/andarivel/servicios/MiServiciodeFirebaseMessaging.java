@@ -9,7 +9,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -23,10 +22,8 @@ import com.pedroaguilar.andarivel.presentacion.ui.login.LoginActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 public class MiServiciodeFirebaseMessaging extends FirebaseMessagingService {
 
@@ -56,8 +53,14 @@ public class MiServiciodeFirebaseMessaging extends FirebaseMessagingService {
                                 String now = dateFormat.format(Calendar.getInstance().getTime().getTime()).trim();
                                 Object fechaFichaje = ((Map<String, Object>) entry.getValue()).get("fecha");
                                 Object usuario = ((Map<String, Object>) entry.getValue()).get("usuario");
-                                if (fechaFichaje!= null && fechaFichaje.toString().equals(now) &&
-                                        usuario != null && usuario.equals(firebaseAuth.getUid())){
+                                Object horaSalida = ((Map<String, Object>) entry.getValue()).get("horaSalida");
+                                if (fechaFichaje != null && fechaFichaje.toString().equals(now) &&
+                                        usuario != null && usuario.equals(firebaseAuth.getUid())) {
+                                    notificar = false;
+                                    break;
+                                } else if (fechaFichaje != null && fechaFichaje.toString().equals(now) &&
+                                        usuario != null && usuario.equals(firebaseAuth.getUid()) &&
+                                        horaSalida != null) {
                                     notificar = false;
                                     break;
                                 }

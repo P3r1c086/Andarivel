@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment implements HomeView {
 
     // Function to print difference in time start_date and end_date
     static String findDifference(String start_date, String end_date) {
-
+        //todo: Al salir de la app se pierde esta info
         String resultado = null;
 
         // SimpleDateFormat converts the string format to date object
