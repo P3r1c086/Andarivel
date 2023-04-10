@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pedroaguilar.andarivel.modelo.Anuncio;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
 import com.pedroaguilar.andarivel.modelo.Constantes;
+import com.pedroaguilar.andarivel.modelo.Fichaje;
 import com.pedroaguilar.andarivel.modelo.Usuario;
 
 import java.util.HashMap;
@@ -108,6 +109,35 @@ public class ServicioFirebaseDatabase {
                 .addOnCompleteListener(listener);
     }
 
+    public void borrarFichaje(Fichaje fichaje, OnCompleteListener<Void> listener) {
+        getInfoUser(fichaje.getIDUsuario(), task -> {
+            if (task.isSuccessful()) {
+                //Accedemos al mapa fichajes del nodo del usuario
+                Map<String, Object> fichajes = (Map<String, Object>) ((Map<String, Object>) task.getResult().getValue()).get("Fichajes");
+                Map<String, Object> fichajesUpdate = new HashMap<>();
+                if (fichajes != null) {
+                    //Nos guardamos las referencias de los ausencias del usuario
+                    for (Map.Entry<String, Object> entry : fichajes.entrySet()) {
+                        if (!fichaje.getIdFichaje().equals(entry.getKey())) {
+                            fichajesUpdate.put(entry.getKey(), entry.getValue());
+                        }
+                    }
+                    if (!fichajes.isEmpty()) {
+                        databaseReferenceUsuarios.child(fichaje.getIDUsuario()).child("Fichajes").removeValue().addOnCompleteListener(task1 ->
+                                databaseReferenceUsuarios.child(fichaje.getIDUsuario()).child("Fichajes").updateChildren(fichajesUpdate).addOnCompleteListener(task11 ->
+                                        databaseReferenceFichaje.child(fichaje.getIdFichaje()).removeValue().addOnCompleteListener(listener)));
+                    } else {
+                        databaseReferenceUsuarios.child(fichaje.getIDUsuario()).child("Fichajes").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                databaseReferenceAusencia.child(fichaje.getIdFichaje()).removeValue().addOnCompleteListener(listener);
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
     //Fin Zona Fichaje
 
     //Zona Ausencia
@@ -187,8 +217,6 @@ public class ServicioFirebaseDatabase {
                         String finalAusenciaParaBorrar = ausenciaParaBorrar;
                         databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").removeValue().addOnCompleteListener(task1 ->
                                 databaseReferenceAusencia.child(finalAusenciaParaBorrar).removeValue().addOnCompleteListener(listener));
-                        //databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").updateChildren(ausenciasUpdate).addOnCompleteListener(task11 ->
-//                                        databaseReferenceAusencia.child(ausencia.getIdAusencia()).removeValue().addOnCompleteListener(listener)));
                     } else {
                         databaseReferenceUsuarios.child(ausencia.getIdUsuario()).child("Ausencias").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -212,6 +240,18 @@ public class ServicioFirebaseDatabase {
         databaseReferenceAnuncio
                 .get()
                 .addOnCompleteListener(listener);
+    }
+
+    public void borrarAnuncio(Anuncio anuncio, OnCompleteListener<Void> listener) {
+        getInfoAnuncios(task -> {
+            if (task.isSuccessful()) {
+                //Accedemos al mapa ausencias del nodo del usuario
+                Map<String, Object> datosAnuncio = (Map<String, Object>) ((Map<String, Object>) task.getResult().getValue()).get(anuncio.getId());
+                if (!datosAnuncio.isEmpty()) {
+                    databaseReferenceAnuncio.child(anuncio.getId()).removeValue().addOnCompleteListener(listener);
+                }
+            }
+        });
     }
     //Fin zona Anuncio
 }

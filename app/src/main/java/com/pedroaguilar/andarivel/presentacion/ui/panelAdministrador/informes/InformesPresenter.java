@@ -35,6 +35,7 @@ public class InformesPresenter extends BasePresenter<InformesView> {
                         //En este mapa obtenemos los datos de cada fichaje.
                         Map<String, String> mapFichaje = (Map<String, String>) entry.getValue();
                         Fichaje fichaje = new Fichaje();
+                        fichaje.setIdFichaje(entry.getKey());
                         fichaje.setIDUsuario(mapFichaje.get("usuario"));
                         fichaje.setFecha(mapFichaje.get("fecha"));
                         fichaje.setHoraEntrada(mapFichaje.get("horaEntrada"));

@@ -1,7 +1,10 @@
 package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.tablonAnuncios.administrador;
 
 import com.google.firebase.storage.StorageReference;
+import com.pedroaguilar.andarivel.modelo.Anuncio;
 import com.pedroaguilar.andarivel.presentacion.ui.comunUi.CamaraYpermisosView;
+
+import java.util.ArrayList;
 
 /**
  * Proyect: Andarivel
@@ -18,4 +21,8 @@ public interface TablonAnunciosAdminView extends CamaraYpermisosView {
     void mostrarExitoSubidaAnuncio();
 
     void mostrarError();
+
+    void agnadirListaAnunciosCompleta(ArrayList<Anuncio> list);
+
+    void mostrarListaVacia();
 }

@@ -1,6 +1,7 @@
 package com.pedroaguilar.andarivel.modelo;
 
 public class Fichaje {
+    private String idFichaje;
     private String IDUsuario;
     private String fecha;
     private String nombreUsuario;
@@ -10,6 +11,14 @@ public class Fichaje {
 
     public String getFecha() {
         return fecha;
+    }
+
+    public String getIdFichaje() {
+        return idFichaje;
+    }
+
+    public void setIdFichaje(String idFichaje) {
+        this.idFichaje = idFichaje;
     }
 
     public void setFecha(String fecha) {

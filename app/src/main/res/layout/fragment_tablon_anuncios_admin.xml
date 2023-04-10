@@ -1,155 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginHorizontal="@dimen/common_padding_default"
-    tools:context=".presentacion.ui.panelAdministrador.tablonAnuncios.administrador.TablonAnunciosAdminFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiTitleAnuncio"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColorHint="@color/verde_inputs"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:hint="@string/hint_title"
-        android:layout_marginVertical="@dimen/common_padding_default"
-        app:startIconDrawable="@drawable/ic_edit"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tiDescriptionAnuncio">
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        tools:context=".presentacion.ui.panelAdministrador.tablonAnuncios.administrador.TablonAnunciosAdminFragment">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etTitleAnuncio"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiTitleAnuncio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/arial"
-            android:inputType="textPersonName|textCapWords" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textAlignment="center"
+            android:textColorHint="@color/verde_inputs"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:hint="@string/hint_title"
+            android:layout_marginVertical="@dimen/common_padding_default"
+            app:startIconDrawable="@drawable/ic_edit"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tiDescriptionAnuncio">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiDescriptionAnuncio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColorHint="@color/verde_inputs"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        app:startIconDrawable="@drawable/ic_edit"
-        android:hint="@string/hint_description"
-        android:layout_marginVertical="@dimen/common_padding_default"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tiTitleAnuncio"
-        app:layout_constraintBottom_toTopOf="@id/btnAdd">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTitleAnuncio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial"
+                android:inputType="textPersonName|textCapWords" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etDescriptionAnuncio"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiDescriptionAnuncio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/arial"
-            android:inputType="textMultiLine" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textAlignment="center"
+            android:textColorHint="@color/verde_inputs"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:startIconDrawable="@drawable/ic_edit"
+            android:hint="@string/hint_description"
+            android:layout_marginVertical="@dimen/common_padding_default"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tiTitleAnuncio"
+            app:layout_constraintBottom_toTopOf="@id/btnAdd">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Adjuntar"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/cbLink"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tiDescriptionAnuncio" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDescriptionAnuncio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/cbImagen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Imagen"
-        android:enabled="false"
-        android:layout_marginTop="@dimen/common_padding_default"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/cbLink"
-        app:layout_constraintTop_toBottomOf="@id/btnAdd"
-        app:layout_constraintBottom_toTopOf="@id/tiLinkAnuncio" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adjuntar"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/cbLink"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tiDescriptionAnuncio" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/cbLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Link"
-        android:enabled="false"
-        android:layout_marginTop="@dimen/common_padding_default"
-        android:layout_marginStart="@dimen/common_padding_max"
-        app:layout_constraintStart_toEndOf="@id/cbImagen"
-        app:layout_constraintTop_toBottomOf="@id/btnAdd" />
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cbImagen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Imagen"
+            android:enabled="false"
+            android:layout_marginTop="@dimen/common_padding_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cbLink"
+            app:layout_constraintTop_toBottomOf="@id/btnAdd"
+            app:layout_constraintBottom_toTopOf="@id/tiLinkAnuncio" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cbLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Link"
+            android:enabled="false"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:layout_marginStart="@dimen/common_padding_max"
+            app:layout_constraintStart_toEndOf="@id/cbImagen"
+            app:layout_constraintTop_toBottomOf="@id/btnAdd" />
 
 
-    <ImageButton
-        android:id="@+id/imgAnuncio"
-        android:layout_width="121dp"
-        android:layout_height="133dp"
-        android:layout_marginStart="@dimen/common_padding_default"
-        android:background="?selectableItemBackground"
-        android:contentDescription="@string/content_description_imagen_anuncio"
-        android:src="@drawable/ic_image_search"
-        android:visibility="invisible"
-        tools:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tiLinkAnuncio"
-        app:layout_constraintTop_toTopOf="@id/tiLinkAnuncio"
-        app:layout_constraintBottom_toBottomOf="@id/tiLinkAnuncio" />
+        <ImageButton
+            android:id="@+id/imgAnuncio"
+            android:layout_width="121dp"
+            android:layout_height="133dp"
+            android:layout_marginStart="@dimen/common_padding_default"
+            android:background="?selectableItemBackground"
+            android:contentDescription="@string/content_description_imagen_anuncio"
+            android:src="@drawable/ic_image_search"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tiLinkAnuncio"
+            app:layout_constraintTop_toTopOf="@id/tiLinkAnuncio"
+            app:layout_constraintBottom_toBottomOf="@id/tiLinkAnuncio" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiLinkAnuncio"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="133dp"
-        android:layout_marginVertical="@dimen/common_padding_default"
-        android:gravity="center"
-        android:hint="@string/hint_link"
-        android:textAlignment="center"
-        android:textColorHint="@color/verde_inputs"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        tools:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@id/imgAnuncio"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cbImagen"
-        app:startIconDrawable="@drawable/ic_link">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiLinkAnuncio"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="133dp"
+            android:layout_marginVertical="@dimen/common_padding_default"
+            android:gravity="center"
+            android:hint="@string/hint_link"
+            android:textAlignment="center"
+            android:textColorHint="@color/verde_inputs"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@id/imgAnuncio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cbImagen"
+            app:startIconDrawable="@drawable/ic_link">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etLinkAnuncio"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLinkAnuncio"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/arial"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSubir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/aceptar"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:textSize="16sp"
+            android:layout_marginTop="@dimen/common_padding_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tiLinkAnuncio" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvListaAnunciosCreados"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/arial"
-            android:inputType="textMultiLine" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSubir"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:text="Lista de Anuncios Creados"
+            android:textColor="?attr/colorOnPrimary"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:gravity="center_horizontal" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAnuncios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_padding_default"
+            tools:listitem="@layout/anuncio_item"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvListaAnunciosCreados" />
 
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSubir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/aceptar"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:textSize="16sp"
-        android:layout_marginTop="@dimen/common_padding_default"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tiLinkAnuncio" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

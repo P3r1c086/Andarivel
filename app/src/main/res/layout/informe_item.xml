@@ -113,16 +113,27 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTiempoTrabajadoDiaDato"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/arial"
+            android:textAlignment="center"
             android:textColor="?attr/colorPrimaryVariant"
-            tools:text="8 horas, 15 minutos, 31 segundos"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgDeleteFichaje"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTiempoTrabajadoDia" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTiempoTrabajadoDia"
+            tools:text="8 horas, 15 minutos, 31 segundos" />
+
+        <ImageButton
+            android:id="@+id/imgDeleteFichaje"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete"
+            android:background="@null"
+            app:layout_constraintStart_toEndOf="@id/tvTiempoTrabajadoDiaDato"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTiempoTrabajadoDia"
+            tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

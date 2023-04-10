@@ -17,14 +17,26 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTitleAnuncio"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             tools:text="Titulo"
             android:layout_marginTop="@dimen/common_padding_default"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgDeleteAnuncio"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imgDeleteAnuncio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete"
+            android:background="@null"
+            app:layout_constraintStart_toEndOf="@id/tvTitleAnuncio"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvTitleAnuncio"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitleAnuncio"
+            tools:ignore="ContentDescription" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvDescriptionAnuncio"
@@ -43,7 +55,7 @@
             android:src="@drawable/ic_image"
             android:layout_marginTop="@dimen/common_padding_default"
             android:visibility="visible"
-            app:layout_constraintStart_toEndOf="@id/tvLinkItem"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvDescriptionAnuncio"
             android:contentDescription="@string/content_description_imagen_anuncio" />
@@ -57,10 +69,10 @@
             android:linksClickable="true"
             android:autoLink="web"
             android:textColorLink="@color/light_green_500"
-            android:layout_marginTop="@dimen/common_padding_max"
+            android:layout_marginTop="@dimen/common_padding_min"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/imgAnuncio"
-            app:layout_constraintTop_toBottomOf="@id/tvDescriptionAnuncio" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgAnuncio" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

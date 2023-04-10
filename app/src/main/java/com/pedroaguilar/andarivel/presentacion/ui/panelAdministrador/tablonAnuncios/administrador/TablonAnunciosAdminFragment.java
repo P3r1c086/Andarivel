@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.signature.ObjectKey;
 import com.google.android.material.snackbar.Snackbar;
@@ -19,10 +20,11 @@ import com.google.firebase.storage.StorageReference;
 import com.pedroaguilar.andarivel.GlideApp;
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentTablonAnunciosAdminBinding;
+import com.pedroaguilar.andarivel.modelo.Anuncio;
 import com.pedroaguilar.andarivel.presentacion.ui.comunUi.CamaraYpermisosFragment;
-import com.pedroaguilar.andarivel.servicios.ServicioFirebaseStorage;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -36,7 +38,6 @@ public class TablonAnunciosAdminFragment extends CamaraYpermisosFragment impleme
 
     private final TablonAnunciosAdminPresenter presenter = new TablonAnunciosAdminPresenter();
     private FragmentTablonAnunciosAdminBinding binding;
-    private final ServicioFirebaseStorage storage = new ServicioFirebaseStorage();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -49,6 +50,8 @@ public class TablonAnunciosAdminFragment extends CamaraYpermisosFragment impleme
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         presenter.initialize(this);
+        binding.rvAnuncios.setLayoutManager(new LinearLayoutManager(getContext()));
+        presenter.leerTodosAnunciosDatabase();
         setListeners();
     }
 
@@ -150,5 +153,21 @@ public class TablonAnunciosAdminFragment extends CamaraYpermisosFragment impleme
     @Override
     public void mostrarError() {
         Snackbar.make(binding.getRoot(), "Se ha producido un error.", Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void agnadirListaAnunciosCompleta(ArrayList<Anuncio> list) {
+        //Colocamos en el adaptador la lista de Anuncios que continen todos los datos necesarios.
+        binding.rvAnuncios.setAdapter(new AnuncioAdmAdapter(list));
+    }
+
+    @Override
+    public void mostrarListaVacia() {
+        ArrayList<Anuncio> listaConVacio = new ArrayList<>();
+        Anuncio aVacio = new Anuncio();
+        //En caso de que no haya fichajes todavia, notificamos al administrador que no hay fichajes.
+        aVacio.setTitle(getString(R.string.no_hay_anuncios));
+        listaConVacio.add(aVacio);
+        binding.rvAnuncios.setAdapter(new AnuncioAdmAdapter(listaConVacio));
     }
 }
