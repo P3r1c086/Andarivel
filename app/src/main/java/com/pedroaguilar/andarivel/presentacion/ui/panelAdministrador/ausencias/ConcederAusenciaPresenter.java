@@ -1,8 +1,6 @@
 package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.ausencias;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FileDownloadTask;
 import com.pedroaguilar.andarivel.modelo.Ausencia;
 import com.pedroaguilar.andarivel.presentacion.comun.presenter.BasePresenter;
@@ -11,12 +9,10 @@ import com.pedroaguilar.andarivel.servicios.ServicioFirebaseStorage;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class ConcederAusenciaPresenter extends BasePresenter<ConcederAusenciaView> {
 
-    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private final ServicioFirebaseStorage storage = new ServicioFirebaseStorage();
     private ServicioFirebaseDatabase database = new ServicioFirebaseDatabase();
     File localDoc = null;
