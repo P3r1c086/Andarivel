@@ -14,19 +14,6 @@
         android:layout_marginHorizontal="30dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/texoEditarPerfil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/actualizar_datos"
-            android:textAlignment="center"
-            android:textColor="@color/verde_andarivel"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/mont_heavy"
-            android:layout_marginVertical="32dp" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tiNombreReal"
             android:layout_width="match_parent"

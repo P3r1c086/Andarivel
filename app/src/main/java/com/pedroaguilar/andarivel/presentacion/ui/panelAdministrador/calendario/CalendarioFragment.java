@@ -38,8 +38,6 @@ public class CalendarioFragment extends Fragment implements CalendarioView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         presenter.initialize(this);
-        //eventoCalendario();
-        //mostrarFecha();
         setListeners();
         if (getArguments() != null) {
             binding.etTitleEven.setText(getArguments().getString("title"));
@@ -55,22 +53,15 @@ public class CalendarioFragment extends Fragment implements CalendarioView {
         });
         binding.btnAddUsers.setOnClickListener(v -> {
             ListaUsuariosFragment fr = new ListaUsuariosFragment();
-//            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//            transaction.replace(R.id.nav_host_fragment_content_nested, fr);
-//            transaction.addToBackStack(null);
-//            // Commit a la transacción
-//            transaction.commit();
             Bundle bundle = new Bundle();
             bundle.putString("title", binding.etTitleEven.getText().toString());
             bundle.putString("description", binding.etDescriptionEvent.getText().toString());
             fr.setArguments(bundle);
-//            Navigation.findNavController(v).navigate(fr.hashCode(), bundle);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.nav_host_fragment_content_nested, fr);
             transaction.addToBackStack(null);
             // Commit a la transacción
             transaction.commit();
-
         });
         binding.btnEvent.setOnClickListener(v -> {
             if (getActivity() != null) {
@@ -111,26 +102,4 @@ public class CalendarioFragment extends Fragment implements CalendarioView {
     public void mostrarToastDateRequerido() {
         Toast.makeText(getContext(), R.string.fecha_requerida, Toast.LENGTH_SHORT).show();
     }
-    //    private void eventoCalendario() {
-//        Calendar beginTime = Calendar.getInstance();
-//        beginTime.set(2022, 11, 28, 11, 30);
-//        Calendar endTime = Calendar.getInstance();
-//        endTime.set(2022, 11, 28, 11, 31);
-//        Intent intent = new Intent(Intent.ACTION_INSERT)
-//                .setData(CalendarContract.Events.CONTENT_URI)
-//                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
-//                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
-//                .putExtra(CalendarContract.Events.TITLE, "Yoga")
-//                .putExtra(CalendarContract.Events.DESCRIPTION, "Group class")
-//                .putExtra(CalendarContract.Events.EVENT_LOCATION, "The gym")
-//                .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
-//                .putExtra(Intent.EXTRA_EMAIL, "pajaros33@gmail.com");
-//        startActivity(intent);
-//    }
-
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        binding = null;
-//    }
 }

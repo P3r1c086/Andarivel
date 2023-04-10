@@ -40,7 +40,8 @@ public class EditarPerfilFragment extends Fragment implements EditarPerfilView {
     }
 
     private void setListners() {
-        binding.btAceptar.setOnClickListener(v -> presenter.clickBotonAceptar(binding.etNombreReal.getText().toString(),
+        binding.btAceptar.setOnClickListener(v -> presenter.clickBotonAceptar(
+                binding.etNombreReal.getText().toString(),
                 binding.etApellidos.getText().toString(),
                 binding.etDireccion.getText().toString(),
                 binding.etTelefono.getText().toString()));

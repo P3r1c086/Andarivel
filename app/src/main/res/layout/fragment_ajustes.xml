@@ -6,31 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentacion.ui.panelAdministrador.ajustes.AjustesFragment">
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/tvTitulo"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:fontFamily="@font/mont_heavy"-->
-    <!--        android:padding="30sp"-->
-    <!--        android:text="@string/Settings"-->
-    <!--        android:textAlignment="center"-->
-    <!--        android:textColor="@color/verde_andarivel"-->
-    <!--        android:textSize="30sp"-->
-    <!--        android:textStyle="bold"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--    <View-->
-    <!--        android:id="@+id/ViewSeparator"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:background="@color/colorOnSecondary"-->
-    <!--        android:layout_marginHorizontal="@dimen/common_padding_default"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/tvTitulo" />-->
-
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvTema"
         android:layout_width="wrap_content"

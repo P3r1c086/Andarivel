@@ -38,7 +38,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_home">Inicio</string>
     <string name="menu_calendario">Calendario</string>
     <string name="menu_slideshow">Perfil</string>
     <string name="fichar">Fichar</string>
@@ -58,8 +58,6 @@
     <string name="visualizar">Visualizar</string>
     <string name="descargar">Descargar</string>
 
-    <string name="informes_fragment_name_text">Nombre: %s</string>
-    <string name="ausencias_fragment_name_text"></string>
     <string name="solicitar_ausencia_tab_title">Solicitar Ausencia</string>
     <string name="conceder_ausencia_tab_title">Conceder Ausencia</string>
     <string name="notificar_ausencia_tab_title">Notificaciones</string>
@@ -106,7 +104,7 @@
     <string name="debes_introducir_contrasena">Debes introducir una contraseña</string>
     <string name="contrasena_debil">La contraseña es demasiado débil</string>
     <string name="email_ya_registrado">Este email ya está registrado.</string>
-    <string name="trabajadores">Trabajadores</string>
+    <string name="trabajadores">Trabajadores Fichados Hoy</string>
     <string name="estado_trabajadores_label">Estado Trabajadores</string>
     <string name="tablon_anuncios">Tablón Anuncios</string>
     <string name="imagen_lista_para_subir">Imagen lista para subir</string>

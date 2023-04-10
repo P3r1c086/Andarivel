@@ -67,11 +67,6 @@ public class NotificarAusenciaFragment extends Fragment implements NotificarAuse
             });
 
         }
-//        else{
-//            binding.btnEdit.setVisibility(View.INVISIBLE);
-//            binding.btnBorrarAusencia.setVisibility(View.INVISIBLE);
-//            binding.imgAdjuntarDoc.setVisibility(View.INVISIBLE);
-//        }
         if (ausencia.getAdjunto() != null) {
             binding.imgAdjuntarDoc.setVisibility(View.VISIBLE);
             binding.imgAdjuntarDoc.setOnClickListener(view -> {
@@ -79,7 +74,6 @@ public class NotificarAusenciaFragment extends Fragment implements NotificarAuse
                     if (task.isSuccessful()) {
                         viewDoc(presenter.localDoc);
                     } else {
-//                        Toast.makeText(getContext(), "Error al descargar el adjunto", Toast.LENGTH_LONG).show();
                         Snackbar.make(binding.getRoot(), R.string.msg_error_download_file, Snackbar.LENGTH_SHORT).show();
                     }
                 });
@@ -111,6 +105,7 @@ public class NotificarAusenciaFragment extends Fragment implements NotificarAuse
         binding.btnBorrarAusencia.setVisibility(View.INVISIBLE);
         binding.imgAdjuntarDoc.setVisibility(View.INVISIBLE);
         binding.tvEstado.setText("No hay ausencias Pendientes de aprobar");
+        binding.tvEstado.setTextColor(getResources().getColor(R.color.colorOnSecondary));
     }
 
     private void viewDoc(File file) {
