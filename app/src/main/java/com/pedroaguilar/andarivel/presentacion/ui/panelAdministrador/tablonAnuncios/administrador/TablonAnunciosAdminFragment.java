@@ -1,5 +1,6 @@
 package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.tablonAnuncios.administrador;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,7 +52,6 @@ public class TablonAnunciosAdminFragment extends CamaraYpermisosFragment impleme
         setListeners();
     }
 
-
     private void setListeners() {
         binding.etTitleAnuncio.addTextChangedListener(new TextWatcher() {
             @Override
@@ -67,13 +68,15 @@ public class TablonAnunciosAdminFragment extends CamaraYpermisosFragment impleme
             public void afterTextChanged(Editable s) {
                 if (s.length() != 0) {
                     binding.btnSubir.setVisibility(View.VISIBLE);
+                } else {
+                    binding.btnSubir.setVisibility(View.INVISIBLE);
                 }
             }
         });
         binding.btnAdd.setOnClickListener(v -> {
+            hideSoftKeyboard(binding.etDescriptionAnuncio);
             binding.cbImagen.setEnabled(true);
             binding.cbLink.setEnabled(true);
-            binding.cbLocation.setEnabled(true);
         });
         binding.cbImagen.setOnClickListener(v -> {
             if (binding.cbImagen.isChecked()) {
@@ -91,36 +94,24 @@ public class TablonAnunciosAdminFragment extends CamaraYpermisosFragment impleme
                 binding.tiLinkAnuncio.setVisibility(View.INVISIBLE);
             }
         });
-        binding.cbLocation.setOnClickListener(v -> {
-            if (binding.cbLocation.isChecked()) {
-                binding.tvLocationAnuncio.setVisibility(View.VISIBLE);
-                binding.btnSubir.setVisibility(View.VISIBLE);
-            } else {
-                binding.tvLocationAnuncio.setVisibility(View.INVISIBLE);
-            }
-        });
         binding.btnSubir.setOnClickListener(v -> {
-//            Anuncio anuncio = new Anuncio();
-//            anuncio.setImgUrl(presenter.id + ".jpg");
-//            anuncio.setId(presenter.id);
-//            anuncio.setTitle(binding.etTitleAnuncio.getText().toString());
-//            anuncio.setDescripcion(binding.etDescriptionAnuncio.getText().toString());
-
             presenter.botonAceptarClickado(
                     binding.etTitleAnuncio.getText().toString(),
                     binding.etDescriptionAnuncio.getText().toString(), presenter.id,
                     binding.etLinkAnuncio.getText().toString());
-
-//            presenter.botonAceptarClickado(anuncio.getTitle(), anuncio);
-//            presenter.guardarDatosAnuncio(anuncio);
-//            Snackbar.make(binding.getRoot(), "Anuncio subido correctamente.", Snackbar.LENGTH_SHORT).show();
-//            Navigation.findNavController(v).navigate(R.id.home_dest);
         });
         binding.imgAnuncio.setOnClickListener(v -> {
             if (checkAndRequestPermissions(getActivity())) {
                 chooseImage(getActivity());
             }
         });
+    }
+
+    private void hideSoftKeyboard(View view) {
+        if (view.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     @Override
