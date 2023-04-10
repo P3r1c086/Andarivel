@@ -1,6 +1,5 @@
 package com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.informes;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +36,8 @@ public class AdaptadorInformes extends RecyclerView.Adapter<AdaptadorInformes.Us
     public void onBindViewHolder(@NonNull AdaptadorInformes.UsuarioViewHolder holder, int position) {
         // asiganacion de los elementos del componente, antes tienen que estar dados de alta como elementos de UsuarioViewHolder de abajo,
         //son los metodos de tu entidad Usuario
-        Context context = holder.itemView.getContext();
         holder.fecha.setText(listaFichaje.get(position).getFecha());
-        holder.nombreUsuario.setText(context.getString(R.string.informes_fragment_name_text, listaFichaje.get(position).getNombreUsuario()));
+        holder.nombreUsuario.setText(listaFichaje.get(position).getNombreUsuario());
         holder.horaEntrada.setText((listaFichaje.get(position).getHoraEntrada()));
         holder.horaSalida.setText((listaFichaje.get(position).getHoraSalida()));
         holder.tiempoTrabajado.setText((listaFichaje.get(position).getTiempoTrabajadoDia()));
