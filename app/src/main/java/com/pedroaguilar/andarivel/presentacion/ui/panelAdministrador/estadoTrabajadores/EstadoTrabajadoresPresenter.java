@@ -65,10 +65,11 @@ public class EstadoTrabajadoresPresenter extends BasePresenter<EstadoTrabajadore
                                 }
                             }
                             view.agnadirListaUsuarios(listaFichajesDefinitiva);
+                            if (listaFichajesDefinitiva.size() == 0) {
+                                view.mostrarListaVacia();
+                            }
                         }
                     });
-                } else {
-                    view.mostrarListaVacia();
                 }
             } else {
                 view.mostrarFalloFirebase();
