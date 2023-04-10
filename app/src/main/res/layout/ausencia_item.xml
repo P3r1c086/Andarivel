@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="#FFFFFF"
+    app:cardBackgroundColor="?attr/colorOnSecondary"
     app:cardCornerRadius="5dp"
     app:cardElevation="8dp"
     app:cardUseCompatPadding="true"
@@ -42,7 +42,9 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:textColor="@color/light_green_500"
         android:fontFamily="@font/arial"
+        tools:text="Pedro Aguilar Fernandez"
         app:layout_constraintStart_toEndOf="@+id/tvNombreUsuarioAusencia"
         app:layout_constraintTop_toTopOf="parent"/>
     <TextView
@@ -70,6 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
+        android:textStyle="bold"
         android:textColor="@color/verde_andarivel"
         android:fontFamily="@font/arial"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,15 +88,17 @@
         android:text=" / "
         app:layout_constraintStart_toEndOf="@+id/tvFechaInicioAusencia"
         app:layout_constraintTop_toBottomOf="@+id/tvMotivoAusencia"/>
+
     <TextView
         android:id="@+id/tvFechaFinAusencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#C62020"
+        android:textColor="#B30F0F"
+        android:textStyle="bold"
         android:textSize="16sp"
         android:fontFamily="@font/arial"
         app:layout_constraintStart_toEndOf="@+id/tvFechaguion"
-        app:layout_constraintTop_toBottomOf="@+id/tvMotivoAusencia"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvMotivoAusencia" />
     <TextView
         android:id="@+id/tvDescripcionAusencia"
         android:layout_width="wrap_content"
