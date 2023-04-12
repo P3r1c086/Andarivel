@@ -57,6 +57,7 @@ public class AnuncioAdapter extends RecyclerView.Adapter<AnuncioAdapter.AnuncioV
         Anuncio anuncio = listaAnuncios.get(holder.getBindingAdapterPosition());
         holder.title.setText(listaAnuncios.get(position).getTitle());
         holder.descripcion.setText(listaAnuncios.get(position).getDescripcion());
+        holder.delete.setVisibility(View.INVISIBLE);
         if (!listaAnuncios.get(position).getImgUrl().equals("")) {
             holder.imgUrl.setOnClickListener(v -> {
                 presenter.verImgAnuncio(createTempFile(v.getContext(), anuncio), anuncio, task -> {
@@ -107,7 +108,7 @@ public class AnuncioAdapter extends RecyclerView.Adapter<AnuncioAdapter.AnuncioV
     public static class AnuncioViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, descripcion, link;
-        ImageButton imgUrl;
+        ImageButton imgUrl, delete;
 
         public AnuncioViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -116,6 +117,7 @@ public class AnuncioAdapter extends RecyclerView.Adapter<AnuncioAdapter.AnuncioV
             descripcion = itemView.findViewById(R.id.tvDescriptionAnuncio);
             link = itemView.findViewById(R.id.tvLinkItem);
             imgUrl = itemView.findViewById(R.id.imgAnuncio);
+            delete = itemView.findViewById(R.id.imgDeleteAnuncio);
         }
     }
 
