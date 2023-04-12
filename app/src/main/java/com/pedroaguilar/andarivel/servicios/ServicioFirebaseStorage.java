@@ -54,7 +54,7 @@ public class ServicioFirebaseStorage {
     }
 
     public void descargarYVerAnuncio(File fileTemp, String randomId, OnCompleteListener<FileDownloadTask.TaskSnapshot> onCompleteListener) {
-        StorageReference docRef = storageReference.child("documentoAnuncio/" + randomId);
+        StorageReference docRef = storageReference.child("documentoAnuncio/" + randomId + ".jpg");
         docRef.getFile(fileTemp).addOnCompleteListener(onCompleteListener);
     }
 }
