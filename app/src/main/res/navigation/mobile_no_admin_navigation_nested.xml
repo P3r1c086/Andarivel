@@ -13,7 +13,11 @@
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        tools:layout="@layout/fragment_calendario" />
+        tools:layout="@layout/fragment_calendario" >
+        <action
+            android:id="@+id/action_calendario_dest_to_listaUsuariosFragment"
+            app:destination="@id/listaUsuarios_dest" />
+    </fragment>
     <fragment
         android:id="@+id/home_dest"
         android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.home.HomeFragment"
@@ -87,4 +91,14 @@
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
         tools:layout="@layout/fragment_tablon_anuncios_empl" />
+
+    <fragment
+        android:id="@+id/listaUsuarios_dest"
+        android:name="com.pedroaguilar.andarivel.presentacion.ui.panelAdministrador.calendario.selectorUsuarios.ListaUsuariosFragment"
+        android:label="Elegir a usuarios"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        tools:layout="@layout/lista_usuarios_fragment" />
 </navigation>

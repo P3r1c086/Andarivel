@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 import com.pedroaguilar.andarivel.R;
 import com.pedroaguilar.andarivel.databinding.FragmentCalendarioBinding;
@@ -56,12 +57,7 @@ public class CalendarioFragment extends Fragment implements CalendarioView {
             Bundle bundle = new Bundle();
             bundle.putString("title", binding.etTitleEven.getText().toString());
             bundle.putString("description", binding.etDescriptionEvent.getText().toString());
-            fr.setArguments(bundle);
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.nav_host_fragment_content_nested, fr);
-            transaction.addToBackStack(null);
-            // Commit a la transacción
-            transaction.commit();
+            Navigation.findNavController(v).navigate(R.id.action_calendario_dest_to_listaUsuariosFragment, bundle);
         });
         binding.btnEvent.setOnClickListener(v -> {
             if (getActivity() != null) {
